@@ -42,7 +42,7 @@ class _ProviderRequestScreenState extends ConsumerState<ProviderRequestScreen> {
       return _ProviderRequestError(message: l10n.requestUnavailable, onRetry: null);
     }
     if (_result != null) {
-      return _ActionSuccess(result: _result!, onFeed: () => context.go(RouteNames.providerFeed));
+      return _ActionSuccess(result: _result!, onFeed: () => context.go(RouteNames.providerFeed), onQuotation: _result!.action == ProviderRequestAction.accepted ? () => context.push(Uri(path: RouteNames.providerQuotation, queryParameters: {'requestId': _result!.requestId, 'providerId': _result!.providerId}).toString()) : null);
     }
 
     final state = ref.watch(providerRequestDetailsProvider((requestId: widget.requestId, providerId: widget.providerId)));
@@ -60,6 +60,7 @@ class _ProviderRequestScreenState extends ConsumerState<ProviderRequestScreen> {
           loading: _actionLoading,
           onAccept: () => _confirmAction(request, ProviderRequestAction.accepted),
           onDecline: () => _confirmAction(request, ProviderRequestAction.declined),
+          onQuotation: request.status == RequestLifecycleStatus.accepted ? () => context.push(Uri(path: RouteNames.providerQuotation, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
         ),
       ),
     );
@@ -120,8 +121,9 @@ class _ProviderRequestView extends StatelessWidget {
   final bool loading;
   final VoidCallback onAccept;
   final VoidCallback onDecline;
+  final VoidCallback? onQuotation;
 
-  const _ProviderRequestView({required this.request, required this.loading, required this.onAccept, required this.onDecline});
+  const _ProviderRequestView({required this.request, required this.loading, required this.onAccept, required this.onDecline, this.onQuotation});
 
   @override
   Widget build(BuildContext context) {
@@ -141,7 +143,13 @@ class _ProviderRequestView extends StatelessWidget {
         if (pending)
           Row(children: [Expanded(child: PrimaryButton(label: l10n.acceptRequest, isLoading: loading, isEnabled: !loading, onPressed: onAccept)), const SizedBox(width: AppSpacing.md), Expanded(child: OutlinedButton(onPressed: loading ? null : onDecline, style: OutlinedButton.styleFrom(foregroundColor: AppColors.error, side: const BorderSide(color: AppColors.error), minimumSize: const Size.fromHeight(AppSizes.buttonHeight)), child: Text(l10n.declineRequest)))])
         else
-          _StatusBanner(status: request.status),
+          Column(children: [
+            _StatusBanner(status: request.status),
+            if (onQuotation != null) ...[
+              const SizedBox(height: AppSpacing.lg),
+              PrimaryButton(label: l10n.createQuotation, onPressed: onQuotation!),
+            ],
+          ]),
       ]),
     );
   }
@@ -225,12 +233,13 @@ class _ActionSheet extends StatelessWidget {
 class _ActionSuccess extends StatelessWidget {
   final ProviderRequestActionResult result;
   final VoidCallback onFeed;
-  const _ActionSuccess({required this.result, required this.onFeed});
+  final VoidCallback? onQuotation;
+  const _ActionSuccess({required this.result, required this.onFeed, this.onQuotation});
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final accepted = result.action == ProviderRequestAction.accepted;
-    return Scaffold(backgroundColor: AppColors.scaffoldBackground, body: SafeArea(child: Center(child: SingleChildScrollView(padding: const EdgeInsets.all(AppSpacing.xxl), child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [TweenAnimationBuilder<double>(tween: Tween(begin: .7, end: 1), duration: const Duration(milliseconds: 500), curve: Curves.easeOutBack, builder: (context, scale, child) => Transform.scale(scale: scale, child: child), child: Icon(accepted ? Icons.check_circle_rounded : Icons.cancel_rounded, color: accepted ? AppColors.success : AppColors.error, size: 104)), const SizedBox(height: AppSpacing.xxl), Text(accepted ? l10n.requestAcceptedSuccess : l10n.requestDeclined, style: AppTextStyles.heading1, textAlign: TextAlign.center), const SizedBox(height: AppSpacing.md), Text(accepted ? l10n.acceptedRequestHelper : l10n.declinedRequestHelper, style: AppTextStyles.bodyMedium, textAlign: TextAlign.center), const SizedBox(height: AppSpacing.sm), Text(l10n.requestReference(result.requestId), style: AppTextStyles.caption), const SizedBox(height: AppSpacing.xxl), PrimaryButton(label: l10n.incomingRequests, onPressed: onFeed)]))));
+    return Scaffold(backgroundColor: AppColors.scaffoldBackground, body: SafeArea(child: Center(child: SingleChildScrollView(padding: const EdgeInsets.all(AppSpacing.xxl), child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [TweenAnimationBuilder<double>(tween: Tween(begin: .7, end: 1), duration: const Duration(milliseconds: 500), curve: Curves.easeOutBack, builder: (context, scale, child) => Transform.scale(scale: scale, child: child), child: Icon(accepted ? Icons.check_circle_rounded : Icons.cancel_rounded, color: accepted ? AppColors.success : AppColors.error, size: 104)), const SizedBox(height: AppSpacing.xxl), Text(accepted ? l10n.requestAcceptedSuccess : l10n.requestDeclined, style: AppTextStyles.heading1, textAlign: TextAlign.center), const SizedBox(height: AppSpacing.md), Text(accepted ? l10n.acceptedRequestHelper : l10n.declinedRequestHelper, style: AppTextStyles.bodyMedium, textAlign: TextAlign.center), const SizedBox(height: AppSpacing.sm), Text(l10n.requestReference(result.requestId), style: AppTextStyles.caption), const SizedBox(height: AppSpacing.xxl), if (onQuotation != null) PrimaryButton(label: l10n.createQuotation, onPressed: onQuotation!), if (onQuotation != null) const SizedBox(height: AppSpacing.md), TextButton(onPressed: onFeed, child: Text(l10n.incomingRequests))]))));
   }
 }
 

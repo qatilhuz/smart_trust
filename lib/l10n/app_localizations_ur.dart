@@ -953,4 +953,153 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get acceptThisRequestQuestion => 'کیا آپ یہ منتخب درخواست قبول کرنا چاہتے ہیں؟';
+
+  @override
+
+  @override
+  String get viewQuotation => 'قیمت پیشکش دیکھیں';
+
+  @override
+  String get pricingBreakdown => 'قیمت کی تفصیل';
+
+  @override
+  String get laborCharge => 'مزدوری / خدمت کی فیس';
+
+  @override
+  String get materialsCharge => 'مواد / پرزوں کی قیمت';
+
+  @override
+  String get additionalCharge => 'اضافی فیس';
+
+  @override
+  String get totalAmount => 'کل رقم';
+
+  @override
+  String get estimatedDuration => 'متوقع دورانیہ';
+
+  @override
+  String get quotationNote => 'قیمت پیشکش کا نوٹ';
+
+  @override
+  String get quotationNoteHint => 'گاہک کے لیے مختصر نوٹ شامل کریں...';
+
+  @override
+  String get submitQuotation => 'قیمت پیشکش جمع کریں';
+
+  @override
+  String get quotationSubmitted => 'قیمت پیشکش جمع ہو گئی';
+
+  @override
+  String get quotationAccepted => 'قیمت پیشکش قبول ہو گئی';
+
+  @override
+  String get quotationDeclined => 'قیمت پیشکش مسترد ہو گئی';
+
+  @override
+  String get quotationStatus => 'قیمت پیشکش کی حالت';
+
+  @override
+  String get acceptQuotation => 'قیمت پیشکش قبول کریں';
+
+  @override
+  String get declineQuotation => 'قیمت پیشکش مسترد کریں';
+
+  @override
+  String get negotiateQuotation => 'مذاکرات کریں';
+
+  @override
+  String get acceptQuotationQuestion => 'کیا آپ یہ قیمت پیشکش قبول کرنا چاہتے ہیں؟';
+
+  @override
+  String get declineQuotationQuestion => 'کیا آپ یہ قیمت پیشکش مسترد کرنا چاہتے ہیں؟';
+
+  @override
+  String get negotiationAmount => 'آپ کی تجویز کردہ رقم';
+
+  @override
+  String get negotiationNote => 'مذاکرات کا نوٹ';
+
+  @override
+  String get negotiationNoteHint => 'جس چیز میں تبدیلی چاہتے ہیں، اس کی وضاحت کریں...';
+
+  @override
+  String get submitNegotiation => 'مذاکرات کی درخواست بھیجیں';
+
+  @override
+  String get negotiationReceived => 'مذاکرات کی درخواست موصول ہوئی';
+
+  @override
+  String get counterOfferAmount => 'جوابی پیشکش کی رقم';
+
+  @override
+  String get acceptProposal => 'تجویز قبول کریں';
+
+  @override
+  String get sendCounterOffer => 'جوابی پیشکش بھیجیں';
+
+  @override
+
+  @override
+  String get requestNotAccepted => 'یہ درخواست قیمت پیشکش کے لیے تیار نہیں۔';
+
+  @override
+  String get quotationNotFound => 'اس درخواست کے لیے ابھی قیمت پیشکش دستیاب نہیں۔';
+
+  @override
+  String get providerIdentity => 'فراہم کنندہ';
+
+  @override
+  String get quotationHistory => 'قیمت پیشکش کی تاریخ';
+
+  @override
+  String get quotationCreated => 'بنائی گئی';
+
+  @override
+  String get quotationUpdated => 'تازہ کاری';
+
+  @override
+  String get quoteAmount => 'پیش کردہ رقم';
+
+  @override
+
+  @override
+
+  @override
+  String get invalidAmount => 'درست غیر منفی رقم درج کریں۔';
+
+  @override
+  String get durationRequired => 'متوقع خدمت کا دورانیہ درج کریں۔';
+
+  @override
+  String get quotationNoteRequired => 'قیمت پیشکش کا نوٹ شامل کریں۔';
+
+  @override
+  String get negotiationAmountRequired => 'تجویز کردہ رقم درج کریں۔';
+
+  @override
+  String get negotiationNoteRequired => 'مذاکرات کا نوٹ شامل کریں۔';
+
+  @override
+  String get quotationActionError => 'قیمت پیشکش اپ ڈیٹ نہیں ہو سکی۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String get quotationContext => 'اس درخواست کے لیے';
+
+  @override
+  String get statusSubmitted => 'جمع شدہ';
+
+  @override
+  String get statusAccepted => 'قبول شدہ';
+
+  @override
+  String get statusNegotiationRequested => 'مذاکرات کی درخواست';
+
+  @override
+  String get statusCounterOffered => 'جوابی پیشکش بھیجی گئی';
+
+  @override
+  String get statusDeclined => 'مسترد شدہ';
+
+  @override
+  String currencyAmount(String amount) => '${amount} پاکستانی روپے';
 }

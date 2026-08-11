@@ -109,7 +109,7 @@
   "visitingCharge": "Visiting Charge (PKR)",
   "requestAccepted": "Request accepted",
   "accept": "Accept",
-  "createQuotation": "Create Quotation",
+  "createQuotation": "Create quotation",
   "diagnosis": "Diagnosis / Problem Found",
   "labourCharge": "Labour Charge",
   "partsCost": "Parts Cost",
@@ -210,7 +210,7 @@
       }
     }
   },
-  "customerOnlyMessage": "This home is available for customer accounts.",
+  "customerOnlyMessage": "This area is available for customer accounts.",
   "distanceKm": "{distance} km",
   "availableNow": "Available now",
   "@distanceKm": {
@@ -436,5 +436,59 @@
       }
     }
   },
-  "acceptThisRequestQuestion": "Accept this selected request?"
+  "acceptThisRequestQuestion": "Accept this selected request?",
+  "viewQuotation": "View quotation",
+  "pricingBreakdown": "Pricing breakdown",
+  "laborCharge": "Labor/service charge",
+  "materialsCharge": "Materials/parts charge",
+  "additionalCharge": "Additional charges",
+  "totalAmount": "Total amount",
+  "estimatedDuration": "Estimated duration",
+  "quotationNote": "Quotation note",
+  "quotationNoteHint": "Add a short note for the customer...",
+  "submitQuotation": "Submit quotation",
+  "quotationSubmitted": "Quotation submitted",
+  "quotationAccepted": "Quotation accepted",
+  "quotationDeclined": "Quotation declined",
+  "quotationStatus": "Quotation status",
+  "acceptQuotation": "Accept quotation",
+  "declineQuotation": "Decline quotation",
+  "negotiateQuotation": "Negotiate",
+  "acceptQuotationQuestion": "Accept this quotation?",
+  "declineQuotationQuestion": "Decline this quotation?",
+  "negotiationAmount": "Your proposed amount",
+  "negotiationNote": "Negotiation note",
+  "negotiationNoteHint": "Explain what you would like to adjust...",
+  "submitNegotiation": "Send negotiation request",
+  "negotiationReceived": "Negotiation request received",
+  "counterOfferAmount": "Counter-offer amount",
+  "acceptProposal": "Accept proposal",
+  "sendCounterOffer": "Send counter-offer",
+  "requestNotAccepted": "This request is not ready for a quotation.",
+  "quotationNotFound": "No quotation is available for this request yet.",
+  "providerIdentity": "Provider",
+  "quotationHistory": "Quotation history",
+  "quotationCreated": "Created",
+  "quotationUpdated": "Updated",
+  "quoteAmount": "Quoted amount",
+  "invalidAmount": "Enter valid non-negative amounts.",
+  "durationRequired": "Enter an estimated service duration.",
+  "quotationNoteRequired": "Add a quotation note.",
+  "negotiationAmountRequired": "Enter a proposed amount.",
+  "negotiationNoteRequired": "Add a negotiation note.",
+  "quotationActionError": "We could not update this quotation. Please try again.",
+  "quotationContext": "For this request",
+  "statusSubmitted": "Submitted",
+  "statusAccepted": "Accepted",
+  "statusNegotiationRequested": "Negotiation requested",
+  "statusCounterOffered": "Counter-offer sent",
+  "statusDeclined": "Declined",
+  "currencyAmount": "{amount} PKR",
+  "@currencyAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import '../../../provider_matching/domain/entities/provider_matching_entities.dart';
+import '../../../../quotation/domain/entities/quotation_entities.dart';
 
 enum JobTrackingStatus {
   requestCreated,
@@ -40,6 +41,7 @@ class JobTrackingData {
   final String distance;
   final String lastUpdated;
   final List<TrackingEvent> timeline;
+  final QuotationStatus? quotationStatus;
 
   const JobTrackingData({
     required this.requestId,
@@ -52,6 +54,7 @@ class JobTrackingData {
     required this.distance,
     required this.lastUpdated,
     required this.timeline,
+    required this.quotationStatus,
   });
 }
 

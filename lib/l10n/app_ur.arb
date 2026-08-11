@@ -210,7 +210,7 @@
       }
     }
   },
-  "customerOnlyMessage": "یہ ہوم صرف گاہک کے اکاؤنٹس کے لیے دستیاب ہے۔",
+  "customerOnlyMessage": "یہ حصہ صرف گاہک کے اکاؤنٹس کے لیے ہے۔",
   "distanceKm": "{distance} کلومیٹر",
   "availableNow": "ابھی دستیاب",
   "@distanceKm": {
@@ -436,5 +436,59 @@
       }
     }
   },
-  "acceptThisRequestQuestion": "کیا آپ یہ منتخب درخواست قبول کرنا چاہتے ہیں؟"
+  "acceptThisRequestQuestion": "کیا آپ یہ منتخب درخواست قبول کرنا چاہتے ہیں؟",
+  "viewQuotation": "قیمت پیشکش دیکھیں",
+  "pricingBreakdown": "قیمت کی تفصیل",
+  "laborCharge": "مزدوری / خدمت کی فیس",
+  "materialsCharge": "مواد / پرزوں کی قیمت",
+  "additionalCharge": "اضافی فیس",
+  "totalAmount": "کل رقم",
+  "estimatedDuration": "متوقع دورانیہ",
+  "quotationNote": "قیمت پیشکش کا نوٹ",
+  "quotationNoteHint": "گاہک کے لیے مختصر نوٹ شامل کریں...",
+  "submitQuotation": "قیمت پیشکش جمع کریں",
+  "quotationSubmitted": "قیمت پیشکش جمع ہو گئی",
+  "quotationAccepted": "قیمت پیشکش قبول ہو گئی",
+  "quotationDeclined": "قیمت پیشکش مسترد ہو گئی",
+  "quotationStatus": "قیمت پیشکش کی حالت",
+  "acceptQuotation": "قیمت پیشکش قبول کریں",
+  "declineQuotation": "قیمت پیشکش مسترد کریں",
+  "negotiateQuotation": "مذاکرات کریں",
+  "acceptQuotationQuestion": "کیا آپ یہ قیمت پیشکش قبول کرنا چاہتے ہیں؟",
+  "declineQuotationQuestion": "کیا آپ یہ قیمت پیشکش مسترد کرنا چاہتے ہیں؟",
+  "negotiationAmount": "آپ کی تجویز کردہ رقم",
+  "negotiationNote": "مذاکرات کا نوٹ",
+  "negotiationNoteHint": "جس چیز میں تبدیلی چاہتے ہیں، اس کی وضاحت کریں...",
+  "submitNegotiation": "مذاکرات کی درخواست بھیجیں",
+  "negotiationReceived": "مذاکرات کی درخواست موصول ہوئی",
+  "counterOfferAmount": "جوابی پیشکش کی رقم",
+  "acceptProposal": "تجویز قبول کریں",
+  "sendCounterOffer": "جوابی پیشکش بھیجیں",
+  "requestNotAccepted": "یہ درخواست قیمت پیشکش کے لیے تیار نہیں۔",
+  "quotationNotFound": "اس درخواست کے لیے ابھی قیمت پیشکش دستیاب نہیں۔",
+  "providerIdentity": "فراہم کنندہ",
+  "quotationHistory": "قیمت پیشکش کی تاریخ",
+  "quotationCreated": "بنائی گئی",
+  "quotationUpdated": "تازہ کاری",
+  "quoteAmount": "پیش کردہ رقم",
+  "invalidAmount": "درست غیر منفی رقم درج کریں۔",
+  "durationRequired": "متوقع خدمت کا دورانیہ درج کریں۔",
+  "quotationNoteRequired": "قیمت پیشکش کا نوٹ شامل کریں۔",
+  "negotiationAmountRequired": "تجویز کردہ رقم درج کریں۔",
+  "negotiationNoteRequired": "مذاکرات کا نوٹ شامل کریں۔",
+  "quotationActionError": "قیمت پیشکش اپ ڈیٹ نہیں ہو سکی۔ دوبارہ کوشش کریں۔",
+  "quotationContext": "اس درخواست کے لیے",
+  "statusSubmitted": "جمع شدہ",
+  "statusAccepted": "قبول شدہ",
+  "statusNegotiationRequested": "مذاکرات کی درخواست",
+  "statusCounterOffered": "جوابی پیشکش بھیجی گئی",
+  "statusDeclined": "مسترد شدہ",
+  "currencyAmount": "{amount} پاکستانی روپے",
+  "@currencyAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  }
 }

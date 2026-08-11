@@ -11,6 +11,7 @@ import '../../../../core/widgets/authentication_prompt.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../domain/entities/job_tracking_entities.dart';
+import '../../../quotation/domain/entities/quotation_entities.dart';
 import 'providers/job_tracking_providers.dart';
 
 class JobTrackingScreen extends ConsumerWidget {
@@ -112,6 +113,10 @@ class _TrackingContent extends StatelessWidget {
           _CurrentStatusCard(title: currentTitle, description: currentDescription, eta: data.eta),
           const SizedBox(height: AppSpacing.lg),
           _ProviderTrackingCard(data: data, onTap: onProvider),
+          if (data.quotationStatus != null) ...[
+            const SizedBox(height: AppSpacing.lg),
+            _QuotationStatusCard(data: data),
+          ],
           const SizedBox(height: AppSpacing.lg),
           _TrackingLocationCard(data: data),
           const SizedBox(height: AppSpacing.section),
@@ -241,6 +246,36 @@ class _ProviderMetric extends StatelessWidget {
   const _ProviderMetric({required this.icon, required this.value, required this.color});
   @override
   Widget build(BuildContext context) => Row(children: [Icon(icon, size: AppSizes.iconSm, color: color), const SizedBox(width: AppSpacing.xs), Flexible(child: Text(value, maxLines: 1, overflow: TextOverflow.ellipsis, style: AppTextStyles.label))]);
+}
+
+class _QuotationStatusCard extends StatelessWidget {
+  final JobTrackingData data;
+  const _QuotationStatusCard({required this.data});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final status = data.quotationStatus!;
+    final label = status == QuotationStatus.accepted
+        ? l10n.statusAccepted
+        : status == QuotationStatus.declined
+            ? l10n.statusDeclined
+            : status == QuotationStatus.negotiationRequested
+                ? l10n.statusNegotiationRequested
+                : status == QuotationStatus.counterOffered
+                    ? l10n.statusCounterOffered
+                    : l10n.statusSubmitted;
+    return Container(
+      padding: const EdgeInsets.all(AppSpacing.lg),
+      decoration: BoxDecoration(color: AppColors.card, borderRadius: BorderRadius.circular(AppSizes.radiusLg), border: Border.all(color: AppColors.primary.withOpacity(.24))),
+      child: Row(children: [
+        const Icon(Icons.receipt_long_rounded, color: AppColors.primaryDark),
+        const SizedBox(width: AppSpacing.md),
+        Expanded(child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(l10n.quotationStatus, style: AppTextStyles.label.copyWith(color: AppColors.primaryDark)), const SizedBox(height: AppSpacing.xs), Text(label, style: AppTextStyles.bodySmall)])),
+        TextButton(onPressed: () => context.push(Uri(path: RouteNames.customerQuotations, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id}).toString()), child: Text(l10n.viewQuotation)),
+      ]),
+    );
+  }
 }
 
 class _TrackingLocationCard extends StatelessWidget {

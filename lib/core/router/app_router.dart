@@ -13,7 +13,7 @@ import '../../features/customer/job_request/presentation/job_request_screen.dart
 import '../../features/customer/provider_matching/presentation/provider_matching_screen.dart';
 import '../../features/customer/provider_matching/presentation/provider_details_screen.dart';
 import '../../features/customer/job_tracking/presentation/job_tracking_screen.dart';
-import '../../features/customer/quotations/presentation/quotation_screen.dart';
+import '../../features/customer/quotation/presentation/customer_quotation_screen.dart';
 import '../../features/customer/chat/presentation/chat_screen.dart';
 import '../../features/customer/reviews/presentation/reviews_screen.dart';
 import '../../features/customer/complaints/presentation/complaints_screen.dart';
@@ -23,7 +23,7 @@ import '../../features/provider/registration/presentation/provider_registration_
 import '../../features/provider/home/presentation/provider_home_screen.dart';
 import '../../features/provider/job_feed/presentation/provider_job_feed_screen.dart';
 import '../../features/provider/request_acceptance/presentation/provider_request_screen.dart';
-import '../../features/provider/quotations/presentation/provider_quotation_screen.dart';
+import '../../features/provider/quotation/presentation/provider_quotation_screen.dart';
 import '../../features/provider/earnings/presentation/earnings_screen.dart';
 import '../../features/notifications/presentation/notifications_screen.dart';
 import '../../features/ai_assistant/presentation/ai_assistant_screen.dart';
@@ -108,7 +108,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.customerQuotations,
-        builder: (context, state) => const QuotationScreen(),
+        builder: (context, state) => CustomerQuotationScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
       ),
       GoRoute(
         path: RouteNames.customerChat,
@@ -160,7 +163,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.providerQuotation,
-        builder: (context, state) => const ProviderQuotationScreen(),
+        builder: (context, state) => ProviderQuotationScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
       ),
       GoRoute(
         path: RouteNames.providerEarnings,

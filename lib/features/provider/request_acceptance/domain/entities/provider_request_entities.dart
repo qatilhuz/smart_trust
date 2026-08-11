@@ -3,6 +3,10 @@ import '../../../../customer/job_request/domain/entities/job_request_entities.da
 class ProviderRequest {
   final String requestId;
   final String providerId;
+  final String providerName;
+  final String providerProfession;
+  final double providerRating;
+  final bool providerVerified;
   final String categoryNameKey;
   final String categoryDescriptionKey;
   final String description;
@@ -13,6 +17,10 @@ class ProviderRequest {
   const ProviderRequest({
     required this.requestId,
     required this.providerId,
+    required this.providerName,
+    required this.providerProfession,
+    required this.providerRating,
+    required this.providerVerified,
     required this.categoryNameKey,
     required this.categoryDescriptionKey,
     required this.description,

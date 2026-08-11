@@ -1,6 +1,8 @@
 import '../../../job_request/data/stores/customer_request_runtime_store.dart';
 import '../../../job_request/domain/entities/job_request_entities.dart';
 import '../../../provider_matching/domain/entities/provider_matching_entities.dart';
+import '../../../../quotation/data/stores/quotation_runtime_store.dart';
+import '../../../../quotation/domain/entities/quotation_entities.dart';
 import '../../domain/entities/job_tracking_entities.dart';
 import '../models/job_tracking_model.dart';
 
@@ -32,6 +34,12 @@ class JobTrackingLocalDataSource implements JobTrackingDataSource {
     }
 
     await Future<void>.delayed(const Duration(milliseconds: 620));
+    Quotation? quotation;
+    try {
+      quotation = QuotationRuntimeStore.instance.get(requestId: query.requestId, providerId: query.providerId);
+    } on QuotationException {
+      quotation = null;
+    }
     final currentStatus = _trackingStatus(record.status);
     return JobTrackingModel(
       requestId: query.requestId,
@@ -43,6 +51,7 @@ class JobTrackingLocalDataSource implements JobTrackingDataSource {
       eta: currentStatus == JobTrackingStatus.providerOnTheWay ? '18 min' : '—',
       distance: '2.0 km',
       lastUpdated: 'trackingNow',
+      quotationStatus: quotation?.status,
       timeline: _timelineFor(currentStatus),
     );
   }

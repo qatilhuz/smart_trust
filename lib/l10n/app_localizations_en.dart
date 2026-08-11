@@ -951,4 +951,153 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get acceptThisRequestQuestion => 'Accept this selected request?';
+
+  @override
+
+  @override
+  String get viewQuotation => 'View quotation';
+
+  @override
+  String get pricingBreakdown => 'Pricing breakdown';
+
+  @override
+  String get laborCharge => 'Labor/service charge';
+
+  @override
+  String get materialsCharge => 'Materials/parts charge';
+
+  @override
+  String get additionalCharge => 'Additional charges';
+
+  @override
+  String get totalAmount => 'Total amount';
+
+  @override
+  String get estimatedDuration => 'Estimated duration';
+
+  @override
+  String get quotationNote => 'Quotation note';
+
+  @override
+  String get quotationNoteHint => 'Add a short note for the customer...';
+
+  @override
+  String get submitQuotation => 'Submit quotation';
+
+  @override
+  String get quotationSubmitted => 'Quotation submitted';
+
+  @override
+  String get quotationAccepted => 'Quotation accepted';
+
+  @override
+  String get quotationDeclined => 'Quotation declined';
+
+  @override
+  String get quotationStatus => 'Quotation status';
+
+  @override
+  String get acceptQuotation => 'Accept quotation';
+
+  @override
+  String get declineQuotation => 'Decline quotation';
+
+  @override
+  String get negotiateQuotation => 'Negotiate';
+
+  @override
+  String get acceptQuotationQuestion => 'Accept this quotation?';
+
+  @override
+  String get declineQuotationQuestion => 'Decline this quotation?';
+
+  @override
+  String get negotiationAmount => 'Your proposed amount';
+
+  @override
+  String get negotiationNote => 'Negotiation note';
+
+  @override
+  String get negotiationNoteHint => 'Explain what you would like to adjust...';
+
+  @override
+  String get submitNegotiation => 'Send negotiation request';
+
+  @override
+  String get negotiationReceived => 'Negotiation request received';
+
+  @override
+  String get counterOfferAmount => 'Counter-offer amount';
+
+  @override
+  String get acceptProposal => 'Accept proposal';
+
+  @override
+  String get sendCounterOffer => 'Send counter-offer';
+
+  @override
+
+  @override
+  String get requestNotAccepted => 'This request is not ready for a quotation.';
+
+  @override
+  String get quotationNotFound => 'No quotation is available for this request yet.';
+
+  @override
+  String get providerIdentity => 'Provider';
+
+  @override
+  String get quotationHistory => 'Quotation history';
+
+  @override
+  String get quotationCreated => 'Created';
+
+  @override
+  String get quotationUpdated => 'Updated';
+
+  @override
+  String get quoteAmount => 'Quoted amount';
+
+  @override
+
+  @override
+
+  @override
+  String get invalidAmount => 'Enter valid non-negative amounts.';
+
+  @override
+  String get durationRequired => 'Enter an estimated service duration.';
+
+  @override
+  String get quotationNoteRequired => 'Add a quotation note.';
+
+  @override
+  String get negotiationAmountRequired => 'Enter a proposed amount.';
+
+  @override
+  String get negotiationNoteRequired => 'Add a negotiation note.';
+
+  @override
+  String get quotationActionError => 'We could not update this quotation. Please try again.';
+
+  @override
+  String get quotationContext => 'For this request';
+
+  @override
+  String get statusSubmitted => 'Submitted';
+
+  @override
+  String get statusAccepted => 'Accepted';
+
+  @override
+  String get statusNegotiationRequested => 'Negotiation requested';
+
+  @override
+  String get statusCounterOffered => 'Counter-offer sent';
+
+  @override
+  String get statusDeclined => 'Declined';
+
+  @override
+  String currencyAmount(String amount) => '${amount} PKR';
 }

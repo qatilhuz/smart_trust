@@ -80,9 +80,14 @@ class ProviderRequestLocalDataSource implements ProviderRequestDataSource {
   }
 
   ProviderRequestModel _toModel(LocalCustomerRequestRecord record) {
+    final provider = _providerSnapshot(record.providerId!);
     return ProviderRequestModel(
       requestId: record.requestId,
       providerId: record.providerId!,
+      providerName: provider.$1,
+      providerProfession: provider.$2,
+      providerRating: provider.$3,
+      providerVerified: provider.$4,
       categoryNameKey: record.category.nameKey,
       categoryDescriptionKey: record.category.descriptionKey,
       description: record.description,
@@ -90,5 +95,17 @@ class ProviderRequestLocalDataSource implements ProviderRequestDataSource {
       attachmentCount: record.attachmentCount,
       status: record.status,
     );
+  }
+
+  (String, String, double, bool) _providerSnapshot(String providerId) {
+    switch (providerId) {
+      case 'provider-sara-ahmed':
+        return ('Sara Ahmed', 'Home Service Professional', 4.8, true);
+      case 'provider-usman-khan':
+        return ('Usman Khan', 'Maintenance Specialist', 4.7, true);
+      case 'provider-ali-hussain':
+      default:
+        return ('Ali Hussain', 'HVAC Specialist', 4.9, true);
+    }
   }
 }

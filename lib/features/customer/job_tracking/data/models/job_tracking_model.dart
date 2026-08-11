@@ -1,5 +1,6 @@
 import '../../../provider_matching/domain/entities/provider_matching_entities.dart';
 import '../../domain/entities/job_tracking_entities.dart';
+import '../../../../quotation/domain/entities/quotation_entities.dart';
 
 class TrackingEventModel {
   final JobTrackingStatus status;
@@ -37,6 +38,7 @@ class JobTrackingModel {
   final String distance;
   final String lastUpdated;
   final List<TrackingEventModel> timeline;
+  final QuotationStatus? quotationStatus;
 
   const JobTrackingModel({
     required this.requestId,
@@ -49,6 +51,7 @@ class JobTrackingModel {
     required this.distance,
     required this.lastUpdated,
     required this.timeline,
+    required this.quotationStatus,
   });
 
   JobTrackingData toEntity() {
@@ -63,6 +66,7 @@ class JobTrackingModel {
       eta: eta,
       distance: distance,
       lastUpdated: lastUpdated,
+      quotationStatus: quotationStatus,
       timeline: timeline
           .map(
             (event) => event.toEntity(
