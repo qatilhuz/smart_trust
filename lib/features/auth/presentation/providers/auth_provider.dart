@@ -1,8 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
+import '../../../../core/storage/secure_storage_service.dart';
 
 final authStateProvider =
     AsyncNotifierProvider<AuthStateNotifier, UserEntity?>(
@@ -15,7 +17,14 @@ class AuthStateNotifier extends AsyncNotifier<UserEntity?> {
   @override
   Future<UserEntity?> build() async {
     _authRepository = ref.watch(authRepositoryProvider);
-
+    try {
+      final token = await ref.read(secureStorageServiceProvider).getAccessToken();
+      if (token != null && token.isNotEmpty) {
+        final prefs = await SharedPreferences.getInstance();
+        final role = prefs.getString('user_role') ?? 'customer';
+        return UserEntity(id: '1', name: 'Demo User', email: 'demo@smarttrust.com', role: role);
+      }
+    } catch (_) {}
     return null;
   }
 

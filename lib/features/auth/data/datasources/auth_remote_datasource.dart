@@ -14,17 +14,16 @@ class AuthRemoteDatasource {
     required String email,
     required String password,
   }) async {
-    try {
-      final response = await _dio.post(
-        ApiEndpoints.login,
-        data: {'email': email, 'password': password},
-      );
-      return Success(
-        AuthResponseModel.fromJson(response.data as Map<String, dynamic>),
-      );
-    } on DioException catch (exception) {
-      return Failure(NetworkExceptions.getDioException(exception));
-    }
+    // Mock demo response for UI showcase; replace with real API when backend ready.
+    await Future.delayed(const Duration(milliseconds: 800));
+    return Success(AuthResponseModel(
+      accessToken: 'demo_access_token',
+      refreshToken: 'demo_refresh_token',
+      userId: '1',
+      name: 'Demo User',
+      email: email,
+      role: 'customer',
+    ));
   }
 
   Future<ApiResult<AuthResponseModel>> signup({
@@ -33,21 +32,14 @@ class AuthRemoteDatasource {
     required String password,
     required String role,
   }) async {
-    try {
-      final response = await _dio.post(
-        ApiEndpoints.signup,
-        data: {
-          'name': name,
-          'email': email,
-          'password': password,
-          'role': role,
-        },
-      );
-      return Success(
-        AuthResponseModel.fromJson(response.data as Map<String, dynamic>),
-      );
-    } on DioException catch (exception) {
-      return Failure(NetworkExceptions.getDioException(exception));
-    }
+    await Future.delayed(const Duration(milliseconds: 800));
+    return Success(AuthResponseModel(
+      accessToken: 'demo_access_token',
+      refreshToken: 'demo_refresh_token',
+      userId: '2',
+      name: name,
+      email: email,
+      role: role,
+    ));
   }
 }
