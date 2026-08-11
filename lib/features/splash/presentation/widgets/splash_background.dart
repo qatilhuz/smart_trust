@@ -35,7 +35,7 @@ class _SplashBackgroundPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (size.isEmpty) return;
 
-    canvas.drawColor(Colors.white, BlendMode.src); // Clear the canvas with white.
+    canvas.drawColor(AppColors.white, BlendMode.src); // Clear the canvas with white.
 
     final phase = progress * math.pi * 2;
 

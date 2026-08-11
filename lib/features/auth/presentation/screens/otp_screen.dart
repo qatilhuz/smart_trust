@@ -1,11 +1,18 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/constants/app_text_styles.dart';
-import '../../../core/router/route_names.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/constants/app_spacing.dart';
+import '../../../../core/constants/app_text_styles.dart';
+import '../../../../core/router/route_names.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../../domain/entities/user_entity.dart';
+import '../providers/auth_provider.dart';
 
 class OtpScreen extends ConsumerStatefulWidget {
   const OtpScreen({super.key});
@@ -15,120 +22,373 @@ class OtpScreen extends ConsumerStatefulWidget {
 }
 
 class _OtpScreenState extends ConsumerState<OtpScreen> {
-  final List<TextEditingController> _controllers = List.generate(4, (_) => TextEditingController());
-  final List<FocusNode> _focusNodes = List.generate(4, (_) => FocusNode());
-  int _attempts = 0;
+  static const _digitCount = 4;
+  static const _demoCode = '1234';
+
+  final List<TextEditingController> _controllers =
+      List.generate(_digitCount, (_) => TextEditingController());
+  final List<FocusNode> _focusNodes =
+      List.generate(_digitCount, (_) => FocusNode());
+  Timer? _resendTimer;
+  int _resendSeconds = 0;
   bool _isVerifying = false;
   bool _success = false;
+  bool _hasError = false;
 
   @override
   void dispose() {
-    for (final c in _controllers) c.dispose();
-    for (final f in _focusNodes) f.dispose();
+    _resendTimer?.cancel();
+    for (final controller in _controllers) {
+      controller.dispose();
+    }
+    for (final focusNode in _focusNodes) {
+      focusNode.dispose();
+    }
     super.dispose();
   }
 
   void _onChanged(int index, String value) {
-    if (value.length == 1 && index < 3) {
-      FocusScope.of(context).requestFocus(_focusNodes[index + 1]);
-    } else if (value.isEmpty && index > 0) {
-      FocusScope.of(context).requestFocus(_focusNodes[index - 1]);
+    if (_hasError) setState(() => _hasError = false);
+    if (value.length == 1 && index < _digitCount - 1) {
+      _focusNodes[index + 1].requestFocus();
     }
   }
 
-  Future<void> _verify() async {
-    setState(() => _isVerifying = true);
-    await Future.delayed(const Duration(milliseconds: 1400));
-    final code = _controllers.map((c) => c.text).join();
-    if (code == '1234') {
-      setState(() => _success = true);
-      await Future.delayed(const Duration(milliseconds: 800));
-      if (mounted) context.go(RouteNames.customerHome);
+  Future<void> _verify(AppLocalizations l10n) async {
+    final code = _controllers.map((controller) => controller.text).join();
+    if (code.length != _digitCount) {
+      setState(() => _hasError = true);
+      _showMessage(l10n.otpRequired);
+      return;
+    }
+
+    setState(() {
+      _isVerifying = true;
+      _hasError = false;
+    });
+    await Future<void>.delayed(const Duration(milliseconds: 900));
+    if (!mounted) return;
+
+    if (code == _demoCode) {
+      setState(() {
+        _isVerifying = false;
+        _success = true;
+      });
+      await Future<void>.delayed(const Duration(milliseconds: 650));
+      if (!mounted) return;
+      final user = ref.read(authStateProvider).valueOrNull;
+      final selectedRole = ref.read(signupRoleProvider);
+      ref.read(signupRoleProvider.notifier).state = null;
+      context.go(_destinationFor(user, selectedRole));
     } else {
       setState(() {
         _isVerifying = false;
-        _attempts++;
+        _hasError = true;
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Invalid code. Try again.')),
-      );
+      _showMessage(l10n.invalidCode);
     }
+  }
+
+  void _startResendCountdown() {
+    _resendTimer?.cancel();
+    setState(() => _resendSeconds = 30);
+    _resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+      if (_resendSeconds <= 1) {
+        timer.cancel();
+        setState(() => _resendSeconds = 0);
+      } else {
+        setState(() => _resendSeconds--);
+      }
+    });
+  }
+
+  void _resend() {
+    for (final controller in _controllers) {
+      controller.clear();
+    }
+    _hasError = false;
+    _focusNodes.first.requestFocus();
+    _startResendCountdown();
+  }
+
+  void _showMessage(String message) {
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text(message)));
+  }
+
+  String _destinationFor(UserEntity? user, String? selectedRole) {
+    final role = user?.role ?? selectedRole ?? 'customer';
+    return role.toLowerCase() == 'provider'
+        ? RouteNames.providerFeed
+        : RouteNames.customerHome;
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     if (_success) {
       return Scaffold(
+        backgroundColor: AppColors.scaffoldBackground,
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.check_circle, size: 100, color: Colors.green),
-              const SizedBox(height: 24),
-              Text('Verified', style: Theme.of(context).textTheme.headlineMedium),
-            ],
-          ),
+          child: _SuccessState(message: l10n.verificationSuccess),
         ),
       );
     }
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Verification')),
-      body: Padding(
-        padding: const EdgeInsets.all(24),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const Text('Enter OTP', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold, color: AppColors.secondary)),
-            const SizedBox(height: 8),
-            const Text('We sent a code to your phone.', style: TextStyle(color: AppColors.textSecondary)),
-            const SizedBox(height: 32),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: List.generate(4, (i) => _OtpBox(controller: _controllers[i], focus: _focusNodes[i], onChanged: (v) => _onChanged(i, v))),
+      backgroundColor: AppColors.scaffoldBackground,
+      appBar: AppBar(
+        title: Text(l10n.otpVerification),
+        leading: IconButton(
+          tooltip: l10n.back,
+          onPressed: _isVerifying ? null : () => context.pop(),
+          icon: const Icon(Icons.arrow_back_rounded),
+        ),
+      ),
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(AppSpacing.xxl),
+          child: Center(
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(maxWidth: 520),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const _OtpHero(),
+                  const SizedBox(height: AppSpacing.xxl),
+                  Text(
+                    l10n.enterOtp,
+                    style: AppTextStyles.heading2,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.sm),
+                  Text(
+                    l10n.otpSubtitle,
+                    style: AppTextStyles.bodyMedium,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: AppSpacing.section),
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      final width = (constraints.maxWidth - AppSpacing.md * 3) / 4;
+                      return Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: List.generate(
+                          _digitCount,
+                          (index) => Padding(
+                            padding: EdgeInsets.only(
+                              right: index == _digitCount - 1 ? 0 : AppSpacing.md,
+                            ),
+                            child: SizedBox(
+                              width: width.clamp(AppSizes.buttonHeightSmall, 72.0).toDouble(),
+                              height: AppSizes.buttonHeightLarge,
+                              child: _OtpDigit(
+                                controller: _controllers[index],
+                                focusNode: _focusNodes[index],
+                                hasError: _hasError,
+                                onChanged: (value) => _onChanged(index, value),
+                                onBackspace: () {
+                                  if (_controllers[index].text.isEmpty && index > 0) {
+                                    _focusNodes[index - 1].requestFocus();
+                                  }
+                                },
+                              ),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                  if (_hasError) ...[
+                    const SizedBox(height: AppSpacing.md),
+                    Text(
+                      l10n.invalidCode,
+                      style: const TextStyle(color: AppColors.error),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                  const SizedBox(height: AppSpacing.xxl),
+                  PrimaryButton(
+                    label: l10n.verify,
+                    isEnabled: !_isVerifying,
+                    isLoading: _isVerifying,
+                    onPressed: () => _verify(l10n),
+                  ),
+                  const SizedBox(height: AppSpacing.md),
+                  TextButton(
+                    onPressed: _resendSeconds == 0 && !_isVerifying ? _resend : null,
+                    child: Text(
+                      _resendSeconds == 0
+                          ? l10n.resendCode
+                          : l10n.resendIn(_resendSeconds),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            const SizedBox(height: 32),
-            ElevatedButton(
-              onPressed: _isVerifying ? null : _verify,
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), padding: const EdgeInsets.symmetric(vertical: 14)),
-              child: _isVerifying ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white)) : const Text('Verify'),
-            ),
-            const SizedBox(height: 16),
-            TextButton(onPressed: () {}, child: const Text('Resend code')),
-          ],
+          ),
         ),
       ),
     );
   }
 }
 
-class _OtpBox extends StatelessWidget {
-  final TextEditingController controller;
-  final FocusNode focus;
-  final ValueChanged<String> onChanged;
-  const _OtpBox({required this.controller, required this.focus, required this.onChanged});
+class _OtpHero extends StatelessWidget {
+  const _OtpHero();
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      width: 64,
-      height: 64,
-      decoration: BoxDecoration(
-        color: AppColors.surface,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.border, width: 2),
+    return Center(
+      child: Container(
+        width: AppSizes.avatarLarge + AppSpacing.xxl,
+        height: AppSizes.avatarLarge + AppSpacing.xxl,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: AppColors.primary.withOpacity(.10),
+          border: Border.all(color: AppColors.primaryLight),
+        ),
+        child: const Icon(
+          Icons.mark_email_read_rounded,
+          color: AppColors.primaryDark,
+          size: AppSizes.iconXl,
+        ),
       ),
-      child: TextField(
-        controller: controller,
-        focusNode: focus,
-        textAlign: TextAlign.center,
-        keyboardType: TextInputType.number,
-        maxLength: 1,
-        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: AppColors.secondary),
-        inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        decoration: const InputDecoration(counterText: '', border: InputBorder.none, contentPadding: EdgeInsets.zero),
-        onChanged: onChanged,
+    );
+  }
+}
+
+class _OtpDigit extends StatefulWidget {
+  final TextEditingController controller;
+  final FocusNode focusNode;
+  final bool hasError;
+  final ValueChanged<String> onChanged;
+  final VoidCallback onBackspace;
+
+  const _OtpDigit({
+    required this.controller,
+    required this.focusNode,
+    required this.hasError,
+    required this.onChanged,
+    required this.onBackspace,
+  });
+
+  @override
+  State<_OtpDigit> createState() => _OtpDigitState();
+}
+
+class _OtpDigitState extends State<_OtpDigit> {
+  @override
+  void initState() {
+    super.initState();
+    widget.focusNode.addListener(_handleFocus);
+  }
+
+  @override
+  void didUpdateWidget(covariant _OtpDigit oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.focusNode != widget.focusNode) {
+      oldWidget.focusNode.removeListener(_handleFocus);
+      widget.focusNode.addListener(_handleFocus);
+    }
+  }
+
+  @override
+  void dispose() {
+    widget.focusNode.removeListener(_handleFocus);
+    super.dispose();
+  }
+
+  void _handleFocus() => setState(() {});
+
+  @override
+  Widget build(BuildContext context) {
+    final focused = widget.focusNode.hasFocus;
+    final filled = widget.controller.text.isNotEmpty;
+    final borderColor = widget.hasError
+        ? AppColors.error
+        : focused || filled
+            ? AppColors.primary
+            : AppColors.border;
+
+    return AnimatedContainer(
+      duration: const Duration(milliseconds: 180),
+      curve: Curves.easeOutCubic,
+      decoration: BoxDecoration(
+        color: focused ? AppColors.primary.withOpacity(.07) : AppColors.card,
+        borderRadius: BorderRadius.circular(AppSizes.radiusLg),
+        border: Border.all(
+          color: borderColor,
+          width: focused ? AppSizes.borderWidthFocused : AppSizes.borderWidth,
+        ),
+        boxShadow: focused
+            ? [
+                BoxShadow(
+                  color: AppColors.primary.withOpacity(.16),
+                  blurRadius: AppSpacing.md,
+                  offset: const Offset(0, AppSpacing.xs),
+                ),
+              ]
+            : null,
+      ),
+      child: Focus(
+        onKeyEvent: (node, event) {
+          if (event is KeyDownEvent &&
+              event.logicalKey == LogicalKeyboardKey.backspace &&
+              widget.controller.text.isEmpty) {
+            widget.onBackspace();
+            return KeyEventResult.handled;
+          }
+          return KeyEventResult.ignored;
+        },
+        child: TextField(
+          controller: widget.controller,
+          focusNode: widget.focusNode,
+          textAlign: TextAlign.center,
+          keyboardType: TextInputType.number,
+          textInputAction: TextInputAction.next,
+          maxLength: 1,
+          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+          style: AppTextStyles.heading2.copyWith(color: AppColors.secondary),
+          decoration: const InputDecoration(
+            counterText: '',
+            border: InputBorder.none,
+            contentPadding: EdgeInsets.zero,
+          ),
+          onChanged: (value) {
+            setState(() {});
+            widget.onChanged(value);
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _SuccessState extends StatelessWidget {
+  final String message;
+
+  const _SuccessState({required this.message});
+
+  @override
+  Widget build(BuildContext context) {
+    return TweenAnimationBuilder<double>(
+      tween: Tween(begin: .75, end: 1),
+      duration: const Duration(milliseconds: 420),
+      curve: Curves.easeOutBack,
+      builder: (context, scale, child) => Transform.scale(scale: scale, child: child),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const Icon(Icons.check_circle_rounded, color: AppColors.success, size: 96),
+          const SizedBox(height: AppSpacing.xxl),
+          Text(message, style: AppTextStyles.heading2, textAlign: TextAlign.center),
+        ],
       ),
     );
   }

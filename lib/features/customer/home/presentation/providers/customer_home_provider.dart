@@ -1,9 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-final customerHomeProvider = FutureProvider<List<dynamic>>((ref) async {
-  await Future.delayed(const Duration(milliseconds: 800));
-  return [
-    {'name': 'Ali Hussain', 'category': 'HVAC', 'rating': 4.9, 'distance': 2},
-    {'name': 'Sara Ahmed', 'category': 'Plumbing', 'rating': 4.8, 'distance': 3},
-  ];
+import '../../data/repositories/customer_home_repository_impl.dart';
+import '../../domain/entities/customer_home_data.dart';
+import '../../domain/usecases/get_customer_home.dart';
+
+final getCustomerHomeProvider = Provider<GetCustomerHome>((ref) {
+  return GetCustomerHome(ref.watch(customerHomeRepositoryProvider));
+});
+
+final customerHomeProvider = FutureProvider.autoDispose<CustomerHomeData>((ref) {
+  return ref.watch(getCustomerHomeProvider).call();
 });

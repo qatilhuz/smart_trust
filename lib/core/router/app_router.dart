@@ -4,14 +4,14 @@ import 'package:go_router/go_router.dart';
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/onboarding/presentation/screens/language_selection_screen.dart';
-import '../../features/onboarding/presentation/screens/role_selection_screen.dart';
+import '../../features/auth/presentation/screens/role_selection_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/signup_screen.dart';
 import '../../features/auth/presentation/screens/otp_screen.dart';
-import '../../features/auth/presentation/widgets/role_selector.dart';
 import '../../features/customer/home/presentation/customer_home_screen.dart';
 import '../../features/customer/job_request/presentation/job_request_screen.dart';
-import '../../features/customer/provider_selection/presentation/provider_selection_screen.dart';
+import '../../features/customer/provider_matching/presentation/provider_matching_screen.dart';
+import '../../features/customer/provider_matching/presentation/provider_details_screen.dart';
 import '../../features/customer/job_tracking/presentation/job_tracking_screen.dart';
 import '../../features/customer/quotations/presentation/quotation_screen.dart';
 import '../../features/customer/chat/presentation/chat_screen.dart';
@@ -22,6 +22,7 @@ import '../../features/customer/settings/presentation/settings_screen.dart';
 import '../../features/provider/registration/presentation/provider_registration_screen.dart';
 import '../../features/provider/home/presentation/provider_home_screen.dart';
 import '../../features/provider/job_feed/presentation/provider_job_feed_screen.dart';
+import '../../features/provider/request_acceptance/presentation/provider_request_screen.dart';
 import '../../features/provider/quotations/presentation/provider_quotation_screen.dart';
 import '../../features/provider/earnings/presentation/earnings_screen.dart';
 import '../../features/notifications/presentation/notifications_screen.dart';
@@ -48,7 +49,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.roleSelection,
-        builder: (context, state) => const RoleSelectionScreen(),
+        builder: (context, state) => const AuthRoleSelectionScreen(),
       ),
       GoRoute(
         path: RouteNames.login,
@@ -72,12 +73,38 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const JobRequestScreen(),
       ),
       GoRoute(
+        path: RouteNames.customerProviderMatching,
+        builder: (context, state) => ProviderMatchingScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          service: state.uri.queryParameters['service'],
+          location: state.uri.queryParameters['location'],
+        ),
+      ),
+      GoRoute(
         path: RouteNames.customerProviderSelection,
-        builder: (context, state) => const ProviderSelectionScreen(),
+        builder: (context, state) => ProviderSelectionScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          service: state.uri.queryParameters['service'],
+          location: state.uri.queryParameters['location'],
+        ),
+      ),
+      GoRoute(
+        path: RouteNames.customerProviderDetails,
+        builder: (context, state) => ProviderDetailsScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          service: state.uri.queryParameters['service'],
+          location: state.uri.queryParameters['location'],
+        ),
       ),
       GoRoute(
         path: RouteNames.customerJobTracking,
-        builder: (context, state) => const JobTrackingScreen(),
+        builder: (context, state) => JobTrackingScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          service: state.uri.queryParameters['service'],
+          location: state.uri.queryParameters['location'],
+        ),
       ),
       GoRoute(
         path: RouteNames.customerQuotations,
@@ -123,6 +150,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RouteNames.providerJobFeed,
         builder: (context, state) => const ProviderJobFeedScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.providerRequestDetails,
+        builder: (context, state) => ProviderRequestScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
       ),
       GoRoute(
         path: RouteNames.providerQuotation,

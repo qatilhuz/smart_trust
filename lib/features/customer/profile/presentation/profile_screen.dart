@@ -18,7 +18,7 @@ class ProfileScreen extends ConsumerWidget {
         padding: const EdgeInsets.all(20),
         child: Column(
           children: [
-            CircleAvatar(radius: 50, backgroundColor: AppColors.primary, child: Text(user?.name ?? 'U', style: const TextStyle(fontSize: 36, color: Colors.white, fontWeight: FontWeight.bold))),
+            CircleAvatar(radius: 50, backgroundColor: AppColors.primary, child: Text(user?.name ?? 'U', style: const TextStyle(fontSize: 36, color: AppColors.white, fontWeight: FontWeight.bold))),
             const SizedBox(height: 16),
             Text(user?.name ?? 'Guest', style: Theme.of(context).textTheme.headlineSmall),
             Text(user?.email ?? 'No email', style: const TextStyle(color: AppColors.textSecondary)),

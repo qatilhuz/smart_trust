@@ -49,7 +49,7 @@ class _Bubble extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 4),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
         decoration: BoxDecoration(color: isMe ? AppColors.primary : AppColors.surface, borderRadius: BorderRadius.circular(16)),
-        child: Text(text, style: TextStyle(color: isMe ? Colors.white : AppColors.textPrimary)),
+        child: Text(text, style: TextStyle(color: isMe ? AppColors.white : AppColors.textPrimary)),
       ),
     );
   }

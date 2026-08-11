@@ -45,9 +45,9 @@ class _EarningsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(color: Colors.white70, fontSize: 14)),
+          Text(title, style: const TextStyle(color: AppColors.white70, fontSize: 14)),
           const SizedBox(height: 8),
-          Text(amount, style: const TextStyle(color: Colors.white, fontSize: 28, fontWeight: FontWeight.bold)),
+          Text(amount, style: const TextStyle(color: AppColors.white, fontSize: 28, fontWeight: FontWeight.bold)),
         ],
       ),
     );

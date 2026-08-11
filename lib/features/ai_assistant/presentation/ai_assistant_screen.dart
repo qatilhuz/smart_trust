@@ -58,7 +58,7 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
                   ),
                   child: Text(
                     _messages[i],
-                    style: TextStyle(color: i == 0 ? AppColors.textPrimary : Colors.white, fontSize: 14),
+                    style: TextStyle(color: i == 0 ? AppColors.textPrimary : AppColors.white, fontSize: 14),
                   ),
                 ),
               ),
@@ -72,7 +72,7 @@ class _AiAssistantScreenState extends ConsumerState<AiAssistantScreen> {
                 icon: const Icon(Icons.image),
                 label: Text(isUrdu ? 'تصویر اپلوڈ کریں' : 'Upload Image'),
                 onPressed: _upload,
-                style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), padding: const EdgeInsets.symmetric(vertical: 14)),
+                style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: AppColors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), padding: const EdgeInsets.symmetric(vertical: 14)),
               ),
             ),
           if (_showSummary)
