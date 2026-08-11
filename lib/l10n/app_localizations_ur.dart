@@ -1258,4 +1258,94 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get reviewForRequest => 'درخواست کا جائزہ';
+
+  @override
+  String get reportIssue => 'مسئلہ رپورٹ کریں';
+
+  @override
+  String get complaint => 'شکایت';
+
+  @override
+  String get complaintCategory => 'شکایت کی قسم';
+
+  @override
+  String get serviceQuality => 'خدمت کا معیار';
+
+  @override
+  String get providerBehavior => 'فراہم کنندہ کا رویہ';
+
+  @override
+  String get pricingIssue => 'قیمت کا مسئلہ';
+
+  @override
+  String get incompleteService => 'نامکمل خدمت';
+
+  @override
+  String get damageOrLoss => 'نقصان یا گمشدگی';
+
+  @override
+  String get otherComplaint => 'دیگر';
+
+  @override
+  String get complaintDescription => 'مسئلے کی وضاحت کریں';
+
+  @override
+  String get evidencePhotos => 'ثبوت کی تصاویر';
+
+  @override
+  String get addEvidence => 'تصویر شامل کریں';
+
+  @override
+  String get removeEvidence => 'تصویر ہٹائیں';
+
+  @override
+  String get reviewComplaint => 'شکایت کا جائزہ لیں';
+
+  @override
+  String get submitComplaint => 'شکایت جمع کریں';
+
+  @override
+  String get complaintSubmittedTitle => 'شکایت جمع ہو گئی';
+
+  @override
+  String get complaintSubmittedHelper => 'آپ کی شکایت اس مکمل سروس کے لیے درج کر لی گئی ہے۔';
+
+  @override
+  String get complaintDetails => 'شکایت کی تفصیلات';
+
+  @override
+  String complaintReference(String id) => 'شکایت ${id}';
+
+  @override
+  String get complaintStatus => 'شکایت کی حالت';
+
+  @override
+  String get complaintSubmittedStatus => 'جمع شدہ';
+
+  @override
+  String get complaintUnderReview => 'جائزے میں';
+
+  @override
+  String get complaintResolved => 'حل شدہ';
+
+  @override
+  String get complaintRejected => 'مسترد شدہ';
+
+  @override
+  String get complaintUnavailable => 'یہ شکایت دستیاب نہیں۔';
+
+  @override
+  String get complaintAlreadyExists => 'اس درخواست کے لیے شکایت پہلے ہی موجود ہے۔';
+
+  @override
+  String get complaintRequired => 'جمع کرنے سے پہلے مسئلے کی وضاحت کریں۔';
+
+  @override
+  String get complaintError => 'شکایت جمع نہیں ہو سکی۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String complaintAttachmentCount(int count) => '${count} تصاویر منسلک ہیں';
+
+  @override
+  String get complaintRequestContext => 'مکمل شدہ سروس کی درخواست';
 }

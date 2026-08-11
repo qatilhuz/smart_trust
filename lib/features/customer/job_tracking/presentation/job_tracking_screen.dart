@@ -76,6 +76,7 @@ class JobTrackingScreen extends ConsumerWidget {
           onProvider: () => context.push(Uri(path: RouteNames.customerProviderDetails, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id, 'service': data.service, 'location': data.location}).toString()),
           onChat: () => context.push(Uri(path: RouteNames.customerChat, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id}).toString()),
           onReview: data.currentStatus == JobTrackingStatus.serviceCompleted ? () => context.push(Uri(path: RouteNames.customerReviews, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id, 'providerName': data.provider.name, 'service': data.service}).toString()) : null,
+          onComplaint: data.currentStatus == JobTrackingStatus.serviceCompleted ? () => context.push(Uri(path: RouteNames.customerComplaints, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id, 'providerName': data.provider.name, 'service': data.service}).toString()) : null,
         ),
       ),
     );
@@ -103,8 +104,9 @@ class _TrackingContent extends StatelessWidget {
   final VoidCallback onProvider;
   final VoidCallback onChat;
   final VoidCallback? onReview;
+  final VoidCallback? onComplaint;
 
-  const _TrackingContent({required this.data, required this.onProvider, required this.onChat, this.onReview});
+  const _TrackingContent({required this.data, required this.onProvider, required this.onChat, this.onReview, this.onComplaint});
 
   @override
   Widget build(BuildContext context) {
@@ -134,6 +136,10 @@ class _TrackingContent extends StatelessWidget {
           if (onReview != null) ...[
             const SizedBox(height: AppSpacing.xxl),
             PrimaryButton(label: l10n.leaveReview, onPressed: onReview!),
+          ],
+          if (onComplaint != null) ...[
+            const SizedBox(height: AppSpacing.md),
+            OutlinedButton(onPressed: onComplaint, child: Text(l10n.reportIssue)),
           ],
         ],
       ),

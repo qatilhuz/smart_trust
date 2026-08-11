@@ -1256,4 +1256,94 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reviewForRequest => 'Review for request';
+
+  @override
+  String get reportIssue => 'Report an issue';
+
+  @override
+  String get complaint => 'Complaint';
+
+  @override
+  String get complaintCategory => 'Complaint category';
+
+  @override
+  String get serviceQuality => 'Service quality';
+
+  @override
+  String get providerBehavior => 'Provider behavior';
+
+  @override
+  String get pricingIssue => 'Pricing issue';
+
+  @override
+  String get incompleteService => 'Incomplete service';
+
+  @override
+  String get damageOrLoss => 'Damage or loss';
+
+  @override
+  String get otherComplaint => 'Other';
+
+  @override
+  String get complaintDescription => 'Describe the issue';
+
+  @override
+  String get evidencePhotos => 'Evidence photos';
+
+  @override
+  String get addEvidence => 'Add photo';
+
+  @override
+  String get removeEvidence => 'Remove photo';
+
+  @override
+  String get reviewComplaint => 'Review complaint';
+
+  @override
+  String get submitComplaint => 'Submit complaint';
+
+  @override
+  String get complaintSubmittedTitle => 'Complaint submitted';
+
+  @override
+  String get complaintSubmittedHelper => 'Your complaint has been recorded for this completed service.';
+
+  @override
+  String get complaintDetails => 'Complaint details';
+
+  @override
+  String complaintReference(String id) => 'Complaint ${id}';
+
+  @override
+  String get complaintStatus => 'Complaint status';
+
+  @override
+  String get complaintSubmittedStatus => 'Submitted';
+
+  @override
+  String get complaintUnderReview => 'Under review';
+
+  @override
+  String get complaintResolved => 'Resolved';
+
+  @override
+  String get complaintRejected => 'Rejected';
+
+  @override
+  String get complaintUnavailable => 'This complaint is unavailable.';
+
+  @override
+  String get complaintAlreadyExists => 'A complaint already exists for this request.';
+
+  @override
+  String get complaintRequired => 'Describe the issue before submitting.';
+
+  @override
+  String get complaintError => 'We could not submit the complaint. Please try again.';
+
+  @override
+  String complaintAttachmentCount(int count) => '${count} photos attached';
+
+  @override
+  String get complaintRequestContext => 'Completed service request';
 }

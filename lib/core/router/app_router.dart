@@ -15,7 +15,7 @@ import '../../features/customer/provider_matching/presentation/provider_details_
 import '../../features/customer/job_tracking/presentation/job_tracking_screen.dart';
 import '../../features/customer/quotation/presentation/customer_quotation_screen.dart';
 import '../../features/customer/reviews/presentation/review_screen.dart';
-import '../../features/customer/complaints/presentation/complaints_screen.dart';
+import '../../features/customer/complaints/presentation/complaint_screen.dart';
 import '../../features/customer/profile/presentation/profile_screen.dart';
 import '../../features/customer/settings/presentation/settings_screen.dart';
 import '../../features/provider/registration/presentation/provider_registration_screen.dart';
@@ -136,7 +136,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.customerComplaints,
-        builder: (context, state) => const ComplaintsScreen(),
+        builder: (context, state) => ComplaintScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          providerName: state.uri.queryParameters['providerName'],
+          service: state.uri.queryParameters['service'],
+        ),
       ),
       GoRoute(
         path: RouteNames.customerProfile,

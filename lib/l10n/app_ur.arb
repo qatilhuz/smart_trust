@@ -549,5 +549,49 @@
   "reviewPendingCompletion": "جائزے سروس مکمل ہونے کے بعد دستیاب ہوں گے۔",
   "requestCompletedContext": "مکمل شدہ سروس کی درخواست",
   "providerReviews": "فراہم کنندہ کے جائزے",
-  "reviewForRequest": "درخواست کا جائزہ"
+  "reviewForRequest": "درخواست کا جائزہ",
+  "reportIssue": "مسئلہ رپورٹ کریں",
+  "complaint": "شکایت",
+  "complaintCategory": "شکایت کی قسم",
+  "serviceQuality": "خدمت کا معیار",
+  "providerBehavior": "فراہم کنندہ کا رویہ",
+  "pricingIssue": "قیمت کا مسئلہ",
+  "incompleteService": "نامکمل خدمت",
+  "damageOrLoss": "نقصان یا گمشدگی",
+  "otherComplaint": "دیگر",
+  "complaintDescription": "مسئلے کی وضاحت کریں",
+  "evidencePhotos": "ثبوت کی تصاویر",
+  "addEvidence": "تصویر شامل کریں",
+  "removeEvidence": "تصویر ہٹائیں",
+  "reviewComplaint": "شکایت کا جائزہ لیں",
+  "submitComplaint": "شکایت جمع کریں",
+  "complaintSubmittedTitle": "شکایت جمع ہو گئی",
+  "complaintSubmittedHelper": "آپ کی شکایت اس مکمل سروس کے لیے درج کر لی گئی ہے۔",
+  "complaintDetails": "شکایت کی تفصیلات",
+  "complaintReference": "شکایت {id}",
+  "complaintStatus": "شکایت کی حالت",
+  "complaintSubmittedStatus": "جمع شدہ",
+  "complaintUnderReview": "جائزے میں",
+  "complaintResolved": "حل شدہ",
+  "complaintRejected": "مسترد شدہ",
+  "complaintUnavailable": "یہ شکایت دستیاب نہیں۔",
+  "complaintAlreadyExists": "اس درخواست کے لیے شکایت پہلے ہی موجود ہے۔",
+  "complaintRequired": "جمع کرنے سے پہلے مسئلے کی وضاحت کریں۔",
+  "complaintError": "شکایت جمع نہیں ہو سکی۔ دوبارہ کوشش کریں۔",
+  "complaintAttachmentCount": "{count} تصاویر منسلک ہیں",
+  "complaintRequestContext": "مکمل شدہ سروس کی درخواست",
+  "@complaintReference": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "@complaintAttachmentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

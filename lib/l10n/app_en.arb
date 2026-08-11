@@ -549,5 +549,49 @@
   "reviewPendingCompletion": "Reviews become available after service completion.",
   "requestCompletedContext": "Completed service request",
   "providerReviews": "Provider reviews",
-  "reviewForRequest": "Review for request"
+  "reviewForRequest": "Review for request",
+  "reportIssue": "Report an issue",
+  "complaint": "Complaint",
+  "complaintCategory": "Complaint category",
+  "serviceQuality": "Service quality",
+  "providerBehavior": "Provider behavior",
+  "pricingIssue": "Pricing issue",
+  "incompleteService": "Incomplete service",
+  "damageOrLoss": "Damage or loss",
+  "otherComplaint": "Other",
+  "complaintDescription": "Describe the issue",
+  "evidencePhotos": "Evidence photos",
+  "addEvidence": "Add photo",
+  "removeEvidence": "Remove photo",
+  "reviewComplaint": "Review complaint",
+  "submitComplaint": "Submit complaint",
+  "complaintSubmittedTitle": "Complaint submitted",
+  "complaintSubmittedHelper": "Your complaint has been recorded for this completed service.",
+  "complaintDetails": "Complaint details",
+  "complaintReference": "Complaint {id}",
+  "complaintStatus": "Complaint status",
+  "complaintSubmittedStatus": "Submitted",
+  "complaintUnderReview": "Under review",
+  "complaintResolved": "Resolved",
+  "complaintRejected": "Rejected",
+  "complaintUnavailable": "This complaint is unavailable.",
+  "complaintAlreadyExists": "A complaint already exists for this request.",
+  "complaintRequired": "Describe the issue before submitting.",
+  "complaintError": "We could not submit the complaint. Please try again.",
+  "complaintAttachmentCount": "{count} photos attached",
+  "complaintRequestContext": "Completed service request",
+  "@complaintReference": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "@complaintAttachmentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }
