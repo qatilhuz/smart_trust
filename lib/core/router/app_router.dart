@@ -27,6 +27,7 @@ import '../../features/chat/domain/entities/chat_entities.dart';
 import '../../features/provider/quotation/presentation/provider_quotation_screen.dart';
 import '../../features/provider/service_completion/presentation/service_completion_screen.dart';
 import '../../features/provider/reviews/presentation/provider_reviews_screen.dart';
+import '../../features/provider/complaints/presentation/provider_complaint_screen.dart';
 import '../../features/provider/earnings/presentation/earnings_screen.dart';
 import '../../features/notifications/presentation/notifications_screen.dart';
 import '../../features/ai_assistant/presentation/ai_assistant_screen.dart';
@@ -217,6 +218,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RouteNames.providerReviews,
         builder: (context, state) => ProviderReviewsScreen(
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
+      ),
+      GoRoute(
+        path: RouteNames.providerComplaintDetails,
+        builder: (context, state) => ProviderComplaintScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
           providerId: state.uri.queryParameters['providerId'] ?? '',
         ),
       ),

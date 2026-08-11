@@ -40,6 +40,7 @@ class RouteNames {
   static const providerProfile = '/provider/profile';
   static const providerSettings = '/provider/settings';
   static const providerReviews = '/provider/reviews';
+  static const providerComplaintDetails = '/provider/complaint-details';
 
   // Shared / AI / Voice
   static const aiAssistant = '/ai';

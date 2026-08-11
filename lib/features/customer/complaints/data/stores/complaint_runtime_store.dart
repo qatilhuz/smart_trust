@@ -18,4 +18,5 @@ class ComplaintRuntimeStore {
     final c=Complaint(complaintId:'local-complaint-${DateTime.now().microsecondsSinceEpoch}',requestId:draft.requestId,providerId:draft.providerId,customerId:draft.customerId,categoryId:draft.categoryId,description:draft.description.trim(),attachments:List.unmodifiable(draft.attachments),status:ComplaintStatus.submitted,createdAt:DateTime.now());_items[key]=c;return c;
   }
   Complaint? get({required String requestId,required String customerId,required String providerId}){final r=_requests.get(requestId);if(r==null||r.customerId!=customerId||r.providerId!=providerId)throw const ComplaintException(ComplaintFailureCode.unauthorized);return _items['$requestId::$customerId::$providerId'];}
+  Complaint? getForProvider({required String requestId, required String providerId}) { final r=_requests.get(requestId); if (r == null || r.providerId != providerId) throw const ComplaintException(ComplaintFailureCode.unauthorized); for (final item in _items.values) { if (item.requestId == requestId && item.providerId == providerId) return item; } return null; }
 }

@@ -14,6 +14,7 @@ import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../../customer/job_request/domain/entities/job_request_entities.dart';
 import '../domain/entities/provider_request_entities.dart';
 import 'providers/provider_request_providers.dart';
+import '../../complaints/presentation/providers/provider_complaint_providers.dart';
 
 class ProviderRequestScreen extends ConsumerStatefulWidget {
   final String requestId;
@@ -55,7 +56,11 @@ class _ProviderRequestScreenState extends ConsumerState<ProviderRequestScreen> {
       body: state.when(
         loading: () => const _ProviderRequestLoading(),
         error: (error, _) => _ProviderRequestError(message: _failureMessage(l10n, error), onRetry: () => ref.invalidate(providerRequestDetailsProvider((requestId: widget.requestId, providerId: widget.providerId)))),
-        data: (request) => _ProviderRequestView(
+        data: (request) {
+          final complaintState = request.status == RequestLifecycleStatus.serviceCompleted
+              ? ref.watch(providerComplaintProvider((requestId: request.requestId, providerId: request.providerId)))
+              : null;
+          return _ProviderRequestView(
           request: request,
           loading: _actionLoading,
           onAccept: () => _confirmAction(request, ProviderRequestAction.accepted),
@@ -63,7 +68,9 @@ class _ProviderRequestScreenState extends ConsumerState<ProviderRequestScreen> {
           onQuotation: request.status == RequestLifecycleStatus.accepted ? () => context.push(Uri(path: RouteNames.providerQuotation, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
           onChat: request.status == RequestLifecycleStatus.accepted ? () => context.push(Uri(path: RouteNames.providerChat, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
           onComplete: request.status == RequestLifecycleStatus.accepted ? () => context.push(Uri(path: RouteNames.providerServiceCompletion, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
-        ),
+          onComplaint: complaintState?.valueOrNull != null ? () => context.push(Uri(path: RouteNames.providerComplaintDetails, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
+        );
+      },
       ),
     );
   }
@@ -126,8 +133,9 @@ class _ProviderRequestView extends StatelessWidget {
   final VoidCallback? onQuotation;
   final VoidCallback? onChat;
   final VoidCallback? onComplete;
+  final VoidCallback? onComplaint;
 
-  const _ProviderRequestView({required this.request, required this.loading, required this.onAccept, required this.onDecline, this.onQuotation, this.onChat, this.onComplete});
+  const _ProviderRequestView({required this.request, required this.loading, required this.onAccept, required this.onDecline, this.onQuotation, this.onChat, this.onComplete, this.onComplaint});
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +168,10 @@ class _ProviderRequestView extends StatelessWidget {
             if (onComplete != null) ...[
               const SizedBox(height: AppSpacing.md),
               OutlinedButton.icon(onPressed: onComplete, icon: const Icon(Icons.task_alt_rounded), label: Text(l10n.markServiceCompleted)),
+            ],
+            if (onComplaint != null) ...[
+              const SizedBox(height: AppSpacing.md),
+              OutlinedButton.icon(onPressed: onComplaint, icon: const Icon(Icons.report_problem_outlined), label: Text(l10n.reportIssue)),
             ],
           ]),
       ]),
