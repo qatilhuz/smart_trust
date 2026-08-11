@@ -84,6 +84,12 @@ abstract class AppLocalizations {
   String get notifications;
   String get chat;
   String get chatTitle;
+  String get chatConnected;
+  String get chatConnecting;
+  String get chatReconnecting;
+  String get chatDisconnected;
+  String get chatReconnect;
+  String typingIndicator(String name);
   String get chatContext;
   String get sendMessage;
   String get emptyConversation;

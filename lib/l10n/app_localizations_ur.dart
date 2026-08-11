@@ -1147,4 +1147,22 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get providerParticipant => 'فراہم کنندہ';
+
+  @override
+  String get chatConnected => 'منسلک';
+
+  @override
+  String get chatConnecting => 'کنکشن ہو رہا ہے...';
+
+  @override
+  String get chatReconnecting => 'دوبارہ کنکشن ہو رہا ہے...';
+
+  @override
+  String get chatDisconnected => 'کنکشن منقطع ہے';
+
+  @override
+  String get chatReconnect => 'دوبارہ منسلک کریں';
+
+  @override
+  String typingIndicator(String name) => '${name} لکھ رہے ہیں...';
 }

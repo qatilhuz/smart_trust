@@ -1145,4 +1145,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get providerParticipant => 'Provider';
+
+  @override
+  String get chatConnected => 'Connected';
+
+  @override
+  String get chatConnecting => 'Connecting...';
+
+  @override
+  String get chatReconnecting => 'Reconnecting...';
+
+  @override
+  String get chatDisconnected => 'Connection lost';
+
+  @override
+  String get chatReconnect => 'Reconnect';
+
+  @override
+  String typingIndicator(String name) => '${name} is typing...';
 }

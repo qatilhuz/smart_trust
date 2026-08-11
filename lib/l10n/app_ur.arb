@@ -505,5 +505,18 @@
   "sendingMessage": "بھیجا جا رہا ہے...",
   "conversationClosed": "یہ گفتگو بند ہے۔",
   "customerParticipant": "گاہک",
-  "providerParticipant": "فراہم کنندہ"
+  "providerParticipant": "فراہم کنندہ",
+  "chatConnected": "منسلک",
+  "chatConnecting": "کنکشن ہو رہا ہے...",
+  "chatReconnecting": "دوبارہ کنکشن ہو رہا ہے...",
+  "chatDisconnected": "کنکشن منقطع ہے",
+  "chatReconnect": "دوبارہ منسلک کریں",
+  "typingIndicator": "{name} لکھ رہے ہیں...",
+  "@typingIndicator": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }

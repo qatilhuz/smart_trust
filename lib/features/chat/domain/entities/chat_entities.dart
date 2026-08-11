@@ -1,8 +1,10 @@
 enum ChatParticipantRole { customer, provider }
 
-enum ChatMessageStatus { sent, sending, failed }
+enum ChatMessageStatus { sending, sent, delivered, read, failed }
 
 enum ConversationStatus { active, closed }
+
+enum ChatConnectionStatus { connecting, connected, reconnecting, disconnected, failed }
 
 class ChatParticipant {
   final String id;
@@ -24,6 +26,15 @@ class ChatContext {
         providerId: providerId,
         conversationId: conversationId ?? this.conversationId,
       );
+}
+
+class ChatTypingEvent {
+  final String conversationId;
+  final String senderId;
+  final ChatParticipantRole senderRole;
+  final bool isTyping;
+
+  const ChatTypingEvent({required this.conversationId, required this.senderId, required this.senderRole, required this.isTyping});
 }
 
 class ChatMessage {

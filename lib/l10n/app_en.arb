@@ -505,5 +505,18 @@
   "sendingMessage": "Sending...",
   "conversationClosed": "This conversation is closed.",
   "customerParticipant": "Customer",
-  "providerParticipant": "Provider"
+  "providerParticipant": "Provider",
+  "chatConnected": "Connected",
+  "chatConnecting": "Connecting...",
+  "chatReconnecting": "Reconnecting...",
+  "chatDisconnected": "Connection lost",
+  "chatReconnect": "Reconnect",
+  "typingIndicator": "{name} is typing...",
+  "@typingIndicator": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  }
 }
