@@ -21,6 +21,7 @@ class RouteNames {
   static const customerJobTracking = '/customer/job-tracking';
   static const customerQuotations = '/customer/quotations';
   static const customerChat = '/customer/chat';
+  static const providerChat = '/provider/chat';
   static const customerReviews = '/customer/reviews';
   static const customerComplaints = '/customer/complaints';
   static const customerProfile = '/customer/profile';

@@ -490,5 +490,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatTitle": "گفتگو",
+  "chatContext": "درخواست کی گفتگو",
+  "sendMessage": "پیغام بھیجیں",
+  "emptyConversation": "ابھی کوئی پیغام نہیں",
+  "startConversation": "واضح اپ ڈیٹ کے ساتھ گفتگو شروع کریں۔",
+  "chatLoading": "گفتگو لوڈ ہو رہی ہے...",
+  "chatError": "گفتگو لوڈ نہیں ہو سکی۔ دوبارہ کوشش کریں۔",
+  "chatAccessDenied": "یہ گفتگو آپ کے اکاؤنٹ کے لیے دستیاب نہیں۔",
+  "conversationUnavailable": "یہ گفتگو دستیاب نہیں۔",
+  "messageRequired": "پہلے پیغام لکھیں۔",
+  "messageSendError": "پیغام نہیں بھیجا جا سکا۔ دوبارہ کوشش کریں۔",
+  "sendingMessage": "بھیجا جا رہا ہے...",
+  "conversationClosed": "یہ گفتگو بند ہے۔",
+  "customerParticipant": "گاہک",
+  "providerParticipant": "فراہم کنندہ"
 }

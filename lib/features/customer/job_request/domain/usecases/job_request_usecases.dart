@@ -37,12 +37,14 @@ class SubmitJobRequest {
     required String description,
     required List<RequestAttachment> attachments,
     required RequestLocation location,
+    required String customerId,
   }) {
     return _repository.submit(
       category: category,
       description: description,
       attachments: attachments,
       location: location,
+      customerId: customerId,
     );
   }
 }

@@ -490,5 +490,20 @@
         "type": "String"
       }
     }
-  }
+  },
+  "chatTitle": "Conversation",
+  "chatContext": "Request conversation",
+  "sendMessage": "Send message",
+  "emptyConversation": "No messages yet",
+  "startConversation": "Start the conversation with a clear update.",
+  "chatLoading": "Loading conversation...",
+  "chatError": "We could not load this conversation. Please try again.",
+  "chatAccessDenied": "This conversation is not available for your account.",
+  "conversationUnavailable": "This conversation is unavailable.",
+  "messageRequired": "Write a message first.",
+  "messageSendError": "Your message could not be sent. Please try again.",
+  "sendingMessage": "Sending...",
+  "conversationClosed": "This conversation is closed.",
+  "customerParticipant": "Customer",
+  "providerParticipant": "Provider"
 }

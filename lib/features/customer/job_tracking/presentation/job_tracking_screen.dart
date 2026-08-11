@@ -70,7 +70,11 @@ class JobTrackingScreen extends ConsumerWidget {
           message: _failureMessage(l10n, error),
           onRetry: () => ref.invalidate(jobTrackingProvider(query)),
         ),
-        data: (data) => _TrackingContent(data: data, onProvider: () => context.push(Uri(path: RouteNames.customerProviderDetails, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id, 'service': data.service, 'location': data.location}).toString())),
+        data: (data) => _TrackingContent(
+          data: data,
+          onProvider: () => context.push(Uri(path: RouteNames.customerProviderDetails, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id, 'service': data.service, 'location': data.location}).toString()),
+          onChat: () => context.push(Uri(path: RouteNames.customerChat, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id}).toString()),
+        ),
       ),
     );
   }
@@ -95,8 +99,9 @@ class JobTrackingScreen extends ConsumerWidget {
 class _TrackingContent extends StatelessWidget {
   final JobTrackingData data;
   final VoidCallback onProvider;
+  final VoidCallback onChat;
 
-  const _TrackingContent({required this.data, required this.onProvider});
+  const _TrackingContent({required this.data, required this.onProvider, required this.onChat});
 
   @override
   Widget build(BuildContext context) {
@@ -112,7 +117,7 @@ class _TrackingContent extends StatelessWidget {
           const SizedBox(height: AppSpacing.lg),
           _CurrentStatusCard(title: currentTitle, description: currentDescription, eta: data.eta),
           const SizedBox(height: AppSpacing.lg),
-          _ProviderTrackingCard(data: data, onTap: onProvider),
+          _ProviderTrackingCard(data: data, onTap: onProvider, onChat: onChat),
           if (data.quotationStatus != null) ...[
             const SizedBox(height: AppSpacing.lg),
             _QuotationStatusCard(data: data),
@@ -213,7 +218,8 @@ class _StatusIcon extends StatelessWidget {
 class _ProviderTrackingCard extends StatelessWidget {
   final JobTrackingData data;
   final VoidCallback onTap;
-  const _ProviderTrackingCard({required this.data, required this.onTap});
+  final VoidCallback onChat;
+  const _ProviderTrackingCard({required this.data, required this.onTap, required this.onChat});
 
   @override
   Widget build(BuildContext context) {
@@ -233,6 +239,8 @@ class _ProviderTrackingCard extends StatelessWidget {
           Text(l10n.providerArea, style: AppTextStyles.caption),
           const SizedBox(height: AppSpacing.xs),
           Text(data.providerArea, style: AppTextStyles.bodySmall),
+          const SizedBox(height: AppSpacing.md),
+          OutlinedButton.icon(onPressed: onChat, icon: const Icon(Icons.chat_bubble_outline_rounded), label: Text(l10n.chat), style: OutlinedButton.styleFrom(foregroundColor: AppColors.secondary, minimumSize: const Size.fromHeight(AppSizes.buttonHeightSmall))),
         ]),
       ),
     );

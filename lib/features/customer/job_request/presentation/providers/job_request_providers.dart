@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../../core/constants/app_constants.dart';
+import '../../../../auth/presentation/providers/auth_provider.dart';
 import '../../data/repositories/job_request_repository_impl.dart';
 import '../../domain/entities/job_request_entities.dart';
 import '../../domain/entities/job_request_state.dart';
@@ -93,6 +94,7 @@ class JobRequestFlowNotifier extends StateNotifier<JobRequestState> {
             description: state.description.trim(),
             attachments: state.attachments,
             location: location,
+            customerId: _ref.read(authStateProvider).valueOrNull?.id ?? '1',
           );
       state = state.copyWith(
         submissionStatus: JobRequestSubmissionStatus.success,

@@ -63,12 +63,14 @@ class JobRequestSubmissionRepositoryImpl implements JobRequestSubmissionReposito
     required String description,
     required List<RequestAttachment> attachments,
     required RequestLocation location,
+    required String customerId,
   }) async {
     final model = await _dataSource.submit(
       category: category,
       description: description,
       attachments: attachments,
       location: location,
+      customerId: customerId,
     );
     return model.toEntity(
       category: category,

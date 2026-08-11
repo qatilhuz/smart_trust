@@ -24,6 +24,7 @@ abstract interface class JobRequestSubmissionDataSource {
     required String description,
     required List<RequestAttachment> attachments,
     required RequestLocation location,
+    required String customerId,
   });
 }
 
@@ -140,11 +141,13 @@ class JobRequestLocalSubmissionDataSource implements JobRequestSubmissionDataSou
     required String description,
     required List<RequestAttachment> attachments,
     required RequestLocation location,
+    required String customerId,
   }) async {
     await Future<void>.delayed(const Duration(milliseconds: 700));
     final requestId = 'local-request-${DateTime.now().millisecondsSinceEpoch}';
     CustomerRequestRuntimeStore.instance.create(
       requestId: requestId,
+      customerId: customerId,
       category: category,
       description: description,
       location: location,

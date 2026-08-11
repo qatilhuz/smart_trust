@@ -18,5 +18,6 @@ abstract interface class JobRequestSubmissionRepository {
     required String description,
     required List<RequestAttachment> attachments,
     required RequestLocation location,
+    required String customerId,
   });
 }

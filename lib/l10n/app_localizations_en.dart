@@ -1100,4 +1100,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String currencyAmount(String amount) => '${amount} PKR';
+
+  @override
+  String get chatTitle => 'Conversation';
+
+  @override
+  String get chatContext => 'Request conversation';
+
+  @override
+  String get sendMessage => 'Send message';
+
+  @override
+  String get emptyConversation => 'No messages yet';
+
+  @override
+  String get startConversation => 'Start the conversation with a clear update.';
+
+  @override
+  String get chatLoading => 'Loading conversation...';
+
+  @override
+  String get chatError => 'We could not load this conversation. Please try again.';
+
+  @override
+  String get chatAccessDenied => 'This conversation is not available for your account.';
+
+  @override
+  String get conversationUnavailable => 'This conversation is unavailable.';
+
+  @override
+  String get messageRequired => 'Write a message first.';
+
+  @override
+  String get messageSendError => 'Your message could not be sent. Please try again.';
+
+  @override
+  String get sendingMessage => 'Sending...';
+
+  @override
+  String get conversationClosed => 'This conversation is closed.';
+
+  @override
+  String get customerParticipant => 'Customer';
+
+  @override
+  String get providerParticipant => 'Provider';
 }

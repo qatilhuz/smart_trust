@@ -14,7 +14,6 @@ import '../../features/customer/provider_matching/presentation/provider_matching
 import '../../features/customer/provider_matching/presentation/provider_details_screen.dart';
 import '../../features/customer/job_tracking/presentation/job_tracking_screen.dart';
 import '../../features/customer/quotation/presentation/customer_quotation_screen.dart';
-import '../../features/customer/chat/presentation/chat_screen.dart';
 import '../../features/customer/reviews/presentation/reviews_screen.dart';
 import '../../features/customer/complaints/presentation/complaints_screen.dart';
 import '../../features/customer/profile/presentation/profile_screen.dart';
@@ -23,6 +22,8 @@ import '../../features/provider/registration/presentation/provider_registration_
 import '../../features/provider/home/presentation/provider_home_screen.dart';
 import '../../features/provider/job_feed/presentation/provider_job_feed_screen.dart';
 import '../../features/provider/request_acceptance/presentation/provider_request_screen.dart';
+import '../../features/chat/presentation/screens/chat_screen.dart';
+import '../../features/chat/domain/entities/chat_entities.dart';
 import '../../features/provider/quotation/presentation/provider_quotation_screen.dart';
 import '../../features/provider/earnings/presentation/earnings_screen.dart';
 import '../../features/notifications/presentation/notifications_screen.dart';
@@ -115,7 +116,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.customerChat,
-        builder: (context, state) => const ChatScreen(),
+        builder: (context, state) => ChatScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          conversationId: state.uri.queryParameters['conversationId'],
+          role: ChatParticipantRole.customer,
+        ),
       ),
       GoRoute(
         path: RouteNames.customerReviews,
@@ -159,6 +165,15 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => ProviderRequestScreen(
           requestId: state.uri.queryParameters['requestId'] ?? '',
           providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
+      ),
+      GoRoute(
+        path: RouteNames.providerChat,
+        builder: (context, state) => ChatScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          conversationId: state.uri.queryParameters['conversationId'],
+          role: ChatParticipantRole.provider,
         ),
       ),
       GoRoute(

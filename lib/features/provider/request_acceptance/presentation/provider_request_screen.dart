@@ -61,6 +61,7 @@ class _ProviderRequestScreenState extends ConsumerState<ProviderRequestScreen> {
           onAccept: () => _confirmAction(request, ProviderRequestAction.accepted),
           onDecline: () => _confirmAction(request, ProviderRequestAction.declined),
           onQuotation: request.status == RequestLifecycleStatus.accepted ? () => context.push(Uri(path: RouteNames.providerQuotation, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
+          onChat: request.status == RequestLifecycleStatus.accepted ? () => context.push(Uri(path: RouteNames.providerChat, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
         ),
       ),
     );
@@ -122,8 +123,9 @@ class _ProviderRequestView extends StatelessWidget {
   final VoidCallback onAccept;
   final VoidCallback onDecline;
   final VoidCallback? onQuotation;
+  final VoidCallback? onChat;
 
-  const _ProviderRequestView({required this.request, required this.loading, required this.onAccept, required this.onDecline, this.onQuotation});
+  const _ProviderRequestView({required this.request, required this.loading, required this.onAccept, required this.onDecline, this.onQuotation, this.onChat});
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +150,10 @@ class _ProviderRequestView extends StatelessWidget {
             if (onQuotation != null) ...[
               const SizedBox(height: AppSpacing.lg),
               PrimaryButton(label: l10n.createQuotation, onPressed: onQuotation!),
+            ],
+            if (onChat != null) ...[
+              const SizedBox(height: AppSpacing.md),
+              OutlinedButton.icon(onPressed: onChat, icon: const Icon(Icons.chat_bubble_outline_rounded), label: Text(l10n.chat)),
             ],
           ]),
       ]),

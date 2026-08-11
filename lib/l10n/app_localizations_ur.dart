@@ -1102,4 +1102,49 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String currencyAmount(String amount) => '${amount} پاکستانی روپے';
+
+  @override
+  String get chatTitle => 'گفتگو';
+
+  @override
+  String get chatContext => 'درخواست کی گفتگو';
+
+  @override
+  String get sendMessage => 'پیغام بھیجیں';
+
+  @override
+  String get emptyConversation => 'ابھی کوئی پیغام نہیں';
+
+  @override
+  String get startConversation => 'واضح اپ ڈیٹ کے ساتھ گفتگو شروع کریں۔';
+
+  @override
+  String get chatLoading => 'گفتگو لوڈ ہو رہی ہے...';
+
+  @override
+  String get chatError => 'گفتگو لوڈ نہیں ہو سکی۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String get chatAccessDenied => 'یہ گفتگو آپ کے اکاؤنٹ کے لیے دستیاب نہیں۔';
+
+  @override
+  String get conversationUnavailable => 'یہ گفتگو دستیاب نہیں۔';
+
+  @override
+  String get messageRequired => 'پہلے پیغام لکھیں۔';
+
+  @override
+  String get messageSendError => 'پیغام نہیں بھیجا جا سکا۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String get sendingMessage => 'بھیجا جا رہا ہے...';
+
+  @override
+  String get conversationClosed => 'یہ گفتگو بند ہے۔';
+
+  @override
+  String get customerParticipant => 'گاہک';
+
+  @override
+  String get providerParticipant => 'فراہم کنندہ';
 }

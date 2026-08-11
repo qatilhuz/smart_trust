@@ -2,6 +2,7 @@ import '../../domain/entities/job_request_entities.dart';
 
 class LocalCustomerRequestRecord {
   final String requestId;
+  final String customerId;
   final String? providerId;
   final RequestCategory category;
   final String description;
@@ -11,6 +12,7 @@ class LocalCustomerRequestRecord {
 
   const LocalCustomerRequestRecord({
     required this.requestId,
+    required this.customerId,
     required this.providerId,
     required this.category,
     required this.description,
@@ -25,6 +27,7 @@ class LocalCustomerRequestRecord {
   }) {
     return LocalCustomerRequestRecord(
       requestId: requestId,
+      customerId: customerId,
       providerId: providerId ?? this.providerId,
       category: category,
       description: description,
@@ -41,6 +44,7 @@ class CustomerRequestRuntimeStore {
   CustomerRequestRuntimeStore._() {
     _records['local-request-demo'] = const LocalCustomerRequestRecord(
       requestId: 'local-request-demo',
+      customerId: '1',
       providerId: 'provider-ali-hussain',
       category: RequestCategory(id: 'hvac', nameKey: 'serviceCategoryHvac', descriptionKey: 'categoryHvacDescription', iconCodePoint: 0xe1b0),
       description: 'Existing local demo request',
@@ -55,6 +59,7 @@ class CustomerRequestRuntimeStore {
 
   void create({
     required String requestId,
+    required String customerId,
     required RequestCategory category,
     required String description,
     required RequestLocation location,
@@ -62,6 +67,7 @@ class CustomerRequestRuntimeStore {
   }) {
     _records[requestId] = LocalCustomerRequestRecord(
       requestId: requestId,
+      customerId: customerId,
       providerId: null,
       category: category,
       description: description,
