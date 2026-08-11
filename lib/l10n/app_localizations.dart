@@ -10,149 +10,472 @@ import 'app_localizations_ur.dart';
 
 // ignore_for_file: type=lint
 
-/// Callers can lookup localized strings with an instance of AppLocalizations
-/// returned by `AppLocalizations.of(context)`.
-///
-/// Applications need to include `AppLocalizations.delegate()` in their app's
-/// `localizationDelegates` list, and the locales they support in the app's
-/// `supportedLocales` list. For example:
-///
-/// ```dart
-/// import 'l10n/app_localizations.dart';
-///
-/// return MaterialApp(
-///   localizationsDelegates: AppLocalizations.localizationsDelegates,
-///   supportedLocales: AppLocalizations.supportedLocales,
-///   home: MyApplicationHome(),
-/// );
-/// ```
-///
-/// ## Update pubspec.yaml
-///
-/// Please make sure to update your pubspec.yaml to include the following
-/// packages:
-///
-/// ```yaml
-/// dependencies:
-///   # Internationalization support.
-///   flutter_localizations:
-///     sdk: flutter
-///   intl: any # Use the pinned version from flutter_localizations
-///
-///   # Rest of dependencies
-/// ```
-///
-/// ## iOS Applications
-///
-/// iOS applications define key application metadata, including supported
-/// locales, in an Info.plist file that is built into the application bundle.
-/// To configure the locales supported by your app, you’ll need to edit this
-/// file.
-///
-/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
-/// Then, in the Project Navigator, open the Info.plist file under the Runner
-/// project’s Runner folder.
-///
-/// Next, select the Information Property List item, select Add Item from the
-/// Editor menu, then select Localizations from the pop-up menu.
-///
-/// Select and expand the newly-created Localizations item then, for each
-/// locale your application supports, add a new item and select the locale
-/// you wish to add from the pop-up menu in the Value field. This list should
-/// be consistent with the languages listed in the AppLocalizations.supportedLocales
-/// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
-  static AppLocalizations? of(BuildContext context) {
-    return Localizations.of<AppLocalizations>(context, AppLocalizations);
-  }
+  static AppLocalizations? of(BuildContext context) => Localizations.of<AppLocalizations>(context, AppLocalizations);
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[delegate, GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate, GlobalWidgetsLocalizations.delegate];
+  static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('ur')];
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
-
-  /// A list of this localizations delegate along with the default localizations
-  /// delegates.
-  ///
-  /// Returns a list of localizations delegates containing this delegate along with
-  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
-  /// and GlobalWidgetsLocalizations.delegate.
-  ///
-  /// Additional delegates can be added by appending to this list in
-  /// MaterialApp. This list does not have to be used at all if a custom list
-  /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
-
-  /// A list of this localizations delegate's supported locales.
-  static const List<Locale> supportedLocales = <Locale>[
-    Locale('en'),
-    Locale('ur'),
-  ];
-
-  /// No description provided for @login.
-  ///
-  /// In en, this message translates to:
-  /// **'Login'**
   String get login;
-
-  /// No description provided for @signup.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign Up'**
   String get signup;
-
-  /// No description provided for @email.
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
   String get email;
-
-  /// No description provided for @password.
-  ///
-  /// In en, this message translates to:
-  /// **'Password'**
   String get password;
+  String get appTitle;
+  String get loading;
+  String get unknownError;
+  String get retry;
+  String get cancel;
+  String get confirm;
+  String get save;
+  String get delete;
+  String get back;
+  String get next;
+  String get done;
+  String get continueButton;
+  String get submit;
+  String get search;
+  String get createAccount;
+  String get logout;
+  String get name;
+  String get confirmPassword;
+  String get loginTitle;
+  String get loginSubtitle;
+  String get signupTitle;
+  String get signupSubtitle;
+  String get selectRole;
+  String get customerRole;
+  String get providerRole;
+  String get requiredField;
+  String get invalidEmail;
+  String get invalidPassword;
+  String get invalidPhone;
+  String get invalidCnic;
+  String get verification;
+  String get enterOtp;
+  String get otpSent;
+  String get verify;
+  String get verified;
+  String get invalidCode;
+  String get resendCode;
+  String get selectRoleShort;
+  String get onboardingSelectLanguage;
+  String get onboardingChooseRole;
+  String get getStarted;
+  String get languageEnglish;
+  String get languageUrdu;
+  String get customerRoleDescription;
+  String get providerRoleDescription;
+  String get hello;
+  String get greeting;
+  String get categories;
+  String get nearbyProviders;
+  String get errorLoadingProviders;
+  String get aiAssistant;
+  String get voiceAssistant;
+  String get newRequest;
+  String get request;
+  String get activeJob;
+  String get providerOnTheWay;
+  String get minutesShort;
+  String get notifications;
+  String get chat;
+  String get reportIssue;
+  String get complaint;
+  String get complaintCategory;
+  String get serviceQuality;
+  String get providerBehavior;
+  String get pricingIssue;
+  String get incompleteService;
+  String get damageOrLoss;
+  String get otherComplaint;
+  String get complaintDescription;
+  String get evidencePhotos;
+  String get addEvidence;
+  String get removeEvidence;
+  String get reviewComplaint;
+  String get submitComplaint;
+  String get complaintSubmittedTitle;
+  String get complaintSubmittedHelper;
+  String get complaintDetails;
+  String complaintReference(String id);
+  String get complaintStatus;
+  String get complaintSubmittedStatus;
+  String get complaintUnderReview;
+  String get complaintResolved;
+  String get complaintRejected;
+  String get complaintUnavailable;
+  String get complaintAlreadyExists;
+  String get complaintRequired;
+  String get complaintError;
+  String complaintAttachmentCount(int count);
+  String get complaintRequestContext;
+  String get chatTitle;
+  String get markServiceCompleted;
+  String get markServiceCompletedQuestion;
+  String get serviceCompleted;
+  String get serviceCompletedHelper;
+  String get completionUnavailable;
+  String get quotationNotAccepted;
+  String get alreadyCompleted;
+  String get completionError;
+  String get reviewProvider;
+  String get reviewProviderHelper;
+  String get yourRating;
+  String get writeReview;
+  String get optionalReview;
+  String get reviewHint;
+  String get submitReview;
+  String get reviewSubmitted;
+  String get reviewSubmittedHelper;
+  String get alreadyReviewed;
+  String get reviewUnavailable;
+  String get reviewRequired;
+  String get reviewError;
+  String get noReviews;
+  String get reviewHistory;
+  String get averageRating;
+  String get totalReviews;
+  String get ratingDistribution;
+  String get leaveReview;
+  String get reviewPendingCompletion;
+  String get requestCompletedContext;
+  String get providerReviews;
+  String get reviewForRequest;
+  String get chatConnected;
+  String get chatConnecting;
+  String get chatReconnecting;
+  String get chatDisconnected;
+  String get chatReconnect;
+  String typingIndicator(String name);
+  String get chatContext;
+  String get sendMessage;
+  String get emptyConversation;
+  String get startConversation;
+  String get chatLoading;
+  String get chatError;
+  String get chatAccessDenied;
+  String get conversationUnavailable;
+  String get messageRequired;
+  String get messageSendError;
+  String get sendingMessage;
+  String get conversationClosed;
+  String get customerParticipant;
+  String get providerParticipant;
+  String get messageHint;
+  String get complaints;
+  String get noComplaints;
+  String get fileComplaint;
+  String get complaintSubmitted;
+  String get customerDashboard;
+  String get dashboardPlaceholder;
+  String get jobAccepted;
+  String get quotationReceived;
+  String get providerArrived;
+  String get otpVerification;
+  String get uploadImage;
+  String get createRequest;
+  String get listening;
+  String get tapToSpeak;
+  String get speak;
+  String get voicePrompt;
+  String get settings;
+  String get language;
+  String get tapToSwitch;
+  String get account;
+  String get profile;
+  String get customerOnlyMessage;
+  String distanceKm(String distance);
+  String get availableNow;
+  String get selectServiceCategory;
+  String get categoryHvacDescription;
+  String get categoryElectrical;
+  String get categoryElectricalDescription;
+  String get categoryPlumbing;
+  String get categoryPlumbingDescription;
+  String get categoryPainting;
+  String get categoryPaintingDescription;
+  String get categoryCleaning;
+  String get categoryCleaningDescription;
+  String get categoryHelper;
+  String get describeProblem;
+  String get problemHelper;
+  String get problemHint;
+  String characters(int count, int max);
+  String get addImages;
+  String get addImage;
+  String get removeImage;
+  String imagesOptional(int count);
+  String get location;
+  String get locationHelper;
+  String get useCurrentLocation;
+  String get confirmLocation;
+  String get changeLocation;
+  String get manualAddress;
+  String get manualAddressHint;
+  String get locationPermissionDenied;
+  String get locationPermissionPermanentlyDenied;
+  String get locationUnavailable;
+  String get locationLoading;
+  String get reviewRequest;
+  String get reviewHelper;
+  String get service;
+  String get problem;
+  String get attachments;
+  String get noImages;
+  String get submitRequest;
+  String get requestCreated;
+  String get requestCreatedHelper;
+  String get backHome;
+  String get viewRequest;
+  String get categoryRequired;
+  String get descriptionRequired;
+  String get locationRequired;
+  String mediaLimit(int count);
+  String get requestSubmitError;
+  String get stepService;
+  String get stepProblem;
+  String get stepMedia;
+  String get stepLocation;
+  String get stepReview;
+  String get permissionSettings;
+  String get locationConfirmed;
+  String get signIn;
+  String get providerStatus;
+  String get verificationStatus;
+  String get profileSubmitted;
+  String get cnicUploaded;
+  String get tasdeeqVerification;
+  String get adminReview;
+  String get profileActive;
+  String get completeRegistration;
+  String get completed;
+  String get pending;
+  String get earnings;
+  String get todaysEarnings;
+  String get totalEarnings;
+  String get recentJobs;
+  String get incomingRequests;
+  String get feed;
+  String get jobs;
+  String customerRequest(int number);
+  String get serviceCategoryHvac;
+  String get acNotCooling;
+  String distanceLocation(String distance, String location);
+  String get visitingCharge;
+  String get requestAccepted;
+  String get accept;
+  String get createQuotation;
+  String get diagnosis;
+  String get labourCharge;
+  String get partsCost;
+  String get totalEstimatedCost;
+  String get quotationSent;
+  String get sendQuotation;
+  String get providerRegistration;
+  String get submitForReview;
+  String get basicInfo;
+  String get personalInfo;
+  String get phoneCnic;
+  String get uploadCnicFront;
+  String get uploadCnicBack;
+  String get skillsAreas;
+  String get primarySkill;
+  String get verifiedStatus;
+  String get hyperlocalStatus;
+  String get reliableStatus;
+  String get splashPreparing;
+  String get splashBrandTagline;
+  String get reviews;
+  String get requestAddress;
+  String get preferredDate;
+  String get preferredTime;
+  String get requestDescription;
+  String get newJobRequest;
+  String get uploadDocuments;
+  String get jobFeed;
+  String get noData;
+  String get signInToContinue;
+  String get verifiedProfessionals;
+  String get introDescription;
+  String get trusted;
+  String get nearby;
+  String get transparent;
+  String get signUpPrompt;
+  String get alreadyHaveAccount;
+  String get chooseAccountRole;
+  String get signupRoleLabel;
+  String get changeRole;
+  String get otpSubtitle;
+  String get otpRequired;
+  String resendIn(int seconds);
+  String helloUser(String name);
+  String activeJobSummary(String service, String location, String eta);
+  String get viewDetails;
+  String get noActiveJob;
+  String get startRequest;
+  String get homeLoadError;
+  String get noNearbyProviders;
+  String get recommended;
+  String get seeAll;
+  String get home;
+  String get loginError;
+  String get signupError;
+  String get verificationSuccess;
+  String get findProviders;
+  String get trackingEarlier;
+  String get trackingMomentAgo;
+  String get trackingNow;
+  String get trackingUpcoming;
+  String get jobTracking;
+  String get statusProviderAccepted;
+  String get statusProviderAcceptedDescription;
+  String get statusProviderDeclined;
+  String get statusProviderDeclinedDescription;
+  String get providerRequestDetails;
+  String get incomingRequestHelper;
+  String get acceptRequest;
+  String get acceptThisRequestQuestion;
+  String get declineRequest;
+  String acceptRequestQuestion(String name);
+  String get declineRequestQuestion;
+  String get requestDeclined;
+  String get requestAcceptedSuccess;
+  String get declinedRequestHelper;
+  String get acceptedRequestHelper;
+  String get noIncomingRequests;
+  String get providerOnlyMessage;
+  String get requestPending;
+  String get alreadyProcessed;
+  String get requestActionError;
+  String get openRequest;
+  String get selectedForRequest;
+  String requestAttachmentsCount(int count);
+  String get providerRequestStatus;
+  String get trackingForRequest;
+  String get currentStatus;
+  String get statusRequestCreated;
+  String get statusRequestCreatedDescription;
+  String get statusProviderSelected;
+  String get statusProviderSelectedDescription;
+  String get statusOnTheWay;
+  String get statusOnTheWayDescription;
+  String get statusArrived;
+  String get statusArrivedDescription;
+  String get statusInProgress;
+  String get statusInProgressDescription;
+  String get statusCompleted;
+  String get statusCompletedDescription;
+  String get trackingProvider;
+  String get providerArea;
+  String get eta;
+  String get liveLocationNotAvailable;
+  String get demoLocationNote;
+  String get trackingUnavailable;
+  String get trackingError;
+  String get requestNotFound;
+  String get providerNoLongerAvailable;
+  String get refreshStatus;
+  String get lastUpdated;
+  String get trackJob;
+  String get findingProviders;
+  String get matchingProvidersHelper;
+  String providersFound(int count);
+  String get availableProviders;
+  String get providerSelectionHelper;
+  String get completedJobs;
+  String get estimatedArrival;
+  String get available;
+  String get unavailable;
+  String get selectProvider;
+  String get providerDetails;
+  String get confirmProvider;
+  String confirmProviderQuestion(String name);
+  String get providerSelected;
+  String providerSelectedHelper(String name);
+  String get returnToRequest;
+  String get noProvidersFound;
+  String get matchingError;
+  String get providerSelectionError;
+  String get requestContext;
+  String requestReference(String id);
+  String get requestService;
+  String get requestLocation;
+  String get requestUnavailable;
+  String get providerNotAvailable;
+  String get matchForRequest;
+  String get providerBio;
+  String get services;
+  String get selected;
+  String get ratingLabel;
+  String get jobsCompletedLabel;
+  String providerSnapshot(String profession, String rating);
+  String get viewQuotation;
+  String currencyAmount(String amount);
+  String get pricingBreakdown;
+  String get laborCharge;
+  String get materialsCharge;
+  String get additionalCharge;
+  String get totalAmount;
+  String get estimatedDuration;
+  String get quotationNote;
+  String get quotationNoteHint;
+  String get submitQuotation;
+  String get quotationSubmitted;
+  String get quotationAccepted;
+  String get quotationDeclined;
+  String get quotationStatus;
+  String get acceptQuotation;
+  String get declineQuotation;
+  String get negotiateQuotation;
+  String get acceptQuotationQuestion;
+  String get declineQuotationQuestion;
+  String get negotiationAmount;
+  String get negotiationNote;
+  String get negotiationNoteHint;
+  String get submitNegotiation;
+  String get negotiationReceived;
+  String get counterOfferAmount;
+  String get acceptProposal;
+  String get sendCounterOffer;
+  String get requestNotAccepted;
+  String get quotationNotFound;
+  String get providerIdentity;
+  String get quotationHistory;
+  String get quotationCreated;
+  String get quotationUpdated;
+  String get quoteAmount;
+  String get invalidAmount;
+  String get durationRequired;
+  String get quotationNoteRequired;
+  String get negotiationAmountRequired;
+  String get negotiationNoteRequired;
+  String get quotationActionError;
+  String get quotationContext;
+  String get statusSubmitted;
+  String get statusAccepted;
+  String get statusNegotiationRequested;
+  String get statusCounterOffered;
+  String get statusDeclined;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
-
   @override
-  Future<AppLocalizations> load(Locale locale) {
-    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
-  }
-
+  Future<AppLocalizations> load(Locale locale) => SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'ur'].contains(locale.languageCode);
-
+  bool isSupported(Locale locale) => <String>['en', 'ur'].contains(locale.languageCode);
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-  // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return AppLocalizationsEn();
-    case 'ur':
-      return AppLocalizationsUr();
+    case 'en': return AppLocalizationsEn();
+    case 'ur': return AppLocalizationsUr();
   }
-
-  throw FlutterError(
-    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
-    'an issue with the localizations generation tool. Please file an issue '
-    'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
-  );
+  throw FlutterError('AppLocalizations.delegate failed to load unsupported locale "$locale".');
 }

@@ -15,10 +15,13 @@ class RouteNames {
   // Customer
   static const customerHome = '/customer/home';
   static const customerJobRequest = '/customer/job-request';
+  static const customerProviderMatching = '/customer/provider-matching';
   static const customerProviderSelection = '/customer/provider-selection';
+  static const customerProviderDetails = '/customer/provider-details';
   static const customerJobTracking = '/customer/job-tracking';
   static const customerQuotations = '/customer/quotations';
   static const customerChat = '/customer/chat';
+  static const providerChat = '/provider/chat';
   static const customerReviews = '/customer/reviews';
   static const customerComplaints = '/customer/complaints';
   static const customerProfile = '/customer/profile';
@@ -30,10 +33,14 @@ class RouteNames {
   static const providerVerification = '/provider/verification';
   static const providerFeed = '/provider/feed';
   static const providerJobFeed = '/provider/job-feed';
+  static const providerRequestDetails = '/provider/request-details';
   static const providerQuotation = '/provider/quotation';
+  static const providerServiceCompletion = '/provider/service-completion';
   static const providerEarnings = '/provider/earnings';
   static const providerProfile = '/provider/profile';
   static const providerSettings = '/provider/settings';
+  static const providerReviews = '/provider/reviews';
+  static const providerComplaintDetails = '/provider/complaint-details';
 
   // Shared / AI / Voice
   static const aiAssistant = '/ai';
