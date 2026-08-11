@@ -518,5 +518,36 @@
         "type": "String"
       }
     }
-  }
+  },
+  "markServiceCompleted": "سروس مکمل قرار دیں",
+  "markServiceCompletedQuestion": "کیا آپ تصدیق کرتے ہیں کہ یہ سروس مکمل ہو گئی ہے؟",
+  "serviceCompleted": "سروس مکمل ہو گئی",
+  "serviceCompletedHelper": "یہ سروس مکمل قرار دے دی گئی ہے۔ گاہک جائزہ دے سکتا ہے۔",
+  "completionUnavailable": "یہ سروس ابھی مکمل نہیں کی جا سکتی۔",
+  "quotationNotAccepted": "مکمل کرنے سے پہلے قبول شدہ قیمت پیشکش ضروری ہے۔",
+  "alreadyCompleted": "یہ سروس پہلے ہی مکمل ہو چکی ہے۔",
+  "completionError": "سروس مکمل قرار نہیں دی جا سکی۔ دوبارہ کوشش کریں۔",
+  "reviewProvider": "فراہم کنندہ کا جائزہ دیں",
+  "reviewProviderHelper": "اس مکمل سروس کے بارے میں اپنا تجربہ شیئر کریں۔",
+  "yourRating": "آپ کی درجہ بندی",
+  "writeReview": "جائزہ لکھیں",
+  "optionalReview": "اختیاری جائزہ",
+  "reviewHint": "اپنے تجربے کے بارے میں بتائیں...",
+  "submitReview": "جائزہ جمع کریں",
+  "reviewSubmitted": "جائزہ جمع ہو گیا",
+  "reviewSubmittedHelper": "اپنا تجربہ شیئر کرنے کا شکریہ۔",
+  "alreadyReviewed": "آپ اس مکمل سروس کا جائزہ پہلے ہی دے چکے ہیں۔",
+  "reviewUnavailable": "یہ جائزہ دستیاب نہیں۔",
+  "reviewRequired": "جمع کرنے سے پہلے درجہ بندی منتخب کریں۔",
+  "reviewError": "جائزہ جمع نہیں ہو سکا۔ دوبارہ کوشش کریں۔",
+  "noReviews": "ابھی کوئی جائزہ نہیں۔",
+  "reviewHistory": "جائزوں کی تاریخ",
+  "averageRating": "اوسط درجہ بندی",
+  "totalReviews": "کل جائزے",
+  "ratingDistribution": "درجہ بندی کی تقسیم",
+  "leaveReview": "جائزہ دیں",
+  "reviewPendingCompletion": "جائزے سروس مکمل ہونے کے بعد دستیاب ہوں گے۔",
+  "requestCompletedContext": "مکمل شدہ سروس کی درخواست",
+  "providerReviews": "فراہم کنندہ کے جائزے",
+  "reviewForRequest": "درخواست کا جائزہ"
 }

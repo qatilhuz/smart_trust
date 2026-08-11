@@ -14,7 +14,7 @@ import '../../features/customer/provider_matching/presentation/provider_matching
 import '../../features/customer/provider_matching/presentation/provider_details_screen.dart';
 import '../../features/customer/job_tracking/presentation/job_tracking_screen.dart';
 import '../../features/customer/quotation/presentation/customer_quotation_screen.dart';
-import '../../features/customer/reviews/presentation/reviews_screen.dart';
+import '../../features/customer/reviews/presentation/review_screen.dart';
 import '../../features/customer/complaints/presentation/complaints_screen.dart';
 import '../../features/customer/profile/presentation/profile_screen.dart';
 import '../../features/customer/settings/presentation/settings_screen.dart';
@@ -25,6 +25,8 @@ import '../../features/provider/request_acceptance/presentation/provider_request
 import '../../features/chat/presentation/screens/chat_screen.dart';
 import '../../features/chat/domain/entities/chat_entities.dart';
 import '../../features/provider/quotation/presentation/provider_quotation_screen.dart';
+import '../../features/provider/service_completion/presentation/service_completion_screen.dart';
+import '../../features/provider/reviews/presentation/provider_reviews_screen.dart';
 import '../../features/provider/earnings/presentation/earnings_screen.dart';
 import '../../features/notifications/presentation/notifications_screen.dart';
 import '../../features/ai_assistant/presentation/ai_assistant_screen.dart';
@@ -125,7 +127,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.customerReviews,
-        builder: (context, state) => const ReviewsScreen(),
+        builder: (context, state) => CustomerReviewScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          providerName: state.uri.queryParameters['providerName'],
+          service: state.uri.queryParameters['service'],
+        ),
       ),
       GoRoute(
         path: RouteNames.customerComplaints,
@@ -184,6 +191,13 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
       GoRoute(
+        path: RouteNames.providerServiceCompletion,
+        builder: (context, state) => ServiceCompletionScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
+      ),
+      GoRoute(
         path: RouteNames.providerEarnings,
         builder: (context, state) => const EarningsScreen(),
       ),
@@ -194,6 +208,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RouteNames.providerSettings,
         builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.providerReviews,
+        builder: (context, state) => ProviderReviewsScreen(
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
       ),
       // Shared
       GoRoute(

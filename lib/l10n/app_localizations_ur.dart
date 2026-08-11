@@ -1165,4 +1165,97 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String typingIndicator(String name) => '${name} لکھ رہے ہیں...';
+
+  @override
+  String get markServiceCompleted => 'سروس مکمل قرار دیں';
+
+  @override
+  String get markServiceCompletedQuestion => 'کیا آپ تصدیق کرتے ہیں کہ یہ سروس مکمل ہو گئی ہے؟';
+
+  @override
+  String get serviceCompleted => 'سروس مکمل ہو گئی';
+
+  @override
+  String get serviceCompletedHelper => 'یہ سروس مکمل قرار دے دی گئی ہے۔ گاہک جائزہ دے سکتا ہے۔';
+
+  @override
+  String get completionUnavailable => 'یہ سروس ابھی مکمل نہیں کی جا سکتی۔';
+
+  @override
+  String get quotationNotAccepted => 'مکمل کرنے سے پہلے قبول شدہ قیمت پیشکش ضروری ہے۔';
+
+  @override
+  String get alreadyCompleted => 'یہ سروس پہلے ہی مکمل ہو چکی ہے۔';
+
+  @override
+  String get completionError => 'سروس مکمل قرار نہیں دی جا سکی۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String get reviewProvider => 'فراہم کنندہ کا جائزہ دیں';
+
+  @override
+  String get reviewProviderHelper => 'اس مکمل سروس کے بارے میں اپنا تجربہ شیئر کریں۔';
+
+  @override
+  String get yourRating => 'آپ کی درجہ بندی';
+
+  @override
+  String get writeReview => 'جائزہ لکھیں';
+
+  @override
+  String get optionalReview => 'اختیاری جائزہ';
+
+  @override
+  String get reviewHint => 'اپنے تجربے کے بارے میں بتائیں...';
+
+  @override
+  String get submitReview => 'جائزہ جمع کریں';
+
+  @override
+  String get reviewSubmitted => 'جائزہ جمع ہو گیا';
+
+  @override
+  String get reviewSubmittedHelper => 'اپنا تجربہ شیئر کرنے کا شکریہ۔';
+
+  @override
+  String get alreadyReviewed => 'آپ اس مکمل سروس کا جائزہ پہلے ہی دے چکے ہیں۔';
+
+  @override
+  String get reviewUnavailable => 'یہ جائزہ دستیاب نہیں۔';
+
+  @override
+  String get reviewRequired => 'جمع کرنے سے پہلے درجہ بندی منتخب کریں۔';
+
+  @override
+  String get reviewError => 'جائزہ جمع نہیں ہو سکا۔ دوبارہ کوشش کریں۔';
+
+  @override
+  String get noReviews => 'ابھی کوئی جائزہ نہیں۔';
+
+  @override
+  String get reviewHistory => 'جائزوں کی تاریخ';
+
+  @override
+  String get averageRating => 'اوسط درجہ بندی';
+
+  @override
+  String get totalReviews => 'کل جائزے';
+
+  @override
+  String get ratingDistribution => 'درجہ بندی کی تقسیم';
+
+  @override
+  String get leaveReview => 'جائزہ دیں';
+
+  @override
+  String get reviewPendingCompletion => 'جائزے سروس مکمل ہونے کے بعد دستیاب ہوں گے۔';
+
+  @override
+  String get requestCompletedContext => 'مکمل شدہ سروس کی درخواست';
+
+  @override
+  String get providerReviews => 'فراہم کنندہ کے جائزے';
+
+  @override
+  String get reviewForRequest => 'درخواست کا جائزہ';
 }

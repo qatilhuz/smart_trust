@@ -62,6 +62,7 @@ class _ProviderRequestScreenState extends ConsumerState<ProviderRequestScreen> {
           onDecline: () => _confirmAction(request, ProviderRequestAction.declined),
           onQuotation: request.status == RequestLifecycleStatus.accepted ? () => context.push(Uri(path: RouteNames.providerQuotation, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
           onChat: request.status == RequestLifecycleStatus.accepted ? () => context.push(Uri(path: RouteNames.providerChat, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
+          onComplete: request.status == RequestLifecycleStatus.accepted ? () => context.push(Uri(path: RouteNames.providerServiceCompletion, queryParameters: {'requestId': request.requestId, 'providerId': request.providerId}).toString()) : null,
         ),
       ),
     );
@@ -124,8 +125,9 @@ class _ProviderRequestView extends StatelessWidget {
   final VoidCallback onDecline;
   final VoidCallback? onQuotation;
   final VoidCallback? onChat;
+  final VoidCallback? onComplete;
 
-  const _ProviderRequestView({required this.request, required this.loading, required this.onAccept, required this.onDecline, this.onQuotation, this.onChat});
+  const _ProviderRequestView({required this.request, required this.loading, required this.onAccept, required this.onDecline, this.onQuotation, this.onChat, this.onComplete});
 
   @override
   Widget build(BuildContext context) {
@@ -154,6 +156,10 @@ class _ProviderRequestView extends StatelessWidget {
             if (onChat != null) ...[
               const SizedBox(height: AppSpacing.md),
               OutlinedButton.icon(onPressed: onChat, icon: const Icon(Icons.chat_bubble_outline_rounded), label: Text(l10n.chat)),
+            ],
+            if (onComplete != null) ...[
+              const SizedBox(height: AppSpacing.md),
+              OutlinedButton.icon(onPressed: onComplete, icon: const Icon(Icons.task_alt_rounded), label: Text(l10n.markServiceCompleted)),
             ],
           ]),
       ]),
@@ -222,7 +228,8 @@ class _StatusBanner extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final accepted = status == RequestLifecycleStatus.accepted;
-    return Container(padding: const EdgeInsets.all(AppSpacing.lg), decoration: BoxDecoration(color: accepted ? AppColors.success.withOpacity(.10) : AppColors.error.withOpacity(.08), borderRadius: BorderRadius.circular(AppSizes.radiusLg), border: Border.all(color: accepted ? AppColors.success : AppColors.error)), child: Row(children: [Icon(accepted ? Icons.check_circle_rounded : Icons.cancel_rounded, color: accepted ? AppColors.success : AppColors.error), const SizedBox(width: AppSpacing.md), Expanded(child: Text(accepted ? l10n.requestAcceptedSuccess : l10n.requestDeclined, style: AppTextStyles.heading3))]));
+    final completed = status == RequestLifecycleStatus.serviceCompleted;
+    return Container(padding: const EdgeInsets.all(AppSpacing.lg), decoration: BoxDecoration(color: completed || accepted ? AppColors.success.withOpacity(.10) : AppColors.error.withOpacity(.08), borderRadius: BorderRadius.circular(AppSizes.radiusLg), border: Border.all(color: completed || accepted ? AppColors.success : AppColors.error)), child: Row(children: [Icon(completed ? Icons.task_alt_rounded : accepted ? Icons.check_circle_rounded : Icons.cancel_rounded, color: completed || accepted ? AppColors.success : AppColors.error), const SizedBox(width: AppSpacing.md), Expanded(child: Text(completed ? l10n.serviceCompleted : accepted ? l10n.requestAcceptedSuccess : l10n.requestDeclined, style: AppTextStyles.heading3))]));
   }
 }
 

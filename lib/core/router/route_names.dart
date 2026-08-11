@@ -35,9 +35,11 @@ class RouteNames {
   static const providerJobFeed = '/provider/job-feed';
   static const providerRequestDetails = '/provider/request-details';
   static const providerQuotation = '/provider/quotation';
+  static const providerServiceCompletion = '/provider/service-completion';
   static const providerEarnings = '/provider/earnings';
   static const providerProfile = '/provider/profile';
   static const providerSettings = '/provider/settings';
+  static const providerReviews = '/provider/reviews';
 
   // Shared / AI / Voice
   static const aiAssistant = '/ai';

@@ -518,5 +518,36 @@
         "type": "String"
       }
     }
-  }
+  },
+  "markServiceCompleted": "Mark service completed",
+  "markServiceCompletedQuestion": "Confirm that this service is complete?",
+  "serviceCompleted": "Service completed",
+  "serviceCompletedHelper": "This service is now marked complete. The customer can leave a review.",
+  "completionUnavailable": "This service cannot be completed yet.",
+  "quotationNotAccepted": "An accepted quotation is required before completion.",
+  "alreadyCompleted": "This service has already been completed.",
+  "completionError": "We could not mark this service complete. Please try again.",
+  "reviewProvider": "Review provider",
+  "reviewProviderHelper": "Share your experience with this completed service.",
+  "yourRating": "Your rating",
+  "writeReview": "Write a review",
+  "optionalReview": "Optional review text",
+  "reviewHint": "Tell us about your experience...",
+  "submitReview": "Submit review",
+  "reviewSubmitted": "Review submitted",
+  "reviewSubmittedHelper": "Thank you for sharing your experience.",
+  "alreadyReviewed": "You have already reviewed this completed service.",
+  "reviewUnavailable": "This review is not available.",
+  "reviewRequired": "Choose a rating before submitting.",
+  "reviewError": "We could not submit your review. Please try again.",
+  "noReviews": "No reviews yet.",
+  "reviewHistory": "Review history",
+  "averageRating": "Average rating",
+  "totalReviews": "Total reviews",
+  "ratingDistribution": "Rating distribution",
+  "leaveReview": "Leave review",
+  "reviewPendingCompletion": "Reviews become available after service completion.",
+  "requestCompletedContext": "Completed service request",
+  "providerReviews": "Provider reviews",
+  "reviewForRequest": "Review for request"
 }

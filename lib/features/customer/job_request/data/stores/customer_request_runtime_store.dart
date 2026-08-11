@@ -106,4 +106,12 @@ class CustomerRequestRuntimeStore {
     _records[requestId] = record.copyWith(status: status);
     return true;
   }
+
+  bool completeService({required String requestId, required String providerId}) {
+    final record = _records[requestId];
+    if (record == null || record.providerId != providerId) return false;
+    if (record.status != RequestLifecycleStatus.accepted) return false;
+    _records[requestId] = record.copyWith(status: RequestLifecycleStatus.serviceCompleted);
+    return true;
+  }
 }

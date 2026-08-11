@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-enum RequestLifecycleStatus { created, providerSelected, accepted, declined }
+enum RequestLifecycleStatus { created, providerSelected, accepted, declined, serviceCompleted }
 
 class RequestCategory {
   final String id;

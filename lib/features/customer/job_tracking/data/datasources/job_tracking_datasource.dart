@@ -66,6 +66,8 @@ class JobTrackingLocalDataSource implements JobTrackingDataSource {
         return JobTrackingStatus.providerAccepted;
       case RequestLifecycleStatus.declined:
         return JobTrackingStatus.providerDeclined;
+      case RequestLifecycleStatus.serviceCompleted:
+        return JobTrackingStatus.serviceCompleted;
     }
   }
 

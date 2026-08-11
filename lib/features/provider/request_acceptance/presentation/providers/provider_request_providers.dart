@@ -6,31 +6,9 @@ import '../../domain/usecases/provider_request_usecases.dart';
 
 final localProviderIdProvider = Provider<String>((ref) => 'provider-ali-hussain');
 
-final getIncomingProviderRequestsProvider = Provider<GetIncomingProviderRequests>((ref) {
-  return GetIncomingProviderRequests(ref.watch(providerRequestRepositoryProvider));
-});
-
-final getProviderRequestProvider = Provider<GetProviderRequest>((ref) {
-  return GetProviderRequest(ref.watch(providerRequestRepositoryProvider));
-});
-
-final acceptProviderRequestProvider = Provider<AcceptProviderRequest>((ref) {
-  return AcceptProviderRequest(ref.watch(providerRequestRepositoryProvider));
-});
-
-final declineProviderRequestProvider = Provider<DeclineProviderRequest>((ref) {
-  return DeclineProviderRequest(ref.watch(providerRequestRepositoryProvider));
-});
-
-final providerIncomingRequestsProvider = FutureProvider.autoDispose
-    .family<List<ProviderRequest>, String>((ref, providerId) {
-  return ref.watch(getIncomingProviderRequestsProvider).call(providerId: providerId);
-});
-
-final providerRequestDetailsProvider = FutureProvider.autoDispose
-    .family<ProviderRequest, ({String requestId, String providerId})>((ref, query) {
-  return ref.watch(getProviderRequestProvider).call(
-        requestId: query.requestId,
-        providerId: query.providerId,
-      );
-});
+final getIncomingProviderRequestsProvider = Provider<GetIncomingProviderRequests>((ref) => GetIncomingProviderRequests(ref.watch(providerRequestRepositoryProvider)));
+final getProviderRequestProvider = Provider<GetProviderRequest>((ref) => GetProviderRequest(ref.watch(providerRequestRepositoryProvider)));
+final acceptProviderRequestProvider = Provider<AcceptProviderRequest>((ref) => AcceptProviderRequest(ref.watch(providerRequestRepositoryProvider)));
+final declineProviderRequestProvider = Provider<DeclineProviderRequest>((ref) => DeclineProviderRequest(ref.watch(providerRequestRepositoryProvider)));
+final providerIncomingRequestsProvider = FutureProvider.autoDispose.family<List<ProviderRequest>, String>((ref, providerId) => ref.watch(getIncomingProviderRequestsProvider).call(providerId: providerId));
+final providerRequestDetailsProvider = FutureProvider.autoDispose.family<ProviderRequest, ({String requestId, String providerId})>((ref, query) => ref.watch(getProviderRequestProvider).call(requestId: query.requestId, providerId: query.providerId));

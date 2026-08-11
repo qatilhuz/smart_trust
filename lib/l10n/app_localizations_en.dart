@@ -1163,4 +1163,97 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String typingIndicator(String name) => '${name} is typing...';
+
+  @override
+  String get markServiceCompleted => 'Mark service completed';
+
+  @override
+  String get markServiceCompletedQuestion => 'Confirm that this service is complete?';
+
+  @override
+  String get serviceCompleted => 'Service completed';
+
+  @override
+  String get serviceCompletedHelper => 'This service is now marked complete. The customer can leave a review.';
+
+  @override
+  String get completionUnavailable => 'This service cannot be completed yet.';
+
+  @override
+  String get quotationNotAccepted => 'An accepted quotation is required before completion.';
+
+  @override
+  String get alreadyCompleted => 'This service has already been completed.';
+
+  @override
+  String get completionError => 'We could not mark this service complete. Please try again.';
+
+  @override
+  String get reviewProvider => 'Review provider';
+
+  @override
+  String get reviewProviderHelper => 'Share your experience with this completed service.';
+
+  @override
+  String get yourRating => 'Your rating';
+
+  @override
+  String get writeReview => 'Write a review';
+
+  @override
+  String get optionalReview => 'Optional review text';
+
+  @override
+  String get reviewHint => 'Tell us about your experience...';
+
+  @override
+  String get submitReview => 'Submit review';
+
+  @override
+  String get reviewSubmitted => 'Review submitted';
+
+  @override
+  String get reviewSubmittedHelper => 'Thank you for sharing your experience.';
+
+  @override
+  String get alreadyReviewed => 'You have already reviewed this completed service.';
+
+  @override
+  String get reviewUnavailable => 'This review is not available.';
+
+  @override
+  String get reviewRequired => 'Choose a rating before submitting.';
+
+  @override
+  String get reviewError => 'We could not submit your review. Please try again.';
+
+  @override
+  String get noReviews => 'No reviews yet.';
+
+  @override
+  String get reviewHistory => 'Review history';
+
+  @override
+  String get averageRating => 'Average rating';
+
+  @override
+  String get totalReviews => 'Total reviews';
+
+  @override
+  String get ratingDistribution => 'Rating distribution';
+
+  @override
+  String get leaveReview => 'Leave review';
+
+  @override
+  String get reviewPendingCompletion => 'Reviews become available after service completion.';
+
+  @override
+  String get requestCompletedContext => 'Completed service request';
+
+  @override
+  String get providerReviews => 'Provider reviews';
+
+  @override
+  String get reviewForRequest => 'Review for request';
 }

@@ -8,6 +8,7 @@ import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/widgets/authentication_prompt.dart';
+import '../../../../core/widgets/primary_button.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
 import '../domain/entities/job_tracking_entities.dart';
@@ -74,6 +75,7 @@ class JobTrackingScreen extends ConsumerWidget {
           data: data,
           onProvider: () => context.push(Uri(path: RouteNames.customerProviderDetails, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id, 'service': data.service, 'location': data.location}).toString()),
           onChat: () => context.push(Uri(path: RouteNames.customerChat, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id}).toString()),
+          onReview: data.currentStatus == JobTrackingStatus.serviceCompleted ? () => context.push(Uri(path: RouteNames.customerReviews, queryParameters: {'requestId': data.requestId, 'providerId': data.provider.id, 'providerName': data.provider.name, 'service': data.service}).toString()) : null,
         ),
       ),
     );
@@ -100,8 +102,9 @@ class _TrackingContent extends StatelessWidget {
   final JobTrackingData data;
   final VoidCallback onProvider;
   final VoidCallback onChat;
+  final VoidCallback? onReview;
 
-  const _TrackingContent({required this.data, required this.onProvider, required this.onChat});
+  const _TrackingContent({required this.data, required this.onProvider, required this.onChat, this.onReview});
 
   @override
   Widget build(BuildContext context) {
@@ -128,6 +131,10 @@ class _TrackingContent extends StatelessWidget {
           Text(l10n.currentStatus, style: AppTextStyles.heading3),
           const SizedBox(height: AppSpacing.md),
           _TrackingTimeline(events: data.timeline),
+          if (onReview != null) ...[
+            const SizedBox(height: AppSpacing.xxl),
+            PrimaryButton(label: l10n.leaveReview, onPressed: onReview!),
+          ],
         ],
       ),
     );

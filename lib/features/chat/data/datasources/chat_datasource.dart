@@ -94,7 +94,7 @@ class ChatLocalDataSource implements ChatDataSource {
     if (context.requestId.isEmpty || context.providerId.isEmpty || userId.isEmpty) throw const ChatException(ChatFailureCode.invalidContext);
     final request = _requestStore.get(context.requestId);
     if (request == null || request.providerId != context.providerId) throw const ChatException(ChatFailureCode.conversationUnavailable);
-    if (request.status != RequestLifecycleStatus.accepted) throw const ChatException(ChatFailureCode.conversationUnavailable);
+    if (request.status != RequestLifecycleStatus.accepted && request.status != RequestLifecycleStatus.serviceCompleted) throw const ChatException(ChatFailureCode.conversationUnavailable);
     if (role == ChatParticipantRole.customer && request.customerId != userId) throw const ChatException(ChatFailureCode.accessDenied);
     if (role == ChatParticipantRole.provider && request.providerId != userId) throw const ChatException(ChatFailureCode.accessDenied);
     final id = context.conversationId ?? '${context.requestId}::${context.providerId}';

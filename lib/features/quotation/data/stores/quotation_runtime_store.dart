@@ -11,6 +11,10 @@ class QuotationRuntimeStore {
 
   Quotation create(QuotationDraft draft) {
     _validateIdentity(draft.requestId, draft.providerId);
+    final request = _requestStore.get(draft.requestId);
+    if (request?.status != RequestLifecycleStatus.accepted) {
+      throw const QuotationException(QuotationFailureCode.requestNotAccepted);
+    }
     if (draft.laborAmount < 0 || draft.materialsAmount < 0 || draft.additionalAmount < 0) {
       throw const QuotationException(QuotationFailureCode.invalidAmount);
     }
@@ -100,7 +104,9 @@ class QuotationRuntimeStore {
     final request = _requestStore.get(requestId);
     if (request == null) throw const QuotationException(QuotationFailureCode.invalidRequest);
     if (request.providerId != providerId) throw const QuotationException(QuotationFailureCode.unauthorized);
-    if (request.status != RequestLifecycleStatus.accepted) throw const QuotationException(QuotationFailureCode.requestNotAccepted);
+    if (request.status != RequestLifecycleStatus.accepted && request.status != RequestLifecycleStatus.serviceCompleted) {
+      throw const QuotationException(QuotationFailureCode.requestNotAccepted);
+    }
   }
 
   Quotation _save(Quotation quotation, {required QuotationStatus status, required String note}) {
