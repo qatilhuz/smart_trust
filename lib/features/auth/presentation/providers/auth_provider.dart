@@ -1,15 +1,22 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../core/storage/secure_storage_service.dart';
 import '../../data/repositories/auth_repository_impl.dart';
 import '../../domain/entities/user_entity.dart';
 import '../../domain/repositories/auth_repository.dart';
-import '../../../../core/storage/secure_storage_service.dart';
 
 final authStateProvider =
     AsyncNotifierProvider<AuthStateNotifier, UserEntity?>(
-  () => AuthStateNotifier(),
+  AuthStateNotifier.new,
 );
+
+/// Temporary role selection for the signup flow.
+///
+/// This is deliberately separate from the authenticated user's role. It is
+/// cleared after verification and never creates an authenticated session on
+/// its own.
+final signupRoleProvider = StateProvider<String?>((ref) => null);
 
 class AuthStateNotifier extends AsyncNotifier<UserEntity?> {
   late final AuthRepository _authRepository;
@@ -22,7 +29,12 @@ class AuthStateNotifier extends AsyncNotifier<UserEntity?> {
       if (token != null && token.isNotEmpty) {
         final prefs = await SharedPreferences.getInstance();
         final role = prefs.getString('user_role') ?? 'customer';
-        return UserEntity(id: '1', name: 'Demo User', email: 'demo@smarttrust.com', role: role);
+        return UserEntity(
+          id: '1',
+          name: 'Demo User',
+          email: 'demo@smarttrust.com',
+          role: role,
+        );
       }
     } catch (_) {}
     return null;
@@ -40,15 +52,11 @@ class AuthStateNotifier extends AsyncNotifier<UserEntity?> {
     );
 
     state = await result.when(
-      success: (user) {
-        return AsyncValue<UserEntity?>.data(user);
-      },
-      failure: (failure) {
-        return AsyncValue<UserEntity?>.error(
-          failure,
-          StackTrace.current,
-        );
-      },
+      success: (user) => AsyncValue<UserEntity?>.data(user),
+      failure: (failure) => AsyncValue<UserEntity?>.error(
+        failure,
+        StackTrace.current,
+      ),
     );
   }
 
@@ -68,21 +76,16 @@ class AuthStateNotifier extends AsyncNotifier<UserEntity?> {
     );
 
     state = await result.when(
-      success: (user) {
-        return AsyncValue<UserEntity?>.data(user);
-      },
-      failure: (failure) {
-        return AsyncValue<UserEntity?>.error(
-          failure,
-          StackTrace.current,
-        );
-      },
+      success: (user) => AsyncValue<UserEntity?>.data(user),
+      failure: (failure) => AsyncValue<UserEntity?>.error(
+        failure,
+        StackTrace.current,
+      ),
     );
   }
 
   Future<void> logout() async {
     await _authRepository.logout();
-
     state = const AsyncValue<UserEntity?>.data(null);
   }
 }
