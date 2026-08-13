@@ -3,10 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../core/constants/app_colors.dart';
-import '../../../core/providers/locale_provider.dart';
-import '../../../core/router/route_names.dart';
-import '../../../features/auth/presentation/providers/auth_provider.dart';
+import '../../../../core/constants/constant.dart';
+import '../../../../core/providers/locale_provider.dart';
+import '../../../../core/router/route_names.dart';
+import '../../../auth/presentation/providers/auth_provider.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -47,7 +47,7 @@ class SettingsScreen extends ConsumerWidget {
                 await ref.read(authStateProvider.notifier).logout();
                 final prefs = await SharedPreferences.getInstance();
                 await prefs.remove('user_role');
-                if (mounted) context.go(RouteNames.login);
+                if (context.mounted) context.go(RouteNames.login);
               },
             ),
           if (auth.value == null)
