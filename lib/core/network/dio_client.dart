@@ -26,9 +26,9 @@ final dioProvider = Provider<Dio>((ref) {
   // Logger
   dio.interceptors.add(
     PrettyDioLogger(
-      requestHeader: true,
-      requestBody: true,
-      responseBody: true,
+      requestHeader: false,
+      requestBody: false,
+      responseBody: false,
       responseHeader: false,
       error: true,
       compact: true,
@@ -49,31 +49,33 @@ final dioProvider = Provider<Dio>((ref) {
       },
 
       onError: (error, handler) async {
-        if (error.response?.statusCode == 401) {
+        if (error.response?.statusCode == 401 &&
+            error.requestOptions.path != ApiEndpoints.refresh &&
+            error.requestOptions.extra['authRetry'] != true) {
           final refreshToken = await storage.getRefreshToken();
 
           if (refreshToken != null && refreshToken.isNotEmpty) {
             try {
               final refreshResponse = await dio.post(
-                ApiEndpoints.login,
+                ApiEndpoints.refresh,
                 data: {'refreshToken': refreshToken},
               );
 
-              final newAccessToken =
-                  refreshResponse.data['accessToken'] as String?;
+              final body = refreshResponse.data as Map;
+              final newAccessToken = body['accessToken']?.toString();
+              final newRefreshToken = body['refreshToken']?.toString();
 
-              final newRefreshToken =
-                  refreshResponse.data['refreshToken'] as String?;
-
-              if (newAccessToken != null && newAccessToken.isNotEmpty) {
+              // Refresh-token rotation returns both credentials. Never keep
+              // the old refresh token after a successful refresh.
+              if (newAccessToken != null &&
+                  newAccessToken.isNotEmpty &&
+                  newRefreshToken != null &&
+                  newRefreshToken.isNotEmpty) {
                 await storage.saveAccessToken(newAccessToken);
-
-                if (newRefreshToken != null && newRefreshToken.isNotEmpty) {
-                  await storage.saveRefreshToken(newRefreshToken);
-                }
+                await storage.saveRefreshToken(newRefreshToken);
 
                 final requestOptions = error.requestOptions;
-
+                requestOptions.extra['authRetry'] = true;
                 requestOptions.headers['Authorization'] =
                     'Bearer $newAccessToken';
 
