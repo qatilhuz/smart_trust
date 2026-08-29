@@ -44,7 +44,7 @@ class _VoiceAssistantScreenState extends ConsumerState<VoiceAssistantScreen> {
               child: CircleAvatar(
                 radius: 60,
                 backgroundColor: AppColors.primary,
-                child: Icon(_listening ? Icons.mic_off : Icons.mic, size: 50, color: Colors.white),
+                child: Icon(_listening ? Icons.mic_off : Icons.mic, size: 50, color: AppColors.white),
               ),
             ),
             const SizedBox(height: 24),
@@ -52,7 +52,7 @@ class _VoiceAssistantScreenState extends ConsumerState<VoiceAssistantScreen> {
             const SizedBox(height: 40),
             ElevatedButton(
               onPressed: _listening ? null : _listen,
-              style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: Colors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16)),
+              style: ElevatedButton.styleFrom(backgroundColor: AppColors.primary, foregroundColor: AppColors.white, shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)), padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16)),
               child: Text(isUrdu ? 'بات کریں' : 'Speak'),
             ),
           ],

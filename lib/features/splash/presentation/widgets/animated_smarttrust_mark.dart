@@ -75,7 +75,7 @@ class AnimatedSmartTrustMark extends StatelessWidget {
                   width: 38,
                   height: 38,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.white,
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: AppColors.primaryLight.withOpacity(.65),
@@ -155,7 +155,7 @@ class _ShieldMonogram extends StatelessWidget {
                   child: Container(
                     width: 42,
                     height: 220,
-                    color: Colors.white.withOpacity(.15),
+                    color: AppColors.white.withOpacity(.15),
                   ),
                 ),
               ),
@@ -165,7 +165,7 @@ class _ShieldMonogram extends StatelessWidget {
                   child: const Text(
                     'ST',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: AppColors.white,
                       fontSize: 43,
                       height: 1,
                       fontWeight: FontWeight.w900,
@@ -181,7 +181,7 @@ class _ShieldMonogram extends StatelessWidget {
                 child: Container(
                   height: 2,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(.72),
+                    color: AppColors.white.withOpacity(.72),
                     borderRadius: BorderRadius.circular(99),
                   ),
                 ),

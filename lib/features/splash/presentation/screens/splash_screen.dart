@@ -143,7 +143,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.white,
       body: AnimatedBuilder(
         animation: Listenable.merge(<Listenable>[
           _introController,

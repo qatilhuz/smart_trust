@@ -16,7 +16,7 @@ class SplashLocalDataSourceImpl implements SplashLocalDataSource {
         _secureStorage = secureStorage;
 
   static const _onboardingSeenKey = 'onboarding_seen';
-  static const _accessTokenKey = 'access_token';
+static const _accessTokenKey = 'SMARTTRUST_ACCESS_TOKEN';
   static const _roleKey = 'user_role';
 
   final SharedPreferences _preferences;

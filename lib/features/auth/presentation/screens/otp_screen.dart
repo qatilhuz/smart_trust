@@ -6,7 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_trust_app/core/widgets/primary_button.dart';
 
-import '../../../../core/constants/constant.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/app_sizes.dart';
+import '../../../../core/constants/app_spacing.dart';
+import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/user_entity.dart';
@@ -20,8 +23,7 @@ class OtpScreen extends ConsumerStatefulWidget {
 }
 
 class _OtpScreenState extends ConsumerState<OtpScreen> {
-  static const _digitCount = 4;
-  static const _demoCode = '1234';
+  static const _digitCount = 6;
 
   final List<TextEditingController> _controllers =
       List.generate(_digitCount, (_) => TextEditingController());
@@ -53,43 +55,36 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   }
 
   Future<void> _verify(AppLocalizations l10n) async {
+    final pending = ref.read(pendingRegistrationProvider);
     final code = _controllers.map((controller) => controller.text).join();
-    if (code.length != _digitCount) {
+    if (pending == null || !RegExp(r'^\d{6}$').hasMatch(code)) {
       setState(() => _hasError = true);
       _showMessage(l10n.otpRequired);
       return;
     }
-
-    setState(() {
-      _isVerifying = true;
-      _hasError = false;
-    });
-    await Future<void>.delayed(const Duration(milliseconds: 900));
+    setState(() { _isVerifying = true; _hasError = false; });
+    await ref.read(authStateProvider.notifier).verifyOtp(phone: pending.phone, otp: code);
     if (!mounted) return;
-
-    if (code == _demoCode) {
-      setState(() {
-        _isVerifying = false;
-        _success = true;
-      });
-      await Future<void>.delayed(const Duration(milliseconds: 650));
-      if (!mounted) return;
-      final user = ref.read(authStateProvider).valueOrNull;
-      final selectedRole = ref.read(signupRoleProvider);
-      ref.read(signupRoleProvider.notifier).state = null;
-      context.go(_destinationFor(user, selectedRole));
+    final user = ref.read(authStateProvider).valueOrNull;
+    if (user != null) {
+      setState(() { _isVerifying = false; _success = true; });
+      ref.read(pendingRegistrationProvider.notifier).state = null;
+      await Future<void>.delayed(const Duration(milliseconds: 450));
+      if (mounted) context.go(RouteNames.roleSelection);
     } else {
-      setState(() {
-        _isVerifying = false;
-        _hasError = true;
-      });
+      setState(() { _isVerifying = false; _hasError = true; });
       _showMessage(l10n.invalidCode);
     }
   }
 
+  String _destinationFor(UserEntity? user, String role) {
+    final resolved = user?.role.isNotEmpty == true ? user!.role : role;
+    return resolved.toLowerCase().contains('provider') ? RouteNames.providerFeed : RouteNames.customerHome;
+  }
+
   void _startResendCountdown() {
     _resendTimer?.cancel();
-    setState(() => _resendSeconds = 30);
+    setState(() => _resendSeconds = 60);
     _resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (!mounted) {
         timer.cancel();
@@ -104,26 +99,25 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     });
   }
 
-  void _resend() {
-    for (final controller in _controllers) {
-      controller.clear();
+  Future<void> _resend() async {
+    final pending = ref.read(pendingRegistrationProvider);
+    if (pending == null || _resendSeconds > 0 || _isVerifying) return;
+    final ok = await ref.read(authStateProvider.notifier).resendOtp(pending.phone);
+    if (!mounted) return;
+    if (ok) {
+      for (final controller in _controllers) { controller.clear(); }
+      _hasError = false;
+      _focusNodes.first.requestFocus();
+      _startResendCountdown();
+    } else {
+      _showMessage(AppLocalizations.of(context)!.unknownError);
     }
-    _hasError = false;
-    _focusNodes.first.requestFocus();
-    _startResendCountdown();
   }
 
   void _showMessage(String message) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(content: Text(message)));
-  }
-
-  String _destinationFor(UserEntity? user, String? selectedRole) {
-    final role = user?.role ?? selectedRole ?? 'customer';
-    return role.toLowerCase() == 'provider'
-        ? RouteNames.providerFeed
-        : RouteNames.customerHome;
   }
 
   @override
