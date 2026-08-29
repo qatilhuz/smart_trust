@@ -1,13 +1,9 @@
+/// Paths for packaged application assets.
+///
+/// The repository currently contains no `assets/` directory. Missing image
+/// references from the original scaffold were removed rather than pointing at
+/// files that cannot be loaded. Add a path here only when the corresponding
+/// asset is checked into the repository and declared in pubspec.yaml.
 class AppAssets {
   AppAssets._();
-
-  static const String logo = 'assets/images/logo.png';
-  static const String splashBackground = 'assets/images/splash_background.png';
-  static const String authIllustration = 'assets/images/auth_illustration.png';
-  static const String providerPlaceholder =
-      'assets/images/provider_placeholder.png';
-  static const String customerPlaceholder =
-      'assets/images/customer_placeholder.png';
-
-      
 }

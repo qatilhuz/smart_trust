@@ -2,5 +2,624 @@
   "login": "لاگ ان",
   "signup": "سائن اپ",
   "email": "ای میل",
-  "password": "پاس ورڈ"
+  "password": "پاس ورڈ",
+  "appTitle": "SmartTrust",
+  "loading": "لوڈ ہو رہا ہے...",
+  "unknownError": "کچھ غلط ہو گیا۔ براہ کرم دوبارہ کوشش کریں۔",
+  "retry": "دوبارہ کوشش کریں",
+  "cancel": "منسوخ کریں",
+  "confirm": "تصدیق کریں",
+  "save": "محفوظ کریں",
+  "delete": "حذف کریں",
+  "back": "پیچھے",
+  "next": "اگلا",
+  "done": "مکمل",
+  "continueButton": "جاری رکھیں",
+  "submit": "جمع کریں",
+  "search": "تلاش کریں",
+  "createAccount": "اکاؤنٹ بنائیں",
+  "logout": "لاگ آؤٹ",
+  "name": "نام",
+  "confirmPassword": "پاس ورڈ کی تصدیق کریں",
+  "loginTitle": "خوش آمدید",
+  "loginSubtitle": "SmartTrust میں جاری رکھنے کے لیے سائن ان کریں۔",
+  "signupTitle": "اپنا اکاؤنٹ بنائیں",
+  "signupSubtitle": "قابل اعتماد گھریلو خدمات کی درخواست کے لیے رجسٹر ہوں۔",
+  "selectRole": "اپنا کردار منتخب کریں",
+  "customerRole": "گاہک",
+  "providerRole": "خدمت فراہم کنندہ",
+  "requiredField": "یہ فیلڈ درکار ہے۔",
+  "invalidEmail": "درست ای میل ایڈریس درج کریں۔",
+  "invalidPassword": "پاس ورڈ کم از کم 8 حروف کا ہونا چاہیے۔",
+  "invalidPhone": "درست فون نمبر درج کریں۔",
+  "invalidCnic": "درست شناختی کارڈ نمبر درج کریں۔",
+  "verification": "تصدیق",
+  "enterOtp": "OTP درج کریں",
+  "otpSent": "ہم نے آپ کے ای میل پر ایک کوڈ بھیج دیا ہے۔",
+  "verify": "تصدیق کریں",
+  "verified": "تصدیق شدہ",
+  "invalidCode": "غلط کوڈ۔ دوبارہ کوشش کریں۔",
+  "resendCode": "کوڈ دوبارہ بھیجیں",
+  "selectRoleShort": "کردار منتخب کریں",
+  "onboardingSelectLanguage": "اپنی زبان کا انتخاب کریں",
+  "onboardingChooseRole": "اپنا کردار منتخب کریں",
+  "getStarted": "شروع کریں",
+  "languageEnglish": "انگریزی",
+  "languageUrdu": "اردو",
+  "customerRoleDescription": "اپنے قریب قابل اعتماد پیشہ ور افراد تلاش کریں۔",
+  "providerRoleDescription": "اپنا کام بڑھائیں اور دریافت ہوں۔",
+  "hello": "ہیلو",
+  "greeting": "آج آپ کو کیا ضرورت ہے؟",
+  "categories": "اقسام",
+  "nearbyProviders": "قریبی فراہم کنندگان",
+  "errorLoadingProviders": "فراہم کنندگان کو لوڈ کرنے میں خرابی",
+  "aiAssistant": "اے آئی اسسٹنٹ",
+  "voiceAssistant": "آواز",
+  "newRequest": "نئی درخواست",
+  "request": "درخواست",
+  "activeJob": "فعال کام",
+  "providerOnTheWay": "فراہم کنندہ راستے میں ہے",
+  "minutesShort": "منٹ",
+  "notifications": "اطلاعات",
+  "chat": "چیٹ",
+  "messageHint": "پیغام...",
+  "complaints": "شکایات",
+  "noComplaints": "کوئی شکایت درج نہیں کی گئی۔",
+  "fileComplaint": "شکایت درج کریں",
+  "complaintSubmitted": "شکایت جمع کر دی گئی",
+  "customerDashboard": "گاہک کا ڈیش بورڈ",
+  "dashboardPlaceholder": "گاہک کے ڈیش بورڈ کے مواد کی جگہ",
+  "jobAccepted": "کام قبول کر لیا گیا",
+  "quotationReceived": "کوٹیشن موصول ہوئی",
+  "providerArrived": "فراہم کنندہ پہنچ گیا",
+  "otpVerification": "OTP تصدیق",
+  "uploadImage": "تصویر اپ لوڈ کریں",
+  "createRequest": "درخواست بنائیں",
+  "listening": "سن رہا ہے...",
+  "tapToSpeak": "بولنے کے لیے دبائیں",
+  "speak": "بولیں",
+  "voicePrompt": "بولنے کے لیے دبائیں",
+  "settings": "ترتیبات",
+  "language": "زبان",
+  "tapToSwitch": "تبدیل کرنے کے لیے دبائیں",
+  "account": "اکاؤنٹ",
+  "profile": "پروفائل",
+  "signIn": "سائن ان",
+  "providerStatus": "فراہم کنندہ کی حیثیت",
+  "verificationStatus": "تصدیق کی حیثیت",
+  "profileSubmitted": "پروفائل جمع کر دیا گیا",
+  "cnicUploaded": "شناختی کارڈ اپ لوڈ ہو گیا",
+  "tasdeeqVerification": "تصدیق ویریفیکیشن",
+  "adminReview": "ایڈمن کا جائزہ",
+  "profileActive": "پروفائل فعال ہے",
+  "completeRegistration": "رجسٹریشن مکمل کریں",
+  "completed": "مکمل",
+  "pending": "زیر التواء",
+  "earnings": "آمدنی",
+  "todaysEarnings": "آج کی آمدنی",
+  "totalEarnings": "کل آمدنی",
+  "recentJobs": "حالیہ کام",
+  "incomingRequests": "آنے والی درخواستیں",
+  "feed": "فیڈ",
+  "jobs": "نوکریاں",
+  "customerRequest": "گاہک کی درخواست #{number}",
+  "serviceCategoryHvac": "HVAC",
+  "acNotCooling": "اے سی ٹھنڈا نہیں کر رہا۔ انڈور یونٹ سے پانی رس رہا ہے۔",
+  "distanceLocation": "{distance} • {location}",
+  "visitingCharge": "وزٹنگ چارج (PKR)",
+  "requestAccepted": "درخواست قبول کر لی گئی",
+  "accept": "قبول کریں",
+  "createQuotation": "کوٹیشن بنائیں",
+  "diagnosis": "تشخیص / مسئلہ مل گیا",
+  "labourCharge": "مزدوری کے چارجز",
+  "partsCost": "پرزوں کی قیمت",
+  "totalEstimatedCost": "کل تخمینی قیمت",
+  "quotationSent": "کوٹیشن بھیج دی گئی",
+  "sendQuotation": "کوٹیشن بھیجیں",
+  "providerRegistration": "فراہم کنندہ کی رجسٹریشن",
+  "submitForReview": "جائزہ کے لیے جمع کریں",
+  "basicInfo": "بنیادی معلومات",
+  "personalInfo": "ذاتی معلومات",
+  "phoneCnic": "فون / شناختی کارڈ",
+  "uploadCnicFront": "شناختی کارڈ کے سامنے کی تصویر اپ لوڈ کریں",
+  "uploadCnicBack": "شناختی کارڈ کے پیچھے کی تصویر اپ لوڈ کریں",
+  "skillsAreas": "مہارتیں اور علاقے",
+  "primarySkill": "بنیادی مہارت",
+  "verifiedStatus": "تصدیق شدہ",
+  "hyperlocalStatus": "انتہائی مقامی",
+  "reliableStatus": "قابل اعتماد",
+  "splashPreparing": "آپ کا قابل اعتماد ہوم نیٹ ورک تیار کیا جا رہا ہے",
+  "splashBrandTagline": "قابل اعتماد خدمات۔ مقامی طور پر منسلک۔",
+  "reviews": "جائزے",
+  "requestAddress": "پتہ",
+  "preferredDate": "ترجیحی تاریخ",
+  "preferredTime": "ترجیحی وقت",
+  "requestDescription": "اپنا مسئلہ بیان کریں",
+  "newJobRequest": "نئی سروس کی درخواست",
+  "uploadDocuments": "تصدیقی دستاویزات اپ لوڈ کریں",
+  "jobFeed": "جاب فیڈ",
+  "noData": "کوئی ڈیٹا دستیاب نہیں۔",
+  "@customerRequest": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "@distanceLocation": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "signInToContinue": "جاری رکھنے کے لیے سائن ان کریں",
+  "verifiedProfessionals": "تصدیق شدہ پیشہ ور افراد",
+  "introDescription": "SmartTrust آپ کو تصدیق شدہ سروس فراہم کنندگان سے جوڑتا ہے۔ اعتماد کے ساتھ درخواست دیں، موازنہ کریں اور ٹریک کریں۔",
+  "trusted": "قابل اعتماد",
+  "nearby": "قریبی",
+  "transparent": "شفاف",
+  "signUpPrompt": "SmartTrust پر نئے ہیں؟",
+  "alreadyHaveAccount": "پہلے سے ہی اکاؤنٹ ہے؟",
+  "chooseAccountRole": "منتخب کریں کہ آپ SmartTrust کا استعمال کیسے کریں گے",
+  "signupRoleLabel": "بطور اکاؤنٹ بنایا جا رہا ہے",
+  "changeRole": "کردار تبدیل کریں",
+  "otpSubtitle": "اپنے ای میل پر بھیجا گیا 6 ہندسوں کا کوڈ درج کریں۔",
+  "otpRequired": "تصدیقی کوڈ درج کریں۔",
+  "resendIn": "{seconds} سیکنڈ میں دوبارہ بھیجیں",
+  "loginError": "ہم آپ کو سائن ان نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "signupError": "ہم آپ کا اکاؤنٹ نہیں بنا سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "verificationSuccess": "تصدیق کامیاب ہو گئی",
+  "@resendIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "helloUser": "ہیلو، {name}",
+  "activeJobSummary": "{service} · {location} · {eta}",
+  "viewDetails": "تفصیلات دیکھیں",
+  "noActiveJob": "کوئی فعال سروس کی درخواست نہیں ہے",
+  "startRequest": "جب آپ کو مدد کی ضرورت ہو، آپ کی اگلی قابل اعتماد سروس یہاں سے شروع ہوتی ہے۔",
+  "homeLoadError": "ہم آپ کا ہوم ڈیٹا لوڈ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "noNearbyProviders": "اس وقت کوئی قریبی فراہم کنندہ دستیاب نہیں ہے۔",
+  "recommended": "تجویز کردہ",
+  "seeAll": "سب دیکھیں",
+  "home": "ہوم",
+  "@helloUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@activeJobSummary": {
+    "placeholders": {
+      "service": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      },
+      "eta": {
+        "type": "String"
+      }
+    }
+  },
+  "customerOnlyMessage": "یہ علاقہ گاہکوں کے اکاؤنٹس کے لیے دستیاب ہے۔",
+  "distanceKm": "{distance} کلومیٹر",
+  "availableNow": "ابھی دستیاب ہے",
+  "@distanceKm": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "selectServiceCategory": "آپ کو کس کام میں مدد چاہیے؟",
+  "categoryHelper": "ایک سروس منتخب کریں تاکہ ہم آپ کی درخواست کو سمجھ سکیں۔",
+  "describeProblem": "ہمیں مسئلے کے بارے میں بتائیں",
+  "problemHelper": "چند تفصیلات صحیح پیشہ ور کو تیاری کرنے میں مدد کرتی ہیں۔",
+  "problemHint": "بیان کریں کہ کس چیز پر توجہ دینے کی ضرورت ہے...",
+  "characters": "{count}/{max} حروف",
+  "addImages": "تصاویر شامل کریں",
+  "addImage": "تصویر شامل کریں",
+  "removeImage": "تصویر ہٹائیں",
+  "imagesOptional": "اختیاری · زیادہ سے زیادہ {count} تصاویر",
+  "location": "سروس کا مقام",
+  "locationHelper": "پیشہ ور کو کہاں آنا چاہیے؟",
+  "useCurrentLocation": "موجودہ مقام استعمال کریں",
+  "confirmLocation": "مقام کی تصدیق کریں",
+  "changeLocation": "مقام تبدیل کریں",
+  "manualAddress": "پتہ دستی طور پر درج کریں",
+  "manualAddressHint": "گلی، علاقہ، اور شہر",
+  "locationPermissionDenied": "مقام تک رسائی سے انکار کر دیا گیا تھا۔ آپ پتہ دستی طور پر درج کر سکتے ہیں۔",
+  "locationPermissionPermanentlyDenied": "مقام تک رسائی بند ہے۔ اسے ترتیبات میں فعال کریں یا دستی طور پر پتہ درج کریں۔",
+  "locationUnavailable": "مقام دستیاب نہیں ہے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "locationLoading": "آپ کا مقام تلاش کیا جا رہا ہے...",
+  "reviewRequest": "اپنی درخواست کا جائزہ لیں",
+  "reviewHelper": "کیا سب ٹھیک لگ رہا ہے؟ آپ جمع کرانے سے پہلے کسی بھی حصے میں ترمیم کر سکتے ہیں۔",
+  "service": "سروس",
+  "problem": "مسئلہ",
+  "attachments": "تصاویر",
+  "noImages": "کوئی تصویر شامل نہیں کی گئی",
+  "submitRequest": "درخواست جمع کریں",
+  "requestCreated": "درخواست بن گئی",
+  "requestCreatedHelper": "آپ کی درخواست تیار ہے۔ قابل اعتماد فراہم کنندگان اس کا جواب دے سکتے ہیں۔",
+  "backHome": "ہوم پر واپس جائیں",
+  "viewRequest": "درخواست دیکھیں",
+  "categoryRequired": "جاری رکھنے کے لیے سروس کیٹیگری کا انتخاب کریں۔",
+  "descriptionRequired": "براہ کرم مسئلہ بیان کریں۔",
+  "locationRequired": "جاری رکھنے کے لیے اپنے مقام کی تصدیق کریں۔",
+  "mediaLimit": "آپ زیادہ سے زیادہ {count} تصاویر شامل کر سکتے ہیں۔",
+  "requestSubmitError": "ہم آپ کی درخواست نہیں بنا سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "stepService": "سروس",
+  "stepProblem": "مسئلہ",
+  "stepMedia": "تصاویر",
+  "stepLocation": "مقام",
+  "stepReview": "جائزہ",
+  "permissionSettings": "ترتیبات کھولیں",
+  "locationConfirmed": "مقام کی تصدیق ہو گئی",
+  "@characters": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "@imagesOptional": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@mediaLimit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "categoryElectrical": "الیکٹریکل",
+  "categoryElectricalDescription": "بجلی، وائرنگ اور الیکٹریکل مرمت۔",
+  "categoryPlumbing": "پلمبنگ",
+  "categoryPlumbingDescription": "لیک، پائپ، اور پانی کے نظام۔",
+  "categoryPainting": "پینٹنگ",
+  "categoryPaintingDescription": "کمروں اور سطحوں کو نیا انداز دیں۔",
+  "categoryCleaning": "صفائی",
+  "categoryCleaningDescription": "ایک صاف اور زیادہ آرام دہ جگہ۔",
+  "categoryHvacDescription": "موسمی کنٹرول، کولنگ اور ایئر کنڈیشنگ کی خدمات۔",
+  "findProviders": "فراہم کنندگان تلاش کریں",
+  "findingProviders": "قابل اعتماد فراہم کنندگان تلاش کیے جا رہے ہیں",
+  "matchingProvidersHelper": "ہم ایسے پیشہ ور افراد کی تلاش کر رہے ہیں جو اس درخواست کے لیے موزوں ہوں۔",
+  "providersFound": "{count} فراہم کنندگان مل گئے",
+  "availableProviders": "دستیاب فراہم کنندگان",
+  "providerSelectionHelper": "وہ پیشہ ور منتخب کریں جس کے ساتھ آپ اس درخواست کے لیے کام کرنا چاہتے ہیں۔",
+  "completedJobs": "مکمل شدہ کام",
+  "estimatedArrival": "متوقع آمد",
+  "available": "دستیاب",
+  "unavailable": "اس وقت دستیاب نہیں",
+  "selectProvider": "فراہم کنندہ منتخب کریں",
+  "providerDetails": "فراہم کنندہ کی تفصیلات",
+  "confirmProvider": "فراہم کنندہ کی تصدیق کریں",
+  "confirmProviderQuestion": "اس درخواست کے لیے {name} کو منتخب کریں؟",
+  "providerSelected": "فراہم کنندہ منتخب کر لیا گیا",
+  "providerSelectedHelper": "{name} کو آپ کی درخواست کے لیے منتخب کر لیا گیا ہے۔",
+  "returnToRequest": "درخواست پر واپس جائیں",
+  "noProvidersFound": "ابھی تک کوئی فراہم کنندہ اس درخواست سے میل نہیں کھاتا۔",
+  "matchingError": "ہمیں ابھی فراہم کنندگان نہیں مل سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "providerSelectionError": "اس فراہم کنندہ کو منتخب نہیں کیا جا سکا۔ براہ کرم کوئی اور فراہم کنندہ منتخب کریں۔",
+  "requestContext": "اس درخواست کے لیے",
+  "requestReference": "درخواست {id}",
+  "requestService": "سروس",
+  "requestLocation": "مقام",
+  "requestUnavailable": "یہ درخواست اب دستیاب نہیں ہے۔",
+  "providerNotAvailable": "یہ فراہم کنندہ اب دستیاب نہیں ہے۔",
+  "matchForRequest": "آپ کی درخواست کے لیے مماثلت",
+  "providerBio": "اس فراہم کنندہ کے بارے میں",
+  "services": "خدمات",
+  "selected": "منتخب شدہ",
+  "ratingLabel": "درجہ بندی",
+  "jobsCompletedLabel": "مکمل شدہ نوکریاں",
+  "@providersFound": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@confirmProviderQuestion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@providerSelectedHelper": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@requestReference": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "providerSnapshot": "{profession} · {rating} ★",
+  "@providerSnapshot": {
+    "placeholders": {
+      "profession": {
+        "type": "String"
+      },
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "jobTracking": "جاب ٹریکنگ",
+  "trackingForRequest": "اس درخواست کے لیے ٹریکنگ",
+  "currentStatus": "موجودہ حیثیت",
+  "statusRequestCreated": "درخواست بن گئی",
+  "statusRequestCreatedDescription": "آپ کی درخواست بنا دی گئی ہے اور اگلے مرحلے کے لیے تیار ہے۔",
+  "statusProviderSelected": "فراہم کنندہ منتخب کر لیا گیا",
+  "statusProviderSelectedDescription": "آپ کا منتخب کردہ پیشہ ور اس درخواست سے منسلک ہے۔",
+  "statusOnTheWay": "فراہم کنندہ راستے میں ہے",
+  "statusOnTheWayDescription": "آپ کا فراہم کنندہ سروس کے مقام پر پہنچنے کی تیاری کر رہا ہے۔",
+  "statusArrived": "فراہم کنندہ پہنچ گیا",
+  "statusArrivedDescription": "آپ کا فراہم کنندہ سروس کے مقام پر پہنچ گیا ہے۔",
+  "statusInProgress": "سروس جاری ہے",
+  "statusInProgressDescription": "سروس اس وقت مکمل کی جا رہی ہے۔",
+  "statusCompleted": "سروس مکمل ہو گئی",
+  "statusCompletedDescription": "یہ سروس کی درخواست مکمل ہو چکی ہے۔",
+  "trackingProvider": "منتخب فراہم کنندہ",
+  "providerArea": "سروس کا علاقہ",
+  "eta": "متوقع آمد",
+  "liveLocationNotAvailable": "اس ڈیمو میں لائیو لوکیشن دستیاب نہیں ہے۔",
+  "demoLocationNote": "اسٹیٹس اپ ڈیٹس مقامی ٹریکنگ سروس سے دکھائی جا رہی ہیں۔",
+  "trackingUnavailable": "اس درخواست کے لیے ٹریکنگ دستیاب نہیں ہے۔",
+  "trackingError": "ہم اس وقت ٹریکنگ لوڈ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "requestNotFound": "یہ درخواست نہیں مل سکی۔",
+  "providerNoLongerAvailable": "منتخب فراہم کنندہ اب دستیاب نہیں ہے۔",
+  "refreshStatus": "اسٹیٹس ریفریش کریں",
+  "lastUpdated": "آخری بار اپ ڈیٹ کیا گیا",
+  "trackJob": "کام ٹریک کریں",
+  "trackingEarlier": "پہلے",
+  "trackingMomentAgo": "کچھ دیر پہلے",
+  "trackingNow": "ابھی",
+  "trackingUpcoming": "آنے والا",
+  "statusProviderAccepted": "فراہم کنندہ نے قبول کر لیا",
+  "statusProviderAcceptedDescription": "آپ کے منتخب کردہ فراہم کنندہ نے درخواست کی تصدیق کر دی ہے۔",
+  "statusProviderDeclined": "فراہم کنندہ نے انکار کر دیا",
+  "statusProviderDeclinedDescription": "آپ کا منتخب کردہ فراہم کنندہ اس درخواست کو قبول نہیں کر سکا۔",
+  "providerRequestDetails": "درخواست کی تفصیلات",
+  "incomingRequestHelper": "کوئی کارروائی منتخب کرنے سے پہلے درخواست کی تفصیلات کا جائزہ لیں۔",
+  "acceptRequest": "درخواست قبول کریں",
+  "declineRequest": "درخواست مسترد کریں",
+  "acceptRequestQuestion": "{name} کے لیے یہ درخواست قبول کریں؟",
+  "declineRequestQuestion": "اس درخواست کو مسترد کریں؟",
+  "requestDeclined": "درخواست مسترد کر دی گئی",
+  "requestAcceptedSuccess": "درخواست قبول کر لی گئی",
+  "declinedRequestHelper": "درخواست مسترد کر دی گئی تھی اور مستقبل کے فیصلے کے لیے دستیاب رہتی ہے۔",
+  "acceptedRequestHelper": "یہ درخواست اب آپ کے لیے تصدیق شدہ ہے۔",
+  "noIncomingRequests": "اس وقت کوئی آنے والی درخواستیں نہیں ہیں۔",
+  "providerOnlyMessage": "یہ علاقہ سروس فراہم کنندہ اکاؤنٹس کے لیے دستیاب ہے۔",
+  "requestPending": "جواب کا انتظار ہے",
+  "alreadyProcessed": "اس درخواست پر پہلے ہی کارروائی ہو چکی ہے۔",
+  "requestActionError": "ہم اس درخواست کو اپ ڈیٹ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "openRequest": "درخواست کھولیں",
+  "selectedForRequest": "اس درخواست کے لیے منتخب کیا گیا",
+  "requestAttachmentsCount": "{count} تصاویر منسلک ہیں",
+  "providerRequestStatus": "درخواست کی حیثیت",
+  "@acceptRequestQuestion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@requestAttachmentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "acceptThisRequestQuestion": "کیا اس منتخب درخواست کو قبول کریں؟",
+  "viewQuotation": "کوٹیشن دیکھیں",
+  "pricingBreakdown": "قیمت کی تفصیل",
+  "laborCharge": "مزدوری/سروس چارجز",
+  "materialsCharge": "مواد/پرزوں کے چارجز",
+  "additionalCharge": "اضافی چارجز",
+  "totalAmount": "کل رقم",
+  "estimatedDuration": "تخمینی دورانیہ",
+  "quotationNote": "کوٹیشن نوٹ",
+  "quotationNoteHint": "گاہک کے لیے ایک مختصر نوٹ شامل کریں...",
+  "submitQuotation": "کوٹیشن جمع کریں",
+  "quotationSubmitted": "کوٹیشن جمع کر دی گئی",
+  "quotationAccepted": "کوٹیشن قبول کر لی گئی",
+  "quotationDeclined": "کوٹیشن مسترد کر دی گئی",
+  "quotationStatus": "کوٹیشن کی حیثیت",
+  "acceptQuotation": "کوٹیشن قبول کریں",
+  "declineQuotation": "کوٹیشن مسترد کریں",
+  "negotiateQuotation": "بات چیت کریں",
+  "acceptQuotationQuestion": "کیا یہ کوٹیشن قبول کریں؟",
+  "declineQuotationQuestion": "کیا یہ کوٹیشن مسترد کریں؟",
+  "negotiationAmount": "آپ کی تجویز کردہ رقم",
+  "negotiationNote": "بات چیت کا نوٹ",
+  "negotiationNoteHint": "وضاحت کریں کہ آپ کیا تبدیل کرنا چاہیں گے...",
+  "submitNegotiation": "بات چیت کی درخواست بھیجیں",
+  "negotiationReceived": "بات چیت کی درخواست موصول ہوئی",
+  "counterOfferAmount": "جوابی پیشکش کی رقم",
+  "acceptProposal": "تجویز قبول کریں",
+  "sendCounterOffer": "جوابی پیشکش بھیجیں",
+  "requestNotAccepted": "یہ درخواست کوٹیشن کے لیے تیار نہیں ہے۔",
+  "quotationNotFound": "ابھی تک اس درخواست کے لیے کوئی کوٹیشن دستیاب نہیں ہے۔",
+  "providerIdentity": "فراہم کنندہ",
+  "quotationHistory": "کوٹیشن کی تاریخ",
+  "quotationCreated": "بنائی گئی",
+  "quotationUpdated": "اپ ڈیٹ کی گئی",
+  "quoteAmount": "پیش کردہ رقم",
+  "invalidAmount": "درست غیر منفی رقم درج کریں۔",
+  "durationRequired": "سروس کا تخمینی دورانیہ درج کریں۔",
+  "quotationNoteRequired": "ایک کوٹیشن نوٹ شامل کریں۔",
+  "negotiationAmountRequired": "تجویز کردہ رقم درج کریں۔",
+  "negotiationNoteRequired": "ایک بات چیت کا نوٹ شامل کریں۔",
+  "quotationActionError": "ہم اس کوٹیشن کو اپ ڈیٹ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "quotationContext": "اس درخواست کے لیے",
+  "statusSubmitted": "جمع کر دیا گیا",
+  "statusAccepted": "قبول کر لیا گیا",
+  "statusNegotiationRequested": "بات چیت کی درخواست کی گئی",
+  "statusCounterOffered": "جوابی پیشکش بھیجی گئی",
+  "statusDeclined": "انکار کر دیا گیا",
+  "currencyAmount": "{amount} PKR",
+  "@currencyAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "chatTitle": "گفتگو",
+  "chatContext": "درخواست کی گفتگو",
+  "sendMessage": "پیغام بھیجیں",
+  "emptyConversation": "ابھی تک کوئی پیغام نہیں ہے",
+  "startConversation": "ایک واضح اپ ڈیٹ کے ساتھ گفتگو شروع کریں۔",
+  "chatLoading": "گفتگو لوڈ ہو رہی ہے...",
+  "chatError": "ہم یہ گفتگو لوڈ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "chatAccessDenied": "یہ گفتگو آپ کے اکاؤنٹ کے لیے دستیاب نہیں ہے۔",
+  "conversationUnavailable": "یہ گفتگو دستیاب نہیں ہے۔",
+  "messageRequired": "پہلے ایک پیغام لکھیں۔",
+  "messageSendError": "آپ کا پیغام نہیں بھیجا جا سکا۔ براہ کرم دوبارہ کوشش کریں۔",
+  "sendingMessage": "بھیجا جا رہا ہے...",
+  "conversationClosed": "یہ گفتگو بند ہو چکی ہے۔",
+  "customerParticipant": "گاہک",
+  "providerParticipant": "فراہم کنندہ",
+  "chatConnected": "منسلک",
+  "chatConnecting": "منسلک ہو رہا ہے...",
+  "chatReconnecting": "دوبارہ منسلک ہو رہا ہے...",
+  "chatDisconnected": "کنکشن منقطع ہو گیا",
+  "chatReconnect": "دوبارہ منسلک کریں",
+  "typingIndicator": "{name} ٹائپ کر رہا ہے...",
+  "@typingIndicator": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "markServiceCompleted": "سروس مکمل کے طور پر نشان زد کریں",
+  "markServiceCompletedQuestion": "تصدیق کریں کہ یہ سروس مکمل ہو چکی ہے؟",
+  "serviceCompleted": "سروس مکمل ہو گئی",
+  "serviceCompletedHelper": "یہ سروس اب مکمل کے طور پر نشان زد ہو چکی ہے۔ گاہک جائزہ چھوڑ سکتا ہے۔",
+  "completionUnavailable": "یہ سروس ابھی مکمل نہیں کی جا سکتی۔",
+  "quotationNotAccepted": "تکمیل سے پہلے منظور شدہ کوٹیشن کی ضرورت ہے۔",
+  "alreadyCompleted": "یہ سروس پہلے ہی مکمل ہو چکی ہے۔",
+  "completionError": "ہم اس سروس کو مکمل کے طور پر نشان زد نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "reviewProvider": "فراہم کنندہ کا جائزہ لیں",
+  "reviewProviderHelper": "اس مکمل شدہ سروس کے ساتھ اپنا تجربہ شیئر کریں۔",
+  "yourRating": "آپ کی درجہ بندی",
+  "writeReview": "جائزہ لکھیں",
+  "optionalReview": "اختیاری جائزے کا متن",
+  "reviewHint": "ہمیں اپنے تجربے کے بارے میں بتائیں...",
+  "submitReview": "جائزہ جمع کریں",
+  "reviewSubmitted": "جائزہ جمع کر دیا گیا",
+  "reviewSubmittedHelper": "اپنا تجربہ شیئر کرنے کے لیے آپ کا شکریہ۔",
+  "alreadyReviewed": "آپ پہلے ہی اس مکمل شدہ سروس کا جائزہ لے چکے ہیں۔",
+  "reviewUnavailable": "یہ جائزہ دستیاب نہیں ہے۔",
+  "reviewRequired": "جمع کرنے سے پہلے درجہ بندی منتخب کریں۔",
+  "reviewError": "ہم آپ کا جائزہ جمع نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "noReviews": "ابھی تک کوئی جائزے نہیں ہیں۔",
+  "reviewHistory": "جائزے کی تاریخ",
+  "averageRating": "اوسط درجہ بندی",
+  "totalReviews": "کل جائزے",
+  "ratingDistribution": "درجہ بندی کی تقسیم",
+  "leaveReview": "جائزہ چھوڑیں",
+  "reviewPendingCompletion": "جائزے سروس مکمل ہونے کے بعد دستیاب ہوتے ہیں۔",
+  "requestCompletedContext": "مکمل شدہ سروس کی درخواست",
+  "providerReviews": "فراہم کنندہ کے جائزے",
+  "reviewForRequest": "درخواست کے لیے جائزہ",
+  "reportIssue": "مسئلے کی اطلاع دیں",
+  "complaint": "شکایت",
+  "complaintCategory": "شکایت کی قسم",
+  "serviceQuality": "سروس کا معیار",
+  "providerBehavior": "فراہم کنندہ کا رویہ",
+  "pricingIssue": "قیمت کا مسئلہ",
+  "incompleteService": "نامکمل سروس",
+  "damageOrLoss": "نقصان یا گمشدگی",
+  "otherComplaint": "دیگر",
+  "complaintDescription": "مسئلہ بیان کریں",
+  "evidencePhotos": "ثبوت کی تصاویر",
+  "addEvidence": "تصویر شامل کریں",
+  "removeEvidence": "تصویر ہٹائیں",
+  "reviewComplaint": "شکایت کا جائزہ لیں",
+  "submitComplaint": "شکایت جمع کریں",
+  "complaintSubmittedTitle": "شکایت جمع کر دی گئی",
+  "complaintSubmittedHelper": "اس مکمل شدہ سروس کے لیے آپ کی شکایت ریکارڈ کر لی گئی ہے۔",
+  "complaintDetails": "شکایت کی تفصیلات",
+  "complaintReference": "شکایت {id}",
+  "complaintStatus": "شکایت کی حیثیت",
+  "complaintSubmittedStatus": "جمع کرائی گئی",
+  "complaintUnderReview": "زیر جائزہ",
+  "complaintResolved": "حل ہو گئی",
+  "complaintRejected": "مسترد کر دی گئی",
+  "complaintUnavailable": "یہ شکایت دستیاب نہیں ہے۔",
+  "complaintAlreadyExists": "اس درخواست کے لیے ایک شکایت پہلے ہی موجود ہے۔",
+  "complaintRequired": "جمع کرنے سے پہلے مسئلہ بیان کریں۔",
+  "complaintError": "ہم شکایت جمع نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "complaintAttachmentCount": "{count} تصاویر منسلک ہیں",
+  "complaintRequestContext": "مکمل شدہ سروس کی درخواست",
+  "@complaintReference": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "@complaintAttachmentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "profileCompletion": "اپنا پروفائل مکمل کریں",
+  "profileCompletionHelper": "ایک مکمل پروفائل SmartTrust کو ہر سروس کے تجربے کو قابل اعتماد رکھنے میں مدد کرتا ہے۔",
+  "fullName": "پورا نام",
+  "profilePhoto": "پروفائل کی تصویر",
+  "addressLine": "پتہ",
+  "city": "شہر",
+  "area": "علاقہ",
+  "saveProfile": "پروفائل مکمل کریں",
+  "profileCompleted": "پروفائل مکمل ہو گیا",
+  "customerProfile": "گاہک کا پروفائل",
+  "providerProfile": "فراہم کنندہ کا پروفائل",
+  "cnicNumber": "شناختی کارڈ نمبر",
+  "cnicFront": "شناختی کارڈ کے سامنے کی تصویر",
+  "cnicBack": "شناختی کارڈ کے پیچھے کی تصویر",
+  "shopLocation": "دکان کا مقام",
+  "yearsExperience": "تجربے کے سال",
+  "verificationPending": "تصدیق زیر التواء ہے",
+  "notSubmitted": "جمع نہیں کیا گیا",
+  "trustTier": "ٹرسٹ ٹیر",
+  "trustScore": "ٹرسٹ اسکور",
+  "profileLoading": "پروفائل لوڈ ہو رہا ہے...",
+  "profileError": "ہم آپ کا پروفائل لوڈ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
+  "profileRequired": "تمام ضروری فیلڈز پُر کریں۔",
+  "profilePhotoAdd": "پروفائل کی تصویر شامل کریں",
+  "profilePhotoChange": "پروفائل کی تصویر تبدیل کریں",
+  "profilePhotoRemove": "پروفائل کی تصویر ہٹائیں",
+  "continueAsGuest": "بطور مہمان جاری رکھیں",
+  "phone": "فون نمبر"
 }

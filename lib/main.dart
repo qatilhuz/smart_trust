@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'app.dart';
 import 'features/splash/presentation/providers/splash_providers.dart';
 import 'core/storage/secure_storage_service.dart';
+import 'features/profile/data/repositories/profile_repository_impl.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -14,6 +15,7 @@ void main() async {
   final overrides = <Override>[
     splashSharedPreferencesProvider.overrideWithValue(prefs),
     splashSecureStorageProvider.overrideWithValue(const FlutterSecureStorage()),
+    profilePrefsProvider.overrideWithValue(prefs),
   ];
 
   // Initialize secure storage if needed (ProviderScope handles overrides)

@@ -2,5 +2,624 @@
   "login": "Login",
   "signup": "Sign Up",
   "email": "Email",
-  "password": "Password"
+  "password": "Password",
+  "appTitle": "SmartTrust",
+  "loading": "Loading...",
+  "unknownError": "Something went wrong. Please try again.",
+  "retry": "Retry",
+  "cancel": "Cancel",
+  "confirm": "Confirm",
+  "save": "Save",
+  "delete": "Delete",
+  "back": "Back",
+  "next": "Next",
+  "done": "Done",
+  "continueButton": "Continue",
+  "submit": "Submit",
+  "search": "Search",
+  "createAccount": "Create Account",
+  "logout": "Logout",
+  "name": "Name",
+  "confirmPassword": "Confirm password",
+  "loginTitle": "Welcome back",
+  "loginSubtitle": "Sign in to continue to SmartTrust.",
+  "signupTitle": "Create your account",
+  "signupSubtitle": "Register to request trusted home services.",
+  "selectRole": "Select your role",
+  "customerRole": "Customer",
+  "providerRole": "Service Provider",
+  "requiredField": "This field is required.",
+  "invalidEmail": "Enter a valid email address.",
+  "invalidPassword": "Password must be at least 8 characters.",
+  "invalidPhone": "Enter a valid phone number.",
+  "invalidCnic": "Enter a valid CNIC number.",
+  "verification": "Verification",
+  "enterOtp": "Enter OTP",
+  "otpSent": "We sent a code to your email.",
+  "verify": "Verify",
+  "verified": "Verified",
+  "invalidCode": "Invalid code. Try again.",
+  "resendCode": "Resend code",
+  "selectRoleShort": "Select role",
+  "onboardingSelectLanguage": "Select Your Language",
+  "onboardingChooseRole": "Choose Your Role",
+  "getStarted": "Get Started",
+  "languageEnglish": "English",
+  "languageUrdu": "Urdu",
+  "customerRoleDescription": "Find trusted professionals near you.",
+  "providerRoleDescription": "Grow your work and get discovered.",
+  "hello": "Hello",
+  "greeting": "What do you need today?",
+  "categories": "Categories",
+  "nearbyProviders": "Nearby Providers",
+  "errorLoadingProviders": "Error loading providers",
+  "aiAssistant": "AI Assistant",
+  "voiceAssistant": "Voice",
+  "newRequest": "New Request",
+  "request": "Request",
+  "activeJob": "Active Job",
+  "providerOnTheWay": "Provider on the way",
+  "minutesShort": "min",
+  "notifications": "Notifications",
+  "chat": "Chat",
+  "messageHint": "Message...",
+  "complaints": "Complaints",
+  "noComplaints": "No complaints filed.",
+  "fileComplaint": "File Complaint",
+  "complaintSubmitted": "Complaint submitted",
+  "customerDashboard": "Customer Dashboard",
+  "dashboardPlaceholder": "Customer dashboard content placeholder",
+  "jobAccepted": "Job Accepted",
+  "quotationReceived": "Quotation Received",
+  "providerArrived": "Provider Arrived",
+  "otpVerification": "OTP Verification",
+  "uploadImage": "Upload Image",
+  "createRequest": "Create Request",
+  "listening": "Listening...",
+  "tapToSpeak": "Tap to speak",
+  "speak": "Speak",
+  "voicePrompt": "Tap to speak",
+  "settings": "Settings",
+  "language": "Language",
+  "tapToSwitch": "Tap to switch",
+  "account": "Account",
+  "profile": "Profile",
+  "signIn": "Sign In",
+  "providerStatus": "Provider Status",
+  "verificationStatus": "Verification Status",
+  "profileSubmitted": "Profile Submitted",
+  "cnicUploaded": "CNIC Uploaded",
+  "tasdeeqVerification": "Tasdeeq Verification",
+  "adminReview": "Admin Review",
+  "profileActive": "Profile Active",
+  "completeRegistration": "Complete Registration",
+  "completed": "Completed",
+  "pending": "Pending",
+  "earnings": "Earnings",
+  "todaysEarnings": "Today's Earnings",
+  "totalEarnings": "Total Earnings",
+  "recentJobs": "Recent Jobs",
+  "incomingRequests": "Incoming Requests",
+  "feed": "Feed",
+  "jobs": "Jobs",
+  "customerRequest": "Customer Request #{number}",
+  "serviceCategoryHvac": "HVAC",
+  "acNotCooling": "AC not cooling. Water leaking from indoor unit.",
+  "distanceLocation": "{distance} • {location}",
+  "visitingCharge": "Visiting Charge (PKR)",
+  "requestAccepted": "Request accepted",
+  "accept": "Accept",
+  "createQuotation": "Create quotation",
+  "diagnosis": "Diagnosis / Problem Found",
+  "labourCharge": "Labour Charge",
+  "partsCost": "Parts Cost",
+  "totalEstimatedCost": "Total Estimated Cost",
+  "quotationSent": "Quotation sent",
+  "sendQuotation": "Send Quotation",
+  "providerRegistration": "Provider Registration",
+  "submitForReview": "Submit for Review",
+  "basicInfo": "Basic Info",
+  "personalInfo": "Personal Info",
+  "phoneCnic": "Phone / CNIC",
+  "uploadCnicFront": "Upload CNIC Front Image",
+  "uploadCnicBack": "Upload CNIC Back Image",
+  "skillsAreas": "Skills & Areas",
+  "primarySkill": "Primary Skill",
+  "verifiedStatus": "VERIFIED",
+  "hyperlocalStatus": "HYPERLOCAL",
+  "reliableStatus": "RELIABLE",
+  "splashPreparing": "Preparing your trusted home network",
+  "splashBrandTagline": "Trusted services. Connected locally.",
+  "reviews": "Reviews",
+  "requestAddress": "Address",
+  "preferredDate": "Preferred date",
+  "preferredTime": "Preferred time",
+  "requestDescription": "Describe your issue",
+  "newJobRequest": "New service request",
+  "uploadDocuments": "Upload verification documents",
+  "jobFeed": "Job feed",
+  "noData": "No data available.",
+  "@customerRequest": {
+    "placeholders": {
+      "number": {
+        "type": "int"
+      }
+    }
+  },
+  "@distanceLocation": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      }
+    }
+  },
+  "signInToContinue": "Sign in to continue",
+  "verifiedProfessionals": "Verified Professionals",
+  "introDescription": "SmartTrust connects you with verified service providers. Request, compare, and track with confidence.",
+  "trusted": "Trusted",
+  "nearby": "Nearby",
+  "transparent": "Transparent",
+  "signUpPrompt": "New to SmartTrust?",
+  "alreadyHaveAccount": "Already have an account?",
+  "chooseAccountRole": "Choose how you will use SmartTrust",
+  "signupRoleLabel": "Creating account as",
+  "changeRole": "Change role",
+  "otpSubtitle": "Enter the 6-digit code sent to your email.",
+  "otpRequired": "Enter the verification code.",
+  "resendIn": "Resend in {seconds}s",
+  "loginError": "We could not sign you in. Please try again.",
+  "signupError": "We could not create your account. Please try again.",
+  "verificationSuccess": "Verification successful",
+  "@resendIn": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "helloUser": "Hello, {name}",
+  "activeJobSummary": "{service} · {location} · {eta}",
+  "viewDetails": "View details",
+  "noActiveJob": "No active service request",
+  "startRequest": "When you need help, your next trusted service starts here.",
+  "homeLoadError": "We could not load your home data. Please try again.",
+  "noNearbyProviders": "No nearby providers are available right now.",
+  "recommended": "Recommended",
+  "seeAll": "See all",
+  "home": "Home",
+  "@helloUser": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@activeJobSummary": {
+    "placeholders": {
+      "service": {
+        "type": "String"
+      },
+      "location": {
+        "type": "String"
+      },
+      "eta": {
+        "type": "String"
+      }
+    }
+  },
+  "customerOnlyMessage": "This area is available for customer accounts.",
+  "distanceKm": "{distance} km",
+  "availableNow": "Available now",
+  "@distanceKm": {
+    "placeholders": {
+      "distance": {
+        "type": "String"
+      }
+    }
+  },
+  "selectServiceCategory": "What do you need help with?",
+  "categoryHelper": "Choose a service so we can understand your request.",
+  "describeProblem": "Tell us about the problem",
+  "problemHelper": "A few details help the right professional prepare.",
+  "problemHint": "Describe what needs attention...",
+  "characters": "{count}/{max} characters",
+  "addImages": "Add photos",
+  "addImage": "Add photo",
+  "removeImage": "Remove photo",
+  "imagesOptional": "Optional · Up to {count} photos",
+  "location": "Service location",
+  "locationHelper": "Where should the professional come?",
+  "useCurrentLocation": "Use current location",
+  "confirmLocation": "Confirm location",
+  "changeLocation": "Change location",
+  "manualAddress": "Enter address manually",
+  "manualAddressHint": "Street, area, and city",
+  "locationPermissionDenied": "Location access was denied. You can enter the address manually.",
+  "locationPermissionPermanentlyDenied": "Location access is turned off. Enable it in Settings or enter the address manually.",
+  "locationUnavailable": "Location is unavailable. Please try again.",
+  "locationLoading": "Finding your location...",
+  "reviewRequest": "Review your request",
+  "reviewHelper": "Everything look right? You can edit any section before submitting.",
+  "service": "Service",
+  "problem": "Problem",
+  "attachments": "Photos",
+  "noImages": "No photos added",
+  "submitRequest": "Submit request",
+  "requestCreated": "Request created",
+  "requestCreatedHelper": "Your request is ready. Trusted providers can respond next.",
+  "backHome": "Back to home",
+  "viewRequest": "View request",
+  "categoryRequired": "Choose a service category to continue.",
+  "descriptionRequired": "Please describe the problem.",
+  "locationRequired": "Confirm your location to continue.",
+  "mediaLimit": "You can add up to {count} photos.",
+  "requestSubmitError": "We could not create your request. Please try again.",
+  "stepService": "Service",
+  "stepProblem": "Problem",
+  "stepMedia": "Photos",
+  "stepLocation": "Location",
+  "stepReview": "Review",
+  "permissionSettings": "Open Settings",
+  "locationConfirmed": "Location confirmed",
+  "@characters": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "@imagesOptional": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@mediaLimit": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "categoryElectrical": "Electrical",
+  "categoryElectricalDescription": "Power, wiring, and electrical repairs.",
+  "categoryPlumbing": "Plumbing",
+  "categoryPlumbingDescription": "Leaks, pipes, and water systems.",
+  "categoryPainting": "Painting",
+  "categoryPaintingDescription": "Refresh rooms and surfaces.",
+  "categoryCleaning": "Cleaning",
+  "categoryCleaningDescription": "A cleaner, more comfortable space.",
+  "categoryHvacDescription": "Climate control, cooling, and air-conditioning services.",
+  "findProviders": "Find providers",
+  "findingProviders": "Finding trusted providers",
+  "matchingProvidersHelper": "We are looking for professionals who fit this request.",
+  "providersFound": "{count} providers found",
+  "availableProviders": "Available providers",
+  "providerSelectionHelper": "Choose the professional you would like to work with for this request.",
+  "completedJobs": "Completed jobs",
+  "estimatedArrival": "Estimated arrival",
+  "available": "Available",
+  "unavailable": "Currently unavailable",
+  "selectProvider": "Select provider",
+  "providerDetails": "Provider details",
+  "confirmProvider": "Confirm provider",
+  "confirmProviderQuestion": "Select {name} for this request?",
+  "providerSelected": "Provider selected",
+  "providerSelectedHelper": "{name} has been selected for your request.",
+  "returnToRequest": "Return to request",
+  "noProvidersFound": "No providers match this request yet.",
+  "matchingError": "We could not find providers right now. Please try again.",
+  "providerSelectionError": "This provider could not be selected. Please choose another provider.",
+  "requestContext": "For this request",
+  "requestReference": "Request {id}",
+  "requestService": "Service",
+  "requestLocation": "Location",
+  "requestUnavailable": "This request is no longer available.",
+  "providerNotAvailable": "This provider is no longer available.",
+  "matchForRequest": "Matching for your request",
+  "providerBio": "About this provider",
+  "services": "Services",
+  "selected": "Selected",
+  "ratingLabel": "Rating",
+  "jobsCompletedLabel": "Jobs completed",
+  "@providersFound": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "@confirmProviderQuestion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@providerSelectedHelper": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@requestReference": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "providerSnapshot": "{profession} · {rating} ★",
+  "@providerSnapshot": {
+    "placeholders": {
+      "profession": {
+        "type": "String"
+      },
+      "rating": {
+        "type": "String"
+      }
+    }
+  },
+  "jobTracking": "Job tracking",
+  "trackingForRequest": "Tracking for this request",
+  "currentStatus": "Current status",
+  "statusRequestCreated": "Request created",
+  "statusRequestCreatedDescription": "Your request has been created and is ready for the next step.",
+  "statusProviderSelected": "Provider selected",
+  "statusProviderSelectedDescription": "Your selected professional is connected to this request.",
+  "statusOnTheWay": "Provider on the way",
+  "statusOnTheWayDescription": "Your provider is preparing to reach the service location.",
+  "statusArrived": "Provider arrived",
+  "statusArrivedDescription": "Your provider has reached the service location.",
+  "statusInProgress": "Service in progress",
+  "statusInProgressDescription": "The service is currently being completed.",
+  "statusCompleted": "Service completed",
+  "statusCompletedDescription": "This service request has been completed.",
+  "trackingProvider": "Selected provider",
+  "providerArea": "Service area",
+  "eta": "Estimated arrival",
+  "liveLocationNotAvailable": "Live location is not available in this demo.",
+  "demoLocationNote": "Status updates are shown from the local tracking service.",
+  "trackingUnavailable": "Tracking is not available for this request.",
+  "trackingError": "We could not load tracking right now. Please try again.",
+  "requestNotFound": "This request could not be found.",
+  "providerNoLongerAvailable": "The selected provider is no longer available.",
+  "refreshStatus": "Refresh status",
+  "lastUpdated": "Last updated",
+  "trackJob": "Track job",
+  "trackingEarlier": "Earlier",
+  "trackingMomentAgo": "A moment ago",
+  "trackingNow": "Now",
+  "trackingUpcoming": "Upcoming",
+  "statusProviderAccepted": "Provider accepted",
+  "statusProviderAcceptedDescription": "Your selected provider has confirmed the request.",
+  "statusProviderDeclined": "Provider declined",
+  "statusProviderDeclinedDescription": "Your selected provider could not accept this request.",
+  "providerRequestDetails": "Request details",
+  "incomingRequestHelper": "Review the request details before choosing an action.",
+  "acceptRequest": "Accept request",
+  "declineRequest": "Decline request",
+  "acceptRequestQuestion": "Accept this request for {name}?",
+  "declineRequestQuestion": "Decline this request?",
+  "requestDeclined": "Request declined",
+  "requestAcceptedSuccess": "Request accepted",
+  "declinedRequestHelper": "The request was declined and remains available for a future decision.",
+  "acceptedRequestHelper": "The request is now confirmed for you.",
+  "noIncomingRequests": "No incoming requests right now.",
+  "providerOnlyMessage": "This area is available for service provider accounts.",
+  "requestPending": "Pending response",
+  "alreadyProcessed": "This request has already been processed.",
+  "requestActionError": "We could not update this request. Please try again.",
+  "openRequest": "Open request",
+  "selectedForRequest": "Selected for this request",
+  "requestAttachmentsCount": "{count} photos attached",
+  "providerRequestStatus": "Request status",
+  "@acceptRequestQuestion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "@requestAttachmentsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "acceptThisRequestQuestion": "Accept this selected request?",
+  "viewQuotation": "View quotation",
+  "pricingBreakdown": "Pricing breakdown",
+  "laborCharge": "Labor/service charge",
+  "materialsCharge": "Materials/parts charge",
+  "additionalCharge": "Additional charges",
+  "totalAmount": "Total amount",
+  "estimatedDuration": "Estimated duration",
+  "quotationNote": "Quotation note",
+  "quotationNoteHint": "Add a short note for the customer...",
+  "submitQuotation": "Submit quotation",
+  "quotationSubmitted": "Quotation submitted",
+  "quotationAccepted": "Quotation accepted",
+  "quotationDeclined": "Quotation declined",
+  "quotationStatus": "Quotation status",
+  "acceptQuotation": "Accept quotation",
+  "declineQuotation": "Decline quotation",
+  "negotiateQuotation": "Negotiate",
+  "acceptQuotationQuestion": "Accept this quotation?",
+  "declineQuotationQuestion": "Decline this quotation?",
+  "negotiationAmount": "Your proposed amount",
+  "negotiationNote": "Negotiation note",
+  "negotiationNoteHint": "Explain what you would like to adjust...",
+  "submitNegotiation": "Send negotiation request",
+  "negotiationReceived": "Negotiation request received",
+  "counterOfferAmount": "Counter-offer amount",
+  "acceptProposal": "Accept proposal",
+  "sendCounterOffer": "Send counter-offer",
+  "requestNotAccepted": "This request is not ready for a quotation.",
+  "quotationNotFound": "No quotation is available for this request yet.",
+  "providerIdentity": "Provider",
+  "quotationHistory": "Quotation history",
+  "quotationCreated": "Created",
+  "quotationUpdated": "Updated",
+  "quoteAmount": "Quoted amount",
+  "invalidAmount": "Enter valid non-negative amounts.",
+  "durationRequired": "Enter an estimated service duration.",
+  "quotationNoteRequired": "Add a quotation note.",
+  "negotiationAmountRequired": "Enter a proposed amount.",
+  "negotiationNoteRequired": "Add a negotiation note.",
+  "quotationActionError": "We could not update this quotation. Please try again.",
+  "quotationContext": "For this request",
+  "statusSubmitted": "Submitted",
+  "statusAccepted": "Accepted",
+  "statusNegotiationRequested": "Negotiation requested",
+  "statusCounterOffered": "Counter-offer sent",
+  "statusDeclined": "Declined",
+  "currencyAmount": "{amount} PKR",
+  "@currencyAmount": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "chatTitle": "Conversation",
+  "chatContext": "Request conversation",
+  "sendMessage": "Send message",
+  "emptyConversation": "No messages yet",
+  "startConversation": "Start the conversation with a clear update.",
+  "chatLoading": "Loading conversation...",
+  "chatError": "We could not load this conversation. Please try again.",
+  "chatAccessDenied": "This conversation is not available for your account.",
+  "conversationUnavailable": "This conversation is unavailable.",
+  "messageRequired": "Write a message first.",
+  "messageSendError": "Your message could not be sent. Please try again.",
+  "sendingMessage": "Sending...",
+  "conversationClosed": "This conversation is closed.",
+  "customerParticipant": "Customer",
+  "providerParticipant": "Provider",
+  "chatConnected": "Connected",
+  "chatConnecting": "Connecting...",
+  "chatReconnecting": "Reconnecting...",
+  "chatDisconnected": "Connection lost",
+  "chatReconnect": "Reconnect",
+  "typingIndicator": "{name} is typing...",
+  "@typingIndicator": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "markServiceCompleted": "Mark service completed",
+  "markServiceCompletedQuestion": "Confirm that this service is complete?",
+  "serviceCompleted": "Service completed",
+  "serviceCompletedHelper": "This service is now marked complete. The customer can leave a review.",
+  "completionUnavailable": "This service cannot be completed yet.",
+  "quotationNotAccepted": "An accepted quotation is required before completion.",
+  "alreadyCompleted": "This service has already been completed.",
+  "completionError": "We could not mark this service complete. Please try again.",
+  "reviewProvider": "Review provider",
+  "reviewProviderHelper": "Share your experience with this completed service.",
+  "yourRating": "Your rating",
+  "writeReview": "Write a review",
+  "optionalReview": "Optional review text",
+  "reviewHint": "Tell us about your experience...",
+  "submitReview": "Submit review",
+  "reviewSubmitted": "Review submitted",
+  "reviewSubmittedHelper": "Thank you for sharing your experience.",
+  "alreadyReviewed": "You have already reviewed this completed service.",
+  "reviewUnavailable": "This review is not available.",
+  "reviewRequired": "Choose a rating before submitting.",
+  "reviewError": "We could not submit your review. Please try again.",
+  "noReviews": "No reviews yet.",
+  "reviewHistory": "Review history",
+  "averageRating": "Average rating",
+  "totalReviews": "Total reviews",
+  "ratingDistribution": "Rating distribution",
+  "leaveReview": "Leave review",
+  "reviewPendingCompletion": "Reviews become available after service completion.",
+  "requestCompletedContext": "Completed service request",
+  "providerReviews": "Provider reviews",
+  "reviewForRequest": "Review for request",
+  "reportIssue": "Report an issue",
+  "complaint": "Complaint",
+  "complaintCategory": "Complaint category",
+  "serviceQuality": "Service quality",
+  "providerBehavior": "Provider behavior",
+  "pricingIssue": "Pricing issue",
+  "incompleteService": "Incomplete service",
+  "damageOrLoss": "Damage or loss",
+  "otherComplaint": "Other",
+  "complaintDescription": "Describe the issue",
+  "evidencePhotos": "Evidence photos",
+  "addEvidence": "Add photo",
+  "removeEvidence": "Remove photo",
+  "reviewComplaint": "Review complaint",
+  "submitComplaint": "Submit complaint",
+  "complaintSubmittedTitle": "Complaint submitted",
+  "complaintSubmittedHelper": "Your complaint has been recorded for this completed service.",
+  "complaintDetails": "Complaint details",
+  "complaintReference": "Complaint {id}",
+  "complaintStatus": "Complaint status",
+  "complaintSubmittedStatus": "Submitted",
+  "complaintUnderReview": "Under review",
+  "complaintResolved": "Resolved",
+  "complaintRejected": "Rejected",
+  "complaintUnavailable": "This complaint is unavailable.",
+  "complaintAlreadyExists": "A complaint already exists for this request.",
+  "complaintRequired": "Describe the issue before submitting.",
+  "complaintError": "We could not submit the complaint. Please try again.",
+  "complaintAttachmentCount": "{count} photos attached",
+  "complaintRequestContext": "Completed service request",
+  "@complaintReference": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "@complaintAttachmentCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "profileCompletion": "Complete your profile",
+  "profileCompletionHelper": "A complete profile helps SmartTrust keep every service experience trusted.",
+  "fullName": "Full name",
+  "profilePhoto": "Profile photo",
+  "addressLine": "Address",
+  "city": "City",
+  "area": "Area",
+  "saveProfile": "Complete profile",
+  "profileCompleted": "Profile completed",
+  "customerProfile": "Customer profile",
+  "providerProfile": "Provider profile",
+  "cnicNumber": "CNIC number",
+  "cnicFront": "CNIC front image",
+  "cnicBack": "CNIC back image",
+  "shopLocation": "Shop location",
+  "yearsExperience": "Years of experience",
+  "verificationPending": "Verification pending",
+  "notSubmitted": "Not submitted",
+  "trustTier": "Trust tier",
+  "trustScore": "Trust score",
+  "profileLoading": "Loading profile...",
+  "profileError": "We could not load your profile. Please try again.",
+  "profileRequired": "Complete all required fields.",
+  "profilePhotoAdd": "Add profile photo",
+  "profilePhotoChange": "Change profile photo",
+  "profilePhotoRemove": "Remove profile photo",
+  "continueAsGuest": "Continue as guest",
+  "phone": "Phone number"
 }

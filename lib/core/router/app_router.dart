@@ -1,38 +1,70 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/splash/presentation/screens/splash_screen.dart';
 import '../../features/onboarding/presentation/screens/onboarding_screen.dart';
 import '../../features/onboarding/presentation/screens/language_selection_screen.dart';
-import '../../features/onboarding/presentation/screens/role_selection_screen.dart';
+import '../../features/auth/presentation/screens/role_selection_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/signup_screen.dart';
 import '../../features/auth/presentation/screens/otp_screen.dart';
-import '../../features/auth/presentation/widgets/role_selector.dart';
+import '../../features/auth/presentation/providers/auth_provider.dart';
+import '../../features/profile/domain/entities/profile_entities.dart';
 import '../../features/customer/home/presentation/customer_home_screen.dart';
+import '../../features/customer/guest_home/presentation/guest_home_screen.dart';
 import '../../features/customer/job_request/presentation/job_request_screen.dart';
-import '../../features/customer/provider_selection/presentation/provider_selection_screen.dart';
+import '../../features/customer/provider_matching/presentation/provider_matching_screen.dart';
+import '../../features/customer/provider_matching/presentation/provider_details_screen.dart';
 import '../../features/customer/job_tracking/presentation/job_tracking_screen.dart';
-import '../../features/customer/quotations/presentation/quotation_screen.dart';
-import '../../features/customer/chat/presentation/chat_screen.dart';
-import '../../features/customer/reviews/presentation/reviews_screen.dart';
-import '../../features/customer/complaints/presentation/complaints_screen.dart';
-import '../../features/customer/profile/presentation/profile_screen.dart';
+import '../../features/customer/quotation/presentation/customer_quotation_screen.dart';
+import '../../features/customer/reviews/presentation/review_screen.dart';
+import '../../features/customer/complaints/presentation/complaint_screen.dart';
+import '../../features/customer/profile/presentation/customer_profile_screen.dart';
+import '../../features/provider/profile/presentation/provider_profile_screen.dart';
+import '../providers/profile_status_provider.dart';
 import '../../features/customer/settings/presentation/settings_screen.dart';
 import '../../features/provider/registration/presentation/provider_registration_screen.dart';
 import '../../features/provider/home/presentation/provider_home_screen.dart';
 import '../../features/provider/job_feed/presentation/provider_job_feed_screen.dart';
-import '../../features/provider/quotations/presentation/provider_quotation_screen.dart';
+import '../../features/provider/request_acceptance/presentation/provider_request_screen.dart';
+import '../../features/chat/presentation/screens/chat_screen.dart';
+import '../../features/chat/domain/entities/chat_entities.dart';
+import '../../features/provider/quotation/presentation/provider_quotation_screen.dart';
+import '../../features/provider/service_completion/presentation/service_completion_screen.dart';
+import '../../features/provider/reviews/presentation/provider_reviews_screen.dart';
+import '../../features/provider/complaints/presentation/provider_complaint_screen.dart';
 import '../../features/provider/earnings/presentation/earnings_screen.dart';
 import '../../features/notifications/presentation/notifications_screen.dart';
 import '../../features/ai_assistant/presentation/ai_assistant_screen.dart';
 import '../../features/voice_assistant/presentation/voice_assistant_screen.dart';
 import 'route_names.dart';
 
+class _RouterRefreshNotifier extends ChangeNotifier {
+  void refresh() => notifyListeners();
+}
+
 final appRouterProvider = Provider<GoRouter>((ref) {
+  final refresh = _RouterRefreshNotifier();
+  ref.onDispose(refresh.dispose);
+  ref.listen(authStateProvider, (_, __) => refresh.refresh());
+  ref.listen(profileStatusProvider, (_, __) => refresh.refresh());
+
   return GoRouter(
     initialLocation: RouteNames.splash,
     debugLogDiagnostics: true,
+    refreshListenable: refresh,
+    redirect: (context, state) {
+      final user = ref.read(authStateProvider).valueOrNull;
+      if (user != null && user.role.isEmpty && state.matchedLocation != RouteNames.roleSelection) {
+        return RouteNames.roleSelection;
+      }
+      final profile = ref.read(profileStatusProvider);
+      if (user == null || !profile.hasValue || profile.value == ProfileStatus.complete) return null;
+      final profileRoute = user.role.toLowerCase() == 'provider' ? RouteNames.providerProfile : RouteNames.customerProfile;
+      if (state.matchedLocation == profileRoute || state.matchedLocation == RouteNames.splash || state.matchedLocation == RouteNames.onboarding || state.matchedLocation == RouteNames.login || state.matchedLocation == RouteNames.signup || state.matchedLocation == RouteNames.otp || state.matchedLocation == RouteNames.roleSelection) return null;
+      return profileRoute;
+    },
     routes: [
       GoRoute(
         path: RouteNames.splash,
@@ -48,7 +80,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.roleSelection,
-        builder: (context, state) => const RoleSelectionScreen(),
+        builder: (context, state) => const AuthRoleSelectionScreen(),
       ),
       GoRoute(
         path: RouteNames.login,
@@ -65,39 +97,85 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       // Customer
       GoRoute(
         path: RouteNames.customerHome,
-        builder: (context, state) => const CustomerHomeScreen(),
+        builder: (context, state) => ref.read(authStateProvider).valueOrNull == null
+            ? const GuestHomeScreen()
+            : const CustomerHomeScreen(),
       ),
       GoRoute(
         path: RouteNames.customerJobRequest,
         builder: (context, state) => const JobRequestScreen(),
       ),
       GoRoute(
+        path: RouteNames.customerProviderMatching,
+        builder: (context, state) => ProviderMatchingScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          service: state.uri.queryParameters['service'],
+          location: state.uri.queryParameters['location'],
+        ),
+      ),
+      GoRoute(
         path: RouteNames.customerProviderSelection,
-        builder: (context, state) => const ProviderSelectionScreen(),
+        builder: (context, state) => ProviderSelectionScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          service: state.uri.queryParameters['service'],
+          location: state.uri.queryParameters['location'],
+        ),
+      ),
+      GoRoute(
+        path: RouteNames.customerProviderDetails,
+        builder: (context, state) => ProviderDetailsScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          service: state.uri.queryParameters['service'],
+          location: state.uri.queryParameters['location'],
+        ),
       ),
       GoRoute(
         path: RouteNames.customerJobTracking,
-        builder: (context, state) => const JobTrackingScreen(),
+        builder: (context, state) => JobTrackingScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          service: state.uri.queryParameters['service'],
+          location: state.uri.queryParameters['location'],
+        ),
       ),
       GoRoute(
         path: RouteNames.customerQuotations,
-        builder: (context, state) => const QuotationScreen(),
+        builder: (context, state) => CustomerQuotationScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
       ),
       GoRoute(
         path: RouteNames.customerChat,
-        builder: (context, state) => const ChatScreen(),
+        builder: (context, state) => ChatScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          conversationId: state.uri.queryParameters['conversationId'],
+          role: ChatParticipantRole.customer,
+        ),
       ),
       GoRoute(
         path: RouteNames.customerReviews,
-        builder: (context, state) => const ReviewsScreen(),
+        builder: (context, state) => CustomerReviewScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          providerName: state.uri.queryParameters['providerName'],
+          service: state.uri.queryParameters['service'],
+        ),
       ),
       GoRoute(
         path: RouteNames.customerComplaints,
-        builder: (context, state) => const ComplaintsScreen(),
+        builder: (context, state) => ComplaintScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          providerName: state.uri.queryParameters['providerName'],
+          service: state.uri.queryParameters['service'],
+        ),
       ),
       GoRoute(
         path: RouteNames.customerProfile,
-        builder: (context, state) => const ProfileScreen(),
+        builder: (context, state) => const CustomerProfileScreen(),
       ),
       GoRoute(
         path: RouteNames.customerSettings,
@@ -125,8 +203,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         builder: (context, state) => const ProviderJobFeedScreen(),
       ),
       GoRoute(
+        path: RouteNames.providerRequestDetails,
+        builder: (context, state) => ProviderRequestScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
+      ),
+      GoRoute(
+        path: RouteNames.providerChat,
+        builder: (context, state) => ChatScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+          conversationId: state.uri.queryParameters['conversationId'],
+          role: ChatParticipantRole.provider,
+        ),
+      ),
+      GoRoute(
         path: RouteNames.providerQuotation,
-        builder: (context, state) => const ProviderQuotationScreen(),
+        builder: (context, state) => ProviderQuotationScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
+      ),
+      GoRoute(
+        path: RouteNames.providerServiceCompletion,
+        builder: (context, state) => ServiceCompletionScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
       ),
       GoRoute(
         path: RouteNames.providerEarnings,
@@ -134,11 +238,24 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: RouteNames.providerProfile,
-        builder: (context, state) => const ProfileScreen(),
+        builder: (context, state) => const ProviderProfileScreen(),
       ),
       GoRoute(
         path: RouteNames.providerSettings,
         builder: (context, state) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.providerReviews,
+        builder: (context, state) => ProviderReviewsScreen(
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
+      ),
+      GoRoute(
+        path: RouteNames.providerComplaintDetails,
+        builder: (context, state) => ProviderComplaintScreen(
+          requestId: state.uri.queryParameters['requestId'] ?? '',
+          providerId: state.uri.queryParameters['providerId'] ?? '',
+        ),
       ),
       // Shared
       GoRoute(
