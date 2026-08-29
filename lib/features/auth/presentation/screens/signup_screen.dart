@@ -7,6 +7,7 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/widgets/app_text_field.dart';
+import '../../../../core/widgets/morphing_spinner.dart';
 import '../../../../core/widgets/primary_button.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../providers/auth_provider.dart';
@@ -28,6 +29,11 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   final _passwordController = TextEditingController();
   bool _obscurePassword = true;
 
+  /// True from the moment Register is tapped until the backend response is
+  /// fully handled. registerInit does not raise the provider's loading flag,
+  /// so this local lock is what guarantees a single API submission.
+  bool _isSubmitting = false;
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -38,20 +44,31 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
   }
 
   Future<void> _submit() async {
+    if (_isSubmitting) return; // Guard: a request is already in flight.
     if (!_formKey.currentState!.validate()) return;
 
-    final init = await ref.read(authStateProvider.notifier).registerInit(
-          phone: _phoneController.text.trim(),
-          email: _emailController.text.trim(),
-          password: _passwordController.text,
-          fullName: _nameController.text.trim(),
-        );
+    // Lock instantly on tap (synchronously) so a double-tap can never fire a
+    // second registerInit call, and drop the keyboard for the animation.
+    FocusManager.instance.primaryFocus?.unfocus();
+    setState(() => _isSubmitting = true);
 
-    if (!mounted || init == null) return;
-    ref.read(pendingRegistrationProvider.notifier).state = PendingRegistration(
-      phone: init.phone,
-    );
-    context.push(RouteNames.otp);
+    try {
+      final init = await ref.read(authStateProvider.notifier).registerInit(
+            phone: _phoneController.text.trim(),
+            email: _emailController.text.trim(),
+            password: _passwordController.text,
+            fullName: _nameController.text.trim(),
+          );
+
+      if (!mounted || init == null) return;
+      ref.read(pendingRegistrationProvider.notifier).state =
+          PendingRegistration(phone: init.phone);
+      context.push(RouteNames.otp);
+    } finally {
+      // Re-enable only after the backend response is fully handled
+      // (success navigates away; failure unlocks for a clean retry).
+      if (mounted) setState(() => _isSubmitting = false);
+    }
   }
 
   @override
@@ -59,6 +76,9 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     final l10n = AppLocalizations.of(context)!;
     final authState = ref.watch(authStateProvider);
     final isLoading = authState.isLoading;
+    // True while a submission is in flight locally (_isSubmitting) or via the
+    // auth provider; drives every lock and the futuristic overlay.
+    final showLoading = _isSubmitting || isLoading;
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground,
@@ -66,13 +86,15 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
         title: Text(l10n.signupTitle),
         leading: IconButton(
           tooltip: l10n.back,
-          onPressed: () => context.pop(),
+          onPressed: showLoading ? null : () => context.pop(),
           icon: const Icon(Icons.arrow_back_rounded),
         ),
       ),
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Center(
+              child: SingleChildScrollView(
             padding: const EdgeInsets.fromLTRB(
               AppSpacing.xxl,
               AppSpacing.md,
@@ -97,7 +119,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       label: l10n.name,
                       prefixIcon: const Icon(Icons.person_outline_rounded),
                       textInputAction: TextInputAction.next,
-                      enabled: !isLoading,
+                      enabled: !showLoading,
                       validator: (value) {
                         final name = value?.trim() ?? '';
                         if (name.isEmpty) return l10n.requiredField;
@@ -112,7 +134,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       keyboardType: TextInputType.phone,
                       prefixIcon: const Icon(Icons.alternate_email_rounded),
                       textInputAction: TextInputAction.next,
-                      enabled: !isLoading,
+                      enabled: !showLoading,
                       validator: (value) {
                         if (value == null || value.trim().isEmpty) {
                           return l10n.requiredField;
@@ -128,7 +150,7 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       keyboardType: TextInputType.emailAddress,
                       prefixIcon: const Icon(Icons.alternate_email_rounded),
                       textInputAction: TextInputAction.next,
-                      enabled: !isLoading,
+                      enabled: !showLoading,
                       validator: (value) {
                         final email = value?.trim() ?? '';
                         final valid = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$').hasMatch(email);
@@ -142,10 +164,10 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                       obscureText: _obscurePassword,
                       prefixIcon: const Icon(Icons.key_rounded),
                       textInputAction: TextInputAction.done,
-                      enabled: !isLoading,
+                      enabled: !showLoading,
                       suffixIcon: IconButton(
                         tooltip: l10n.password,
-                        onPressed: isLoading
+                        onPressed: showLoading
                             ? null
                             : () => setState(
                                   () => _obscurePassword = !_obscurePassword,
@@ -172,8 +194,8 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
                     const SizedBox(height: AppSpacing.xxl),
                     PrimaryButton(
                       label: l10n.signup,
-                      isEnabled: !isLoading,
-                      isLoading: isLoading,
+                      isEnabled: !showLoading,
+                      isLoading: showLoading,
                       onPressed: _submit,
                     ),
                     SizedBox(height: AppSizes.buttonHeightSmall),
@@ -182,6 +204,26 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
               ),
             ),
           ),
+        ),
+            // Futuristic submission overlay: softly dims the locked form and
+            // floats the morphing brand spinner while the BE call runs.
+            Positioned.fill(
+              child: IgnorePointer(
+                ignoring: !showLoading,
+                child: AnimatedOpacity(
+                  opacity: showLoading ? 1 : 0,
+                  duration: const Duration(milliseconds: 240),
+                  curve: Curves.easeOut,
+                  child: ColoredBox(
+                    color: AppColors.scaffoldBackground.withOpacity(.82),
+                    child: const Center(
+                      child: MorphingSpinner(size: 56, strokeWidth: 4),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );

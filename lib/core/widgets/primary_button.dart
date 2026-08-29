@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_sizes.dart';
 import '../constants/app_spacing.dart';
+import 'morphing_spinner.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String label;
@@ -38,14 +39,11 @@ class PrimaryButton extends StatelessWidget {
         child: AnimatedSwitcher(
           duration: const Duration(milliseconds: 180),
           child: isLoading
-              ? const SizedBox(
-                  key: ValueKey('loading'),
-                  width: AppSizes.iconSm,
-                  height: AppSizes.iconSm,
-                  child: CircularProgressIndicator(
-                    strokeWidth: 2,
-                    color: AppColors.white,
-                  ),
+              ? MorphingSpinner(
+                  key: const ValueKey('loading'),
+                  size: AppSizes.iconSm,
+                  strokeWidth: 2.2,
+                  color: AppColors.white,
                 )
               : Text(label, key: ValueKey(label)),
         ),

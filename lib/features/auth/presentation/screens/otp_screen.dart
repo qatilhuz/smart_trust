@@ -495,8 +495,21 @@ class _OtpDigitState extends State<_OtpDigit> {
           style: AppTextStyles.heading2.copyWith(color: AppColors.secondary),
           decoration: const InputDecoration(
             counterText: '',
+            // Neutralize every InputDecorationTheme override so the
+            // TextField contributes ZERO chrome of its own (the theme
+            // paints an inner outlined box + fill inside the container,
+            // producing the old "box inside a box"). The outer
+            // AnimatedContainer is now the single unified boundary
+            // carrying focus, filled, error, and locked states.
+            filled: false,
             border: InputBorder.none,
+            enabledBorder: InputBorder.none,
+            focusedBorder: InputBorder.none,
+            disabledBorder: InputBorder.none,
+            errorBorder: InputBorder.none,
+            focusedErrorBorder: InputBorder.none,
             contentPadding: EdgeInsets.zero,
+            isDense: true,
           ),
           onChanged: (value) {
             setState(() {});
