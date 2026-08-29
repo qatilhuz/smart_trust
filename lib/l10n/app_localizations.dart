@@ -2905,6 +2905,67 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone number'**
   String get phone;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @guestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Guest'**
+  String get guestTitle;
+
+  /// No description provided for @customerSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer Support'**
+  String get customerSupport;
+
+  /// No description provided for @termsAndConditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms & Conditions'**
+  String get termsAndConditions;
+
+  /// No description provided for @inviteFriendsEarnCash.
+  ///
+  /// In en, this message translates to:
+  /// **'Invite Friends and Earn Cash'**
+  String get inviteFriendsEarnCash;
+
+  /// No description provided for @joinAsProfessionalFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Join as a Professional for Free'**
+  String get joinAsProfessionalFree;
+
+  /// No description provided for @loginAsProfessional.
+  ///
+  /// In en, this message translates to:
+  /// **'Login as a Professional'**
+  String get loginAsProfessional;
+
+  /// No description provided for @menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get menu;
+
+  /// No description provided for @comingSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'Coming soon'**
+  String get comingSoon;
+
+  /// No description provided for @appVersionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'App Version: {version}'**
+  String appVersionLabel(String version);
+
 }
 
 class _AppLocalizationsDelegate

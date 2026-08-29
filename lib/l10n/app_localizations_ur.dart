@@ -1514,4 +1514,37 @@ class AppLocalizationsUr extends AppLocalizations {
 
   @override
   String get phone => 'فون نمبر';
+
+  @override
+  String get register => 'رجسٹر';
+
+  @override
+  String get guestTitle => 'مہمان';
+
+  @override
+  String get customerSupport => 'کسٹمر سپورٹ';
+
+  @override
+  String get termsAndConditions => 'شرائط و ضوابط';
+
+  @override
+  String get inviteFriendsEarnCash => 'دوستوں کو دعوت دیں اور کیش کمائیں';
+
+  @override
+  String get joinAsProfessionalFree => 'مفت بطور پیشہ ور شامل ہوں';
+
+  @override
+  String get loginAsProfessional => 'بطور پیشہ ور لاگ ان کریں';
+
+  @override
+  String get menu => 'مینیو';
+
+  @override
+  String get comingSoon => 'جلد آ رہا ہے';
+
+  @override
+  String appVersionLabel(String version) {
+    return 'ایپ ورژن: $version';
+  }
+
 }

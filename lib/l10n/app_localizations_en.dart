@@ -1507,4 +1507,37 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get phone => 'Phone number';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get guestTitle => 'Guest';
+
+  @override
+  String get customerSupport => 'Customer Support';
+
+  @override
+  String get termsAndConditions => 'Terms & Conditions';
+
+  @override
+  String get inviteFriendsEarnCash => 'Invite Friends and Earn Cash';
+
+  @override
+  String get joinAsProfessionalFree => 'Join as a Professional for Free';
+
+  @override
+  String get loginAsProfessional => 'Login as a Professional';
+
+  @override
+  String get menu => 'Menu';
+
+  @override
+  String get comingSoon => 'Coming soon';
+
+  @override
+  String appVersionLabel(String version) {
+    return 'App Version: $version';
+  }
+
 }

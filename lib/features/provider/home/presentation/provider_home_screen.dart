@@ -5,17 +5,19 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../../core/widgets/app_drawer.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class ProviderHomeScreen extends ConsumerWidget {
   const ProviderHomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
       drawer: const AppDrawer(variant: AppDrawerVariant.provider),
       appBar: AppBar(
         title: const Text('Provider Status'),
-        leading: const HamburgerMenuButton(),
+        leading: HamburgerMenuButton(tooltip: l10n.menu),
       ),
       body: Padding(
         padding: const EdgeInsets.all(24),

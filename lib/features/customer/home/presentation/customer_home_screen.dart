@@ -227,7 +227,7 @@ class _HomeHeader extends StatelessWidget {
 
     return Row(
       children: [
-        const HamburgerMenuButton(),
+        HamburgerMenuButton(tooltip: l10n.menu),
         const SizedBox(width: AppSpacing.sm),
         Expanded(
           child: Column(

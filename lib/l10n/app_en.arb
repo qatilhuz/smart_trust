@@ -621,5 +621,16 @@
   "profilePhotoChange": "Change profile photo",
   "profilePhotoRemove": "Remove profile photo",
   "continueAsGuest": "Continue as guest",
-  "phone": "Phone number"
+  "phone": "Phone number",
+  "register": "Register",
+  "guestTitle": "Guest",
+  "customerSupport": "Customer Support",
+  "termsAndConditions": "Terms & Conditions",
+  "inviteFriendsEarnCash": "Invite Friends and Earn Cash",
+  "joinAsProfessionalFree": "Join as a Professional for Free",
+  "loginAsProfessional": "Login as a Professional",
+  "menu": "Menu",
+  "comingSoon": "Coming soon",
+  "appVersionLabel": "App Version: {version}",
+  "@appVersionLabel": {"placeholders": {"version": {"type": "String"}}}
 }

@@ -10,6 +10,7 @@ import '../constants/app_spacing.dart';
 import '../constants/app_text_styles.dart';
 import '../providers/locale_provider.dart';
 import '../router/route_names.dart';
+import '../l10n/app_localizations.dart';
 import 'morphing_spinner.dart';
 
 /// Which home screen opened the sidebar. Drives the header title and the
@@ -21,12 +22,14 @@ enum AppDrawerVariant { guest, customer, provider }
 /// Scaffold, so it never affects the host layout.
 class HamburgerMenuButton extends StatelessWidget {
   final Color color;
+
+  /// Localized semantics/tooltip label, e.g. [AppLocalizations.menu].
   final String tooltip;
 
   const HamburgerMenuButton({
     super.key,
     this.color = AppColors.secondary,
-    this.tooltip = 'Menu',
+    required this.tooltip,
   });
 
   @override
@@ -93,17 +96,17 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
 
   bool get _isAuthenticated => widget.variant != AppDrawerVariant.guest;
 
-  String get _title => switch (widget.variant) {
-        AppDrawerVariant.guest => 'Guest',
-        AppDrawerVariant.customer => 'Customer',
-        AppDrawerVariant.provider => 'Professional',
+  String _title(AppLocalizations l10n) => switch (widget.variant) {
+        AppDrawerVariant.guest => l10n.guestTitle,
+        AppDrawerVariant.customer => l10n.customerRole,
+        AppDrawerVariant.provider => l10n.providerRole,
       };
 
-  void _showComingSoon() {
+  void _showComingSoon(String message) {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(
-        const SnackBar(content: Text('Coming soon')),
+        SnackBar(content: Text(message)),
       );
   }
 
@@ -131,6 +134,7 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
   @override
   Widget build(BuildContext context) {
     final locale = ref.watch(localeProvider);
+    final l10n = AppLocalizations.of(context)!;
 
     return Drawer(
       width: MediaQuery.sizeOf(context).width * .82 > 320
@@ -162,7 +166,7 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
                   const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: Text(
-                      _title,
+                      _title(l10n),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: AppTextStyles.heading3,
@@ -171,12 +175,16 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
                 ],
               ),
             ),
-            _LanguageToggle(selected: locale.languageCode),
+            _LanguageToggle(
+              selected: locale.languageCode,
+              englishLabel: l10n.languageEnglish,
+              urduLabel: l10n.languageUrdu,
+            ),
             const Divider(height: 1, color: AppColors.border),
             Expanded(
               child: ListView(
                 padding: const EdgeInsets.symmetric(vertical: AppSpacing.sm),
-                children: _buildItems(),
+                children: _buildItems(l10n),
               ),
             ),
             const Divider(height: 1, color: AppColors.border),
@@ -210,7 +218,7 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
                   ),
                   const SizedBox(height: AppSpacing.md),
                   Text(
-                    'App Version: ${AppConstants.appVersion}',
+                    l10n.appVersionLabel(AppConstants.appVersion),
                     style: AppTextStyles.caption,
                   ),
                 ],
@@ -222,18 +230,18 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
     );
   }
 
-  List<Widget> _buildItems() {
+  List<Widget> _buildItems(AppLocalizations l10n) {
     final items = <Widget>[];
     if (!_isAuthenticated) {
       items
         ..add(_DrawerItem(
           icon: Icons.login_rounded,
-          label: 'Login',
+          label: l10n.login,
           onTap: () => _navigateTo(RouteNames.login),
         ))
         ..add(_DrawerItem(
           icon: Icons.person_add_alt_1_rounded,
-          label: 'Register',
+          label: l10n.register,
           onTap: () => _navigateTo(RouteNames.signup),
         ));
     } else {
@@ -241,7 +249,7 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
         icon: widget.variant == AppDrawerVariant.provider
             ? Icons.engineering_rounded
             : Icons.person_outline_rounded,
-        label: 'Profile',
+        label: l10n.profile,
         onTap: () => _navigateTo(
           widget.variant == AppDrawerVariant.provider
               ? RouteNames.providerProfile
@@ -252,24 +260,24 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
     items
       ..add(_DrawerItem(
         icon: Icons.support_agent_rounded,
-        label: 'Customer Support',
-        onTap: _showComingSoon,
+        label: l10n.customerSupport,
+        onTap: () => _showComingSoon(l10n.comingSoon),
       ))
       ..add(_DrawerItem(
         icon: Icons.receipt_long_rounded,
-        label: 'Terms & Conditions',
-        onTap: _showComingSoon,
+        label: l10n.termsAndConditions,
+        onTap: () => _showComingSoon(l10n.comingSoon),
       ))
       ..add(_DrawerItem(
         icon: Icons.share_rounded,
-        label: 'Invite Friends and Earn Cash',
-        onTap: _showComingSoon,
+        label: l10n.inviteFriendsEarnCash,
+        onTap: () => _showComingSoon(l10n.comingSoon),
       ))
       ..add(const _DrawerSeparator());
     if (_isAuthenticated) {
       items.add(_DrawerItem(
         icon: Icons.logout_rounded,
-        label: 'Logout',
+        label: l10n.logout,
         busy: _isLoggingOut,
         onTap: _isLoggingOut ? null : _logout,
       ));
@@ -277,23 +285,30 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
       items
         ..add(_DrawerItem(
           icon: Icons.badge_rounded,
-          label: 'Join as a Professional for Free',
+          label: l10n.joinAsProfessionalFree,
           onTap: () => _navigateTo(RouteNames.signup),
         ))
         ..add(_DrawerItem(
           icon: Icons.login_rounded,
-          label: 'Login as a Professional',
+          label: l10n.loginAsProfessional,
           onTap: () => _navigateTo(RouteNames.login),
         ));
     }
     return items;
   }
+
 }
 
 class _LanguageToggle extends ConsumerWidget {
   final String selected;
+  final String englishLabel;
+  final String urduLabel;
 
-  const _LanguageToggle({required this.selected});
+  const _LanguageToggle({
+    required this.selected,
+    required this.englishLabel,
+    required this.urduLabel,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -308,7 +323,7 @@ class _LanguageToggle extends ConsumerWidget {
         children: [
           Expanded(
             child: _LanguageOption(
-              label: 'English',
+              label: englishLabel,
               code: 'en',
               selected: selected == 'en',
               onTap: () => ref
@@ -318,7 +333,7 @@ class _LanguageToggle extends ConsumerWidget {
           ),
           Expanded(
             child: _LanguageOption(
-              label: 'اردو',
+              label: urduLabel,
               code: 'ur',
               selected: selected == 'ur',
               onTap: () => ref

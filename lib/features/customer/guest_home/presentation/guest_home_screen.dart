@@ -34,7 +34,7 @@ class GuestHomeScreen extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        const HamburgerMenuButton(),
+                        HamburgerMenuButton(tooltip: l.menu),
                         const SizedBox(width: AppSpacing.sm),
                         Expanded(
                           child: Column(

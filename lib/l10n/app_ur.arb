@@ -621,5 +621,16 @@
   "profilePhotoChange": "پروفائل کی تصویر تبدیل کریں",
   "profilePhotoRemove": "پروفائل کی تصویر ہٹائیں",
   "continueAsGuest": "بطور مہمان جاری رکھیں",
-  "phone": "فون نمبر"
+  "phone": "فون نمبر",
+  "register": "رجسٹر",
+  "guestTitle": "مہمان",
+  "customerSupport": "کسٹمر سپورٹ",
+  "termsAndConditions": "شرائط و ضوابط",
+  "inviteFriendsEarnCash": "دوستوں کو دعوت دیں اور کیش کمائیں",
+  "joinAsProfessionalFree": "مفت بطور پیشہ ور شامل ہوں",
+  "loginAsProfessional": "بطور پیشہ ور لاگ ان کریں",
+  "menu": "مینیو",
+  "comingSoon": "جلد آ رہا ہے",
+  "appVersionLabel": "ایپ ورژن: {version}",
+  "@appVersionLabel": {"placeholders": {"version": {"type": "String"}}}
 }
