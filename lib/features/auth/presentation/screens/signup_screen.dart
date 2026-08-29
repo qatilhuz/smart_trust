@@ -53,16 +53,24 @@ class _SignupScreenState extends ConsumerState<SignupScreen> {
     setState(() => _isSubmitting = true);
 
     try {
+      // Role chosen on the Role Selection screen (stored in signupRoleProvider).
+      // Fallback to the primary persona if signup was reached without visiting
+      // it (e.g. deep link from the login screen).
+      final selectedRole = ref.read(signupRoleProvider) ?? 'customer';
       final init = await ref.read(authStateProvider.notifier).registerInit(
             phone: _phoneController.text.trim(),
             email: _emailController.text.trim(),
             password: _passwordController.text,
+            role: selectedRole,
             fullName: _nameController.text.trim(),
           );
 
       if (!mounted || init == null) return;
       ref.read(pendingRegistrationProvider.notifier).state =
-          PendingRegistration(phone: init.phone);
+          PendingRegistration(
+        phone: init.phone,
+        email: _emailController.text.trim(),
+      );
       context.push(RouteNames.otp);
     } finally {
       // Re-enable only after the backend response is fully handled

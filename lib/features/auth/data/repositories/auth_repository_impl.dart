@@ -46,11 +46,13 @@ class AuthRepositoryImpl implements AuthRepository {
     required String phone,
     required String email,
     required String password,
+    required String role,
     required String fullName,
   }) async => _otpResult(await source.registerInit(
         phone: phone,
         email: email,
         password: password,
+        role: role,
         fullName: fullName,
       ));
 

@@ -21,5 +21,8 @@ typedef RegisterInitEntity = OtpSentEntity;
 
 class PendingRegistration {
   final String phone;
-  const PendingRegistration({required this.phone});
+
+  /// Registered email, carried to the OTP screen for masked display.
+  final String email;
+  const PendingRegistration({required this.phone, required this.email});
 }

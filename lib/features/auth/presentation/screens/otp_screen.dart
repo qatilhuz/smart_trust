@@ -7,6 +7,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smart_trust_app/core/widgets/primary_button.dart';
 
+import '../../../../core/widgets/morphing_spinner.dart';
+
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_spacing.dart';
@@ -15,6 +17,35 @@ import '../../../../core/router/route_names.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/user_entity.dart';
 import '../providers/auth_provider.dart';
+
+/// Masks an email for secure display, e.g.
+/// `huzpubgkhahhn@gmail.com` -> `huz***@gmail.com`.
+///
+/// Robust across lengths: a local part longer than 3 keeps its first 3
+/// characters, a shorter one keeps only its first character (the full
+/// local part is never shown), the domain is preserved verbatim, and
+/// empty/malformed input degrades safely (null or a fully masked form)
+/// so callers can hide the row instead of leaking the address.
+String? _maskEmail(String? email) {
+  final value = email?.trim() ?? '';
+  if (value.isEmpty) return null;
+  final at = value.lastIndexOf('@');
+  final String local;
+  final String domain;
+  if (at < 0) {
+    // No '@' (malformed): mask everything, revealing at most 3 chars.
+    local = value;
+    domain = '';
+  } else {
+    local = value.substring(0, at);
+    domain = value.substring(at); // includes '@'
+  }
+  if (local.isEmpty) return '***$domain';
+  final head = local.length <= 3
+      ? local.substring(0, 1)
+      : local.substring(0, 3);
+  return '$head***$domain';
+}
 
 class OtpScreen extends ConsumerStatefulWidget {
   const OtpScreen({super.key});
@@ -34,6 +65,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen>
   Timer? _resendTimer;
   int _resendSeconds = 0;
   bool _isVerifying = false;
+  /// True while a resend-OTP request is in flight; locks the button and
+  /// shows the inline spinner until the BE response is fully received.
+  bool _isResending = false;
   bool _success = false;
   bool _hasError = false;
 
@@ -116,8 +150,7 @@ class _OtpScreenState extends ConsumerState<OtpScreen>
         _success = true;
       });
       ref.read(pendingRegistrationProvider.notifier).state = null;
-      await Future<void>.delayed(const Duration(milliseconds: 450));
-      if (mounted) context.go(RouteNames.roleSelection);
+      if (mounted) context.go(RouteNames.customerProfile);
     } else {
       setState(() {
         _isVerifying = false;
@@ -158,16 +191,27 @@ class _OtpScreenState extends ConsumerState<OtpScreen>
 
   Future<void> _resend() async {
     final pending = ref.read(pendingRegistrationProvider);
-    if (pending == null || _resendSeconds > 0 || _isVerifying) return;
-    final ok = await ref.read(authStateProvider.notifier).resendOtp(pending.phone);
-    if (!mounted) return;
-    if (ok) {
-      for (final controller in _controllers) { controller.clear(); }
-      _hasError = false;
-      _focusNodes.first.requestFocus();
-      _startResendCountdown();
-    } else {
-      _showMessage(AppLocalizations.of(context)!.unknownError);
+    if (pending == null ||
+        _resendSeconds > 0 ||
+        _isVerifying ||
+        _isResending) {
+      return;
+    }
+    setState(() => _isResending = true);
+    try {
+      final ok = await ref.read(authStateProvider.notifier).resendOtp(pending.phone);
+      if (!mounted) return;
+      if (ok) {
+        for (final controller in _controllers) { controller.clear(); }
+        _hasError = false;
+        _focusNodes.first.requestFocus();
+        _startResendCountdown();
+      } else {
+        _showMessage(AppLocalizations.of(context)!.unknownError);
+      }
+    } finally {
+      // Released only after the BE response is fully received.
+      if (mounted) setState(() => _isResending = false);
     }
   }
 
@@ -180,6 +224,9 @@ class _OtpScreenState extends ConsumerState<OtpScreen>
   @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
+    // Email captured at registration, masked for secure display.
+    final maskedEmail =
+        _maskEmail(ref.watch(pendingRegistrationProvider)?.email);
 
     if (_success) {
       return Scaffold(
@@ -222,6 +269,17 @@ class _OtpScreenState extends ConsumerState<OtpScreen>
                     style: AppTextStyles.bodyMedium,
                     textAlign: TextAlign.center,
                   ),
+                  if (maskedEmail != null) ...[
+                    const SizedBox(height: AppSpacing.xs),
+                    Text(
+                      maskedEmail!,
+                      style: AppTextStyles.bodySmall.copyWith(
+                        color: AppColors.textSecondary,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
                   const SizedBox(height: AppSpacing.section),
                   LayoutBuilder(
                     builder: (context, constraints) {
@@ -249,11 +307,27 @@ class _OtpScreenState extends ConsumerState<OtpScreen>
                   ),
                   const SizedBox(height: AppSpacing.md),
                   TextButton(
-                    onPressed: _resendSeconds == 0 && !_isVerifying ? _resend : null,
-                    child: Text(
-                      _resendSeconds == 0
-                          ? l10n.resendCode
-                          : l10n.resendIn(_resendSeconds),
+                    onPressed: _resendSeconds == 0 &&
+                            !_isVerifying &&
+                            !_isResending
+                        ? _resend
+                        : null,
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        if (_isResending) ...[
+                          const MorphingSpinner(
+                            size: AppSizes.iconXs,
+                            strokeWidth: 2,
+                          ),
+                          const SizedBox(width: AppSpacing.sm),
+                        ],
+                        Text(
+                          _resendSeconds == 0
+                              ? l10n.resendCode
+                              : l10n.resendIn(_resendSeconds),
+                        ),
+                      ],
                     ),
                   ),
                 ],

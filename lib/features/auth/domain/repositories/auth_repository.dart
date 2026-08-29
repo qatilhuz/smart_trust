@@ -7,6 +7,7 @@ abstract class AuthRepository {
     required String phone,
     required String email,
     required String password,
+    required String role,
     required String fullName,
   });
   Future<ApiResult<RegisterInitEntity>> resendOtp({required String phone});

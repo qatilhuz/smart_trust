@@ -13,11 +13,13 @@ class AuthRemoteDatasource {
     required String phone,
     required String email,
     required String password,
+    required String role,
     required String fullName,
   }) => _postOtp(ApiEndpoints.registerInit, {
         'phone': phone,
         'email': email,
         'password': password,
+        'role': role,
         'fullName': fullName,
       });
 
