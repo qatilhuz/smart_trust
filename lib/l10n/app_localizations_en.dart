@@ -1540,4 +1540,35 @@ class AppLocalizationsEn extends AppLocalizations {
     return 'App Version: $version';
   }
 
+  @override
+  String get forgotPassword => 'Forgot Password?';
+
+  @override
+  String get forgotPasswordTitle => 'Reset your password';
+
+  @override
+  String get forgotPasswordSubtitle => 'Enter your phone number and we'll send you a 6-digit code.';
+
+  @override
+  String get sendResetCode => 'Send code';
+
+  @override
+  String get resetPasswordTitle => 'Set a new password';
+
+  @override
+  String get resetPasswordSubtitle => 'Enter the 6-digit code sent to your phone and choose a new password.';
+
+  @override
+  String get newPassword => 'New password';
+
+  @override
+  String get resetPassword => 'Reset password';
+
+  @override
+  String get passwordResetSuccess => 'Password reset successful';
+
+  @override
+  String get forgotPasswordError => 'We could not find an account with that phone number. Please try again.';
+
+
 }

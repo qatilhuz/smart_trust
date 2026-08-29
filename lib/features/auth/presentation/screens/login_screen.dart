@@ -153,6 +153,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                             return null;
                           },
                         ),
+                        Align(
+                          alignment: AlignmentDirectional.centerEnd,
+                          child: TextButton(
+                            onPressed: isLoading
+                                ? null
+                                : () => context.push(RouteNames.forgotPassword),
+                            child: Text(l10n.forgotPassword),
+                          ),
+                        ),
                         if (authState.hasError) ...[
                           const SizedBox(height: AppSpacing.md),
                           _AuthMessage(

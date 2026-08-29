@@ -632,5 +632,15 @@
   "menu": "مینیو",
   "comingSoon": "جلد آ رہا ہے",
   "appVersionLabel": "ایپ ورژن: {version}",
-  "@appVersionLabel": {"placeholders": {"version": {"type": "String"}}}
+  "@appVersionLabel": {"placeholders": {"version": {"type": "String"}}},
+  "forgotPassword": "پاس ورڈ بھول گئے ہیں؟",
+  "forgotPasswordTitle": "اپنا پاس ورڈ ری سیٹ کریں",
+  "forgotPasswordSubtitle": "اپنا فون نمبر درج کریں، ہم آپ کو چھ ہندسوں کا کوڈ بھیجیں گے۔",
+  "sendResetCode": "کوڈ بھیجیں",
+  "resetPasswordTitle": "نیا پاس ورڈ مقرر کریں",
+  "resetPasswordSubtitle": "اپنے فون پر بھیجا گیا چھ ہندسوں کا کوڈ درج کریں اور نیا پاس ورڈ مقرر کریں۔",
+  "newPassword": "نیا پاس ورڈ",
+  "resetPassword": "پاس ورڈ ری سیٹ کریں",
+  "passwordResetSuccess": "پاس ورڈ کامیابی سے ری سیٹ ہو گیا",
+  "forgotPasswordError": "اس فون نمبر کا کوئی اکاؤنٹ نہیں ملا۔ براہ کرم دوبارہ کوشش کریں۔"
 }

@@ -632,5 +632,15 @@
   "menu": "Menu",
   "comingSoon": "Coming soon",
   "appVersionLabel": "App Version: {version}",
-  "@appVersionLabel": {"placeholders": {"version": {"type": "String"}}}
+  "@appVersionLabel": {"placeholders": {"version": {"type": "String"}}},
+  "forgotPassword": "Forgot Password?",
+  "forgotPasswordTitle": "Reset your password",
+  "forgotPasswordSubtitle": "Enter your phone number and we'll send you a 6-digit code.",
+  "sendResetCode": "Send code",
+  "resetPasswordTitle": "Set a new password",
+  "resetPasswordSubtitle": "Enter the 6-digit code sent to your phone and choose a new password.",
+  "newPassword": "New password",
+  "resetPassword": "Reset password",
+  "passwordResetSuccess": "Password reset successful",
+  "forgotPasswordError": "We could not find an account with that phone number. Please try again."
 }

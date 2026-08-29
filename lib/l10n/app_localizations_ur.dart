@@ -1547,4 +1547,35 @@ class AppLocalizationsUr extends AppLocalizations {
     return 'ایپ ورژن: $version';
   }
 
+  @override
+  String get forgotPassword => 'پاس ورڈ بھول گئے ہیں؟';
+
+  @override
+  String get forgotPasswordTitle => 'اپنا پاس ورڈ ری سیٹ کریں';
+
+  @override
+  String get forgotPasswordSubtitle => 'اپنا فون نمبر درج کریں، ہم آپ کو چھ ہندسوں کا کوڈ بھیجیں گے۔';
+
+  @override
+  String get sendResetCode => 'کوڈ بھیجیں';
+
+  @override
+  String get resetPasswordTitle => 'نیا پاس ورڈ مقرر کریں';
+
+  @override
+  String get resetPasswordSubtitle => 'اپنے فون پر بھیجا گیا چھ ہندسوں کا کوڈ درج کریں اور نیا پاس ورڈ مقرر کریں۔';
+
+  @override
+  String get newPassword => 'نیا پاس ورڈ';
+
+  @override
+  String get resetPassword => 'پاس ورڈ ری سیٹ کریں';
+
+  @override
+  String get passwordResetSuccess => 'پاس ورڈ کامیابی سے ری سیٹ ہو گیا';
+
+  @override
+  String get forgotPasswordError => 'اس فون نمبر کا کوئی اکاؤنٹ نہیں ملا۔ براہ کرم دوبارہ کوشش کریں۔';
+
+
 }

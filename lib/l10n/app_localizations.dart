@@ -2966,6 +2966,67 @@ abstract class AppLocalizations {
   /// **'App Version: {version}'**
   String appVersionLabel(String version);
 
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot Password?'**
+  String get forgotPassword;
+
+  /// No description provided for @forgotPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset your password'**
+  String get forgotPasswordTitle;
+
+  /// No description provided for @forgotPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number and we'll send you a 6-digit code.'**
+  String get forgotPasswordSubtitle;
+
+  /// No description provided for @sendResetCode.
+  ///
+  /// In en, this message translates to:
+  /// **'Send code'**
+  String get sendResetCode;
+
+  /// No description provided for @resetPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Set a new password'**
+  String get resetPasswordTitle;
+
+  /// No description provided for @resetPasswordSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter the 6-digit code sent to your phone and choose a new password.'**
+  String get resetPasswordSubtitle;
+
+  /// No description provided for @newPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPassword;
+
+  /// No description provided for @resetPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset password'**
+  String get resetPassword;
+
+  /// No description provided for @passwordResetSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Password reset successful'**
+  String get passwordResetSuccess;
+
+  /// No description provided for @forgotPasswordError.
+  ///
+  /// In en, this message translates to:
+  /// **'We could not find an account with that phone number. Please try again.'**
+  String get forgotPasswordError;
+
+
 }
 
 class _AppLocalizationsDelegate

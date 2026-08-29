@@ -9,6 +9,8 @@ import '../../features/auth/presentation/screens/role_selection_screen.dart';
 import '../../features/auth/presentation/screens/login_screen.dart';
 import '../../features/auth/presentation/screens/signup_screen.dart';
 import '../../features/auth/presentation/screens/otp_screen.dart';
+import '../../features/auth/presentation/screens/forgot_password_init_screen.dart';
+import '../../features/auth/presentation/screens/reset_password_screen.dart';
 import '../../features/auth/presentation/providers/auth_provider.dart';
 import '../../features/profile/domain/entities/profile_entities.dart';
 import '../../features/customer/home/presentation/customer_home_screen.dart';
@@ -39,6 +41,28 @@ import '../../features/notifications/presentation/notifications_screen.dart';
 import '../../features/ai_assistant/presentation/ai_assistant_screen.dart';
 import '../../features/voice_assistant/presentation/voice_assistant_screen.dart';
 import 'route_names.dart';
+
+/// Premium fade + subtle upward slide used by the forgot-password flow
+/// so screen changes never feel abrupt.
+CustomTransitionPage<void> _slideFadePage(GoRouterState state, Widget child) {
+  return CustomTransitionPage<void>(
+    key: state.pageKey,
+    child: child,
+    transitionDuration: const Duration(milliseconds: 380),
+    reverseTransitionDuration: const Duration(milliseconds: 300),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      final curved = CurvedAnimation(parent: animation, curve: Curves.easeOutCubic);
+      return FadeTransition(
+        opacity: curved,
+        child: SlideTransition(
+          position: Tween<Offset>(begin: const Offset(0, .05), end: Offset.zero)
+              .animate(curved),
+          child: child,
+        ),
+      );
+    },
+  );
+}
 
 class _RouterRefreshNotifier extends ChangeNotifier {
   void refresh() => notifyListeners();
@@ -93,6 +117,16 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RouteNames.otp,
         builder: (context, state) => const OtpScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.forgotPassword,
+        pageBuilder: (context, state) =>
+            _slideFadePage(state, const ForgotPasswordInitScreen()),
+      ),
+      GoRoute(
+        path: RouteNames.resetPassword,
+        pageBuilder: (context, state) =>
+            _slideFadePage(state, const ResetPasswordScreen()),
       ),
       // Customer
       GoRoute(
