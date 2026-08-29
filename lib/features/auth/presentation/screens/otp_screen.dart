@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -22,7 +23,8 @@ class OtpScreen extends ConsumerStatefulWidget {
   ConsumerState<OtpScreen> createState() => _OtpScreenState();
 }
 
-class _OtpScreenState extends ConsumerState<OtpScreen> {
+class _OtpScreenState extends ConsumerState<OtpScreen>
+    with TickerProviderStateMixin {
   static const _digitCount = 6;
 
   final List<TextEditingController> _controllers =
@@ -35,9 +37,31 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
   bool _success = false;
   bool _hasError = false;
 
+  /// Drives the "merge into a single glowing core" morph while the code is
+  /// being verified. 0 = six separate boxes, 1 = fully merged core.
+  late final AnimationController _morph = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 620),
+  );
+  late final CurvedAnimation _morphCurve = CurvedAnimation(
+    parent: _morph,
+    curve: Curves.easeInOutCubic,
+    reverseCurve: Curves.easeOutCubic,
+  );
+
+  /// Loops while waiting for the backend response so the merged core keeps
+  /// breathing/glowing instead of sitting static.
+  late final AnimationController _pulse = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 1300),
+  );
+
   @override
   void dispose() {
     _resendTimer?.cancel();
+    _morphCurve.dispose();
+    _morph.dispose();
+    _pulse.dispose();
     for (final controller in _controllers) {
       controller.dispose();
     }
@@ -47,14 +71,24 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
     super.dispose();
   }
 
+  bool get _isCodeComplete =>
+      _controllers.every((controller) => controller.text.length == 1);
+
   void _onChanged(int index, String value) {
     if (_hasError) setState(() => _hasError = false);
     if (value.length == 1 && index < _digitCount - 1) {
       _focusNodes[index + 1].requestFocus();
     }
+    // Futuristic auto-submit: as soon as the last digit lands, the merge
+    // animation and verification start without needing the button press.
+    if (_isCodeComplete && !_isVerifying && ref.read(pendingRegistrationProvider) != null) {
+      final l10n = AppLocalizations.of(context);
+      if (l10n != null) _verify(l10n);
+    }
   }
 
   Future<void> _verify(AppLocalizations l10n) async {
+    if (_isVerifying) return; // Guard: a verification is already in flight.
     final pending = ref.read(pendingRegistrationProvider);
     final code = _controllers.map((controller) => controller.text).join();
     if (pending == null || !RegExp(r'^\d{6}$').hasMatch(code)) {
@@ -62,18 +96,41 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
       _showMessage(l10n.otpRequired);
       return;
     }
-    setState(() { _isVerifying = true; _hasError = false; });
-    await ref.read(authStateProvider.notifier).verifyOtp(phone: pending.phone, otp: code);
+    // Drop the keyboard so the morph is fully visible, lock every input,
+    // then run the merge animation and the API call concurrently.
+    FocusManager.instance.primaryFocus?.unfocus();
+    setState(() {
+      _isVerifying = true;
+      _hasError = false;
+    });
+    _pulse.repeat();
+    final verification = ref
+        .read(authStateProvider.notifier)
+        .verifyOtp(phone: pending.phone, otp: code);
+    await Future.wait<void>([_morph.forward(), verification]);
     if (!mounted) return;
     final user = ref.read(authStateProvider).valueOrNull;
     if (user != null) {
-      setState(() { _isVerifying = false; _success = true; });
+      setState(() {
+        _isVerifying = false;
+        _success = true;
+      });
       ref.read(pendingRegistrationProvider.notifier).state = null;
       await Future<void>.delayed(const Duration(milliseconds: 450));
       if (mounted) context.go(RouteNames.roleSelection);
     } else {
-      setState(() { _isVerifying = false; _hasError = true; });
-      _showMessage(l10n.invalidCode);
+      setState(() {
+        _isVerifying = false;
+        _hasError = true;
+      });
+      _pulse
+        ..stop()
+        ..reset();
+      await _morph.reverse();
+      if (mounted) {
+        _focusNodes.first.requestFocus();
+        _showMessage(l10n.invalidCode);
+      }
     }
   }
 
@@ -168,32 +225,10 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
                   const SizedBox(height: AppSpacing.section),
                   LayoutBuilder(
                     builder: (context, constraints) {
-                      final width = (constraints.maxWidth - AppSpacing.md * 3) / 4;
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: List.generate(
-                          _digitCount,
-                          (index) => Padding(
-                            padding: EdgeInsets.only(
-                              right: index == _digitCount - 1 ? 0 : AppSpacing.md,
-                            ),
-                            child: SizedBox(
-                              width: width.clamp(AppSizes.buttonHeightSmall, 72.0).toDouble(),
-                              height: AppSizes.buttonHeightLarge,
-                              child: _OtpDigit(
-                                controller: _controllers[index],
-                                focusNode: _focusNodes[index],
-                                hasError: _hasError,
-                                onChanged: (value) => _onChanged(index, value),
-                                onBackspace: () {
-                                  if (_controllers[index].text.isEmpty && index > 0) {
-                                    _focusNodes[index - 1].requestFocus();
-                                  }
-                                },
-                              ),
-                            ),
-                          ),
-                        ),
+                      final metrics = _resolveOtpMetrics(constraints.maxWidth);
+                      return _buildMorphingOtpRow(
+                        boxWidth: metrics.boxWidth,
+                        gap: metrics.gap,
                       );
                     },
                   ),
@@ -229,6 +264,108 @@ class _OtpScreenState extends ConsumerState<OtpScreen> {
       ),
     );
   }
+
+  /// Responsive sizing for the OTP cells.
+  ///
+  /// The row is [AppSizes.buttonHeightLarge] tall and must fit
+  /// [availableWidth] exactly: 6 cells plus 5 gaps. The preferred layout uses
+  /// the [AppSpacing.md] gap with cells capped at 72; on narrow viewports the
+  /// gaps compress down to [AppSpacing.xs] first so the cells keep a
+  /// comfortable touch target instead of overflowing. Below that floor the
+  /// cells shrink rather than exceed the viewport, so a horizontal overflow is
+  /// impossible at any width (phone, split-screen, or web pane).
+  ({double boxWidth, double gap}) _resolveOtpMetrics(double availableWidth) {
+    const boxMax = 72.0;
+    const boxMin = AppSizes.buttonHeightSmall;
+    var gap = AppSpacing.md;
+    var boxWidth = (availableWidth - gap * (_digitCount - 1)) / _digitCount;
+    if (boxWidth < boxMin) {
+      gap = math.max(
+        AppSpacing.xs,
+        (availableWidth - boxMin * _digitCount) / (_digitCount - 1),
+      );
+      boxWidth = (availableWidth - gap * (_digitCount - 1)) / _digitCount;
+    }
+    return (boxWidth: math.min(boxMax, math.max(24.0, boxWidth)), gap: gap);
+  }
+
+  /// The six OTP cells plus the merged glowing "verification core".
+  ///
+  /// While verifying, each cell translates toward the row center, scales and
+  /// fades out, and the core scales in with a breathing glow and an embedded
+  /// spinner — a single futuristic element representing the code being
+  /// checked. On failure the whole morph reverses back to the six cells.
+  Widget _buildMorphingOtpRow({
+    required double boxWidth,
+    required double gap,
+  }) {
+    final pitch = boxWidth + gap;
+    // Keep physical placement consistent with the flow direction so the
+    // digit order matches the Row this replaces in RTL locales (ur).
+    return SizedBox(
+      width: double.infinity,
+      height: AppSizes.buttonHeightLarge,
+      child: AnimatedBuilder(
+        animation: Listenable.merge([_morphCurve, _pulse]),
+        builder: (context, _) {
+          final t = _morphCurve.value.clamp(0.0, 1.0);
+          final merge = 1 - t;
+          final pulse = math.sin(_pulse.value * 2 * math.pi) * .5 + .5;
+          final rtl = Directionality.of(context) == TextDirection.rtl;
+          final direction = rtl ? -1.0 : 1.0;
+          return Stack(
+            alignment: Alignment.center,
+            children: [
+              // Merged, glowing verification core with an embedded spinner.
+              IgnorePointer(
+                ignoring: true,
+                child: Opacity(
+                  opacity: t,
+                  child: Transform.scale(
+                    scale: math.max(0.0, Curves.easeOutBack.transform(t)),
+                    child: _MergedOtpCore(
+                      width: math.max(boxWidth + AppSpacing.lg, 64.0),
+                      pulse: pulse,
+                    ),
+                  ),
+                ),
+              ),
+              // The six cells collapsing into the core.
+              for (var i = 0; i < _digitCount; i++)
+                Transform.translate(
+                  offset: Offset(
+                    direction * (i - (_digitCount - 1) / 2) * pitch * merge,
+                    0,
+                  ),
+                  child: Opacity(
+                    opacity: merge,
+                    child: Transform.scale(
+                      scale: 1 - .85 * t,
+                      child: SizedBox(
+                        width: boxWidth,
+                        height: AppSizes.buttonHeightLarge,
+                        child: _OtpDigit(
+                          controller: _controllers[i],
+                          focusNode: _focusNodes[i],
+                          hasError: _hasError,
+                          locked: _isVerifying,
+                          onChanged: (value) => _onChanged(i, value),
+                          onBackspace: () {
+                            if (_controllers[i].text.isEmpty && i > 0) {
+                              _focusNodes[i - 1].requestFocus();
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          );
+        },
+      ),
+    );
+  }
 }
 
 class _OtpHero extends StatelessWidget {
@@ -259,6 +396,11 @@ class _OtpDigit extends StatefulWidget {
   final TextEditingController controller;
   final FocusNode focusNode;
   final bool hasError;
+
+  /// True while the backend call is in flight: the cell becomes read-only,
+  /// cannot take focus, and shows no cursor — preventing duplicate input or
+  /// a second submission while the morph plays.
+  final bool locked;
   final ValueChanged<String> onChanged;
   final VoidCallback onBackspace;
 
@@ -268,6 +410,7 @@ class _OtpDigit extends StatefulWidget {
     required this.hasError,
     required this.onChanged,
     required this.onBackspace,
+    this.locked = false,
   });
 
   @override
@@ -329,6 +472,7 @@ class _OtpDigitState extends State<_OtpDigit> {
             : null,
       ),
       child: Focus(
+        canRequestFocus: !widget.locked,
         onKeyEvent: (node, event) {
           if (event is KeyDownEvent &&
               event.logicalKey == LogicalKeyboardKey.backspace &&
@@ -341,6 +485,8 @@ class _OtpDigitState extends State<_OtpDigit> {
         child: TextField(
           controller: widget.controller,
           focusNode: widget.focusNode,
+          enabled: !widget.locked,
+          showCursor: !widget.locked,
           textAlign: TextAlign.center,
           keyboardType: TextInputType.number,
           textInputAction: TextInputAction.next,
@@ -356,6 +502,68 @@ class _OtpDigitState extends State<_OtpDigit> {
             setState(() {});
             widget.onChanged(value);
           },
+        ),
+      ),
+    );
+  }
+}
+
+/// The single glowing element the six OTP cells merge into while the code is
+/// verified. Uses the SmartTrust brand gradient (primaryLight -> primary ->
+/// primaryDark) and the same white spinner convention as [PrimaryButton].
+class _MergedOtpCore extends StatelessWidget {
+  final double width;
+  final double pulse; // 0..1 breathing phase driven by the pulse controller.
+
+  const _MergedOtpCore({
+    required this.width,
+    required this.pulse,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width,
+      height: AppSizes.buttonHeightLarge,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppSizes.radiusLg),
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            AppColors.primaryLight,
+            AppColors.primary,
+            AppColors.primaryDark,
+          ],
+        ),
+        border: Border.all(
+          color: AppColors.primaryLight.withOpacity(.85),
+          width: AppSizes.borderWidth,
+        ),
+        boxShadow: [
+          // Wide ambient halo that breathes with the pulse.
+          BoxShadow(
+            color: AppColors.primary.withOpacity(.26 + .22 * pulse),
+            blurRadius: AppSpacing.xxl + AppSpacing.lg * pulse,
+            spreadRadius: AppSpacing.xs + 2 * pulse,
+            offset: const Offset(0, AppSpacing.sm),
+          ),
+          // Tight inner halo for a crisp energy edge.
+          BoxShadow(
+            color: AppColors.primaryLight.withOpacity(.30 + .25 * pulse),
+            blurRadius: AppSpacing.lg,
+            spreadRadius: -1 + 2 * pulse,
+          ),
+        ],
+      ),
+      child: const Center(
+        child: SizedBox(
+          width: AppSizes.iconMd,
+          height: AppSizes.iconMd,
+          child: CircularProgressIndicator(
+            strokeWidth: 2.5,
+            color: AppColors.white,
+          ),
         ),
       ),
     );
