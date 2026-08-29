@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../../../core/constants/constant.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../../../../core/providers/locale_provider.dart';
 import '../../../../core/router/route_names.dart';
 import '../../../auth/presentation/providers/auth_provider.dart';
