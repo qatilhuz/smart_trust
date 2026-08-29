@@ -87,6 +87,18 @@ class AuthRepositoryImpl implements AuthRepository {
       await source.logout(refreshToken: refreshToken);
     }
     await storage.clearTokens();
+    // Clear the locally cached profile so no auth state survives logout.
+    final prefs = await SharedPreferences.getInstance();
+    for (final key in const [
+      'user_id',
+      'user_name',
+      'user_email',
+      'user_phone',
+      'user_role',
+      'user_status',
+    ]) {
+      await prefs.remove(key);
+    }
   }
 
   @override

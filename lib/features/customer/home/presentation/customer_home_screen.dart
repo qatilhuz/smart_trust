@@ -8,6 +8,7 @@ import '../../../../core/constants/app_sizes.dart';
 import '../../../../core/constants/app_spacing.dart';
 import '../../../../core/constants/app_text_styles.dart';
 import '../../../../core/router/route_names.dart';
+import '../../../../core/widgets/app_drawer.dart';
 import '../../../../core/widgets/authentication_prompt.dart';
 import '../../../../l10n/app_localizations.dart';
 import '../../../auth/domain/entities/user_entity.dart';
@@ -102,6 +103,7 @@ class _CustomerHomeContent extends ConsumerWidget {
 
     return Scaffold(
       backgroundColor: AppColors.scaffoldBackground,
+      drawer: const AppDrawer(variant: AppDrawerVariant.customer),
       body: SafeArea(
         child: RefreshIndicator(
           color: AppColors.primary,
@@ -225,6 +227,8 @@ class _HomeHeader extends StatelessWidget {
 
     return Row(
       children: [
+        const HamburgerMenuButton(),
+        const SizedBox(width: AppSpacing.sm),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/router/route_names.dart';
+import '../../../../core/widgets/app_drawer.dart';
 
 class ProviderHomeScreen extends ConsumerWidget {
   const ProviderHomeScreen({super.key});
@@ -11,7 +12,11 @@ class ProviderHomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Provider Status')),
+      drawer: const AppDrawer(variant: AppDrawerVariant.provider),
+      appBar: AppBar(
+        title: const Text('Provider Status'),
+        leading: const HamburgerMenuButton(),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(24),
         child: Column(
