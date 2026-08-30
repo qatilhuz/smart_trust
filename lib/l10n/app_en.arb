@@ -642,5 +642,17 @@
   "newPassword": "New password",
   "resetPassword": "Reset password",
   "passwordResetSuccess": "Password reset successful",
-  "forgotPasswordError": "We could not find an account with that phone number. Please try again."
+  "forgotPasswordError": "We could not find an account with that phone number. Please try again.",
+  "chooseCategory": "Service category",
+  "addSkill": "Add",
+  "addSkillHint": "Type a skill and tap add",
+  "bioLabel": "Short bio",
+  "invalidExperience": "Enter your years of experience.",
+  "documentsRequired": "Please add your selfie, CNIC front and CNIC back images.",
+  "pendingReviewSubtitle": "Your documents are being verified. We will notify you as soon as your account is approved.",
+  "providerProfileError": "We could not save your profile. Please try again.",
+  "providerDocumentsError": "We could not upload your documents. Please try again.",
+  "verificationApproved": "Account approved",
+  "camera": "Camera",
+  "gallery": "Gallery"
 }

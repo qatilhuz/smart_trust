@@ -20,6 +20,8 @@ class ApiEndpoints {
   static const providerJobFeed='/provider/job-feed';
   static const providerEarnings='/provider/earnings';
   static const chatMessages='/chat/messages';
+  static const providerProfile='/api/v1/providers/profile';
+  static const providerDocuments='/api/v1/providers/documents';
   static const notifications='/notifications';
   static const reviews='/reviews';
 }

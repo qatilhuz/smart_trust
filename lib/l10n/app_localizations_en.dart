@@ -1570,5 +1570,42 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get forgotPasswordError => 'We could not find an account with that phone number. Please try again.';
 
+  @override
+  String get chooseCategory => 'Service category';
+
+  @override
+  String get addSkill => 'Add';
+
+  @override
+  String get addSkillHint => 'Type a skill and tap add';
+
+  @override
+  String get bioLabel => 'Short bio';
+
+  @override
+  String get invalidExperience => 'Enter your years of experience.';
+
+  @override
+  String get documentsRequired => 'Please add your selfie, CNIC front and CNIC back images.';
+
+  @override
+  String get pendingReviewSubtitle => 'Your documents are being verified. We will notify you as soon as your account is approved.';
+
+  @override
+  String get providerProfileError => 'We could not save your profile. Please try again.';
+
+  @override
+  String get providerDocumentsError => 'We could not upload your documents. Please try again.';
+
+  @override
+  String get verificationApproved => 'Account approved';
+
+  @override
+  String get camera => 'Camera';
+
+  @override
+  String get gallery => 'Gallery';
+
+
 
 }

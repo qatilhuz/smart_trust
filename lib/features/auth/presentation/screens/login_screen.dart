@@ -12,6 +12,8 @@ import '../../../../l10n/app_localizations.dart';
 import '../../domain/entities/user_entity.dart';
 import '../providers/auth_provider.dart';
 import '../widgets/auth_header.dart';
+import '../../../provider/onboarding/domain/entities/provider_onboarding_entities.dart';
+import '../../../provider/onboarding/presentation/providers/provider_onboarding_providers.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({super.key});
@@ -47,8 +49,31 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final state = ref.read(authStateProvider);
     final user = state.valueOrNull;
     if (user != null) {
-      context.go(_destinationFor(user));
+      await _navigateAfterLogin(user);
     }
+  }
+
+  /// Provider accounts are routed by their onboarding/verification state:
+  /// no profile yet -> step 1 form; pending review -> animated review
+  /// screen; approved (or status unavailable) -> provider home feed.
+  Future<void> _navigateAfterLogin(UserEntity user) async {
+    if (user.role.isNotEmpty && user.role.toLowerCase().contains('provider')) {
+      final entity = await ref.read(providerVerificationStatusProvider.future);
+      if (!mounted) return;
+      switch (entity?.status) {
+        case ProviderVerificationStatus.missingProfile:
+          context.go(RouteNames.providerProfileForm);
+          return;
+        case ProviderVerificationStatus.pendingReview:
+          context.go(RouteNames.providerPendingReview);
+          return;
+        case ProviderVerificationStatus.approved:
+        case null:
+          context.go(RouteNames.providerFeed);
+          return;
+      }
+    }
+    context.go(_destinationFor(user));
   }
 
   String _destinationFor(UserEntity user) {

@@ -3026,6 +3026,79 @@ abstract class AppLocalizations {
   /// **'We could not find an account with that phone number. Please try again.'**
   String get forgotPasswordError;
 
+  /// No description provided for @chooseCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Service category'**
+  String get chooseCategory;
+
+  /// No description provided for @addSkill.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get addSkill;
+
+  /// No description provided for @addSkillHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type a skill and tap add'**
+  String get addSkillHint;
+
+  /// No description provided for @bioLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Short bio'**
+  String get bioLabel;
+
+  /// No description provided for @invalidExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your years of experience.'**
+  String get invalidExperience;
+
+  /// No description provided for @documentsRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Please add your selfie, CNIC front and CNIC back images.'**
+  String get documentsRequired;
+
+  /// No description provided for @pendingReviewSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your documents are being verified. We will notify you as soon as your account is approved.'**
+  String get pendingReviewSubtitle;
+
+  /// No description provided for @providerProfileError.
+  ///
+  /// In en, this message translates to:
+  /// **'We could not save your profile. Please try again.'**
+  String get providerProfileError;
+
+  /// No description provided for @providerDocumentsError.
+  ///
+  /// In en, this message translates to:
+  /// **'We could not upload your documents. Please try again.'**
+  String get providerDocumentsError;
+
+  /// No description provided for @verificationApproved.
+  ///
+  /// In en, this message translates to:
+  /// **'Account approved'**
+  String get verificationApproved;
+
+  /// No description provided for @camera.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera'**
+  String get camera;
+
+  /// No description provided for @gallery.
+  ///
+  /// In en, this message translates to:
+  /// **'Gallery'**
+  String get gallery;
+
+
 
 }
 

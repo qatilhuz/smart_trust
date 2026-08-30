@@ -32,7 +32,7 @@ class ProviderHomeScreen extends ConsumerWidget {
             _StatusCard(title: 'Admin Review', done: false),
             _StatusCard(title: 'Profile Active', done: false),
             const Spacer(),
-            ElevatedButton(onPressed: () => context.push(RouteNames.providerRegistration), child: const Text('Complete Registration')),
+            ElevatedButton(onPressed: () => context.push(RouteNames.providerProfileForm), child: const Text('Complete Registration')),
           ],
         ),
       ),

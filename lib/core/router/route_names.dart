@@ -33,6 +33,9 @@ class RouteNames {
 
   // Provider
   static const providerRegistration = '/provider/registration';
+  static const providerProfileForm = '/provider/onboarding/profile';
+  static const providerDocumentsUpload = '/provider/onboarding/documents';
+  static const providerPendingReview = '/provider/onboarding/pending-review';
   static const providerVerification = '/provider/verification';
   static const providerFeed = '/provider/feed';
   static const providerJobFeed = '/provider/job-feed';

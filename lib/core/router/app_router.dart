@@ -11,6 +11,11 @@ import '../../features/auth/presentation/screens/signup_screen.dart';
 import '../../features/auth/presentation/screens/otp_screen.dart';
 import '../../features/auth/presentation/screens/forgot_password_init_screen.dart';
 import '../../features/auth/presentation/screens/reset_password_screen.dart';
+import '../../features/provider/onboarding/domain/entities/provider_onboarding_entities.dart';
+import '../../features/provider/onboarding/presentation/providers/provider_onboarding_providers.dart';
+import '../../features/provider/onboarding/presentation/screens/provider_documents_screen.dart';
+import '../../features/provider/onboarding/presentation/screens/provider_pending_review_screen.dart';
+import '../../features/provider/onboarding/presentation/screens/provider_profile_form_screen.dart';
 import '../../features/auth/presentation/providers/auth_provider.dart';
 import '../../features/profile/domain/entities/profile_entities.dart';
 import '../../features/customer/home/presentation/customer_home_screen.dart';
@@ -82,6 +87,34 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       final user = ref.read(authStateProvider).valueOrNull;
       if (user != null && user.role.isEmpty && state.matchedLocation != RouteNames.roleSelection) {
         return RouteNames.roleSelection;
+      }
+      // Provider onboarding gate: hold non-approved providers on the
+      // pending-review screen (or step 1 when no profile exists) and block
+      // every home surface until APPROVED.
+      final providerRole = user.role.toLowerCase().contains('provider');
+      if (providerRole && user.role.isNotEmpty) {
+        final verificationStatus =
+            ref.read(providerVerificationStatusProvider).valueOrNull?.status;
+        const exempt = {
+          RouteNames.splash,
+          RouteNames.onboarding,
+          RouteNames.languageSelection,
+          RouteNames.login,
+          RouteNames.signup,
+          RouteNames.otp,
+          RouteNames.roleSelection,
+          RouteNames.providerProfileForm,
+          RouteNames.providerDocumentsUpload,
+          RouteNames.providerPendingReview,
+        };
+        if (!exempt.contains(state.matchedLocation)) {
+          if (verificationStatus == ProviderVerificationStatus.pendingReview) {
+            return RouteNames.providerPendingReview;
+          }
+          if (verificationStatus == ProviderVerificationStatus.missingProfile) {
+            return RouteNames.providerProfileForm;
+          }
+        }
       }
       final profile = ref.read(profileStatusProvider);
       if (user == null || !profile.hasValue || profile.value == ProfileStatus.complete) return null;
@@ -223,6 +256,21 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: RouteNames.providerRegistration,
         builder: (context, state) => const ProviderRegistrationScreen(),
+      ),
+      GoRoute(
+        path: RouteNames.providerProfileForm,
+        pageBuilder: (context, state) =>
+            _slideFadePage(state, const ProviderProfileFormScreen()),
+      ),
+      GoRoute(
+        path: RouteNames.providerDocumentsUpload,
+        pageBuilder: (context, state) =>
+            _slideFadePage(state, const ProviderDocumentsScreen()),
+      ),
+      GoRoute(
+        path: RouteNames.providerPendingReview,
+        pageBuilder: (context, state) =>
+            _slideFadePage(state, const ProviderPendingReviewScreen()),
       ),
       GoRoute(
         path: RouteNames.providerVerification,

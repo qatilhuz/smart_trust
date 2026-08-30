@@ -1577,5 +1577,42 @@ class AppLocalizationsUr extends AppLocalizations {
   @override
   String get forgotPasswordError => 'اس فون نمبر کا کوئی اکاؤنٹ نہیں ملا۔ براہ کرم دوبارہ کوشش کریں۔';
 
+  @override
+  String get chooseCategory => 'سروس کیٹیگری';
+
+  @override
+  String get addSkill => 'شامل کریں';
+
+  @override
+  String get addSkillHint => 'مہارت لکھیں اور شامل دبائیں';
+
+  @override
+  String get bioLabel => 'مختصر تعارف';
+
+  @override
+  String get invalidExperience => 'اپنے تجربے کے سال درج کریں۔';
+
+  @override
+  String get documentsRequired => 'براہ کرم اپنی سیلفی، شناختی کارڈ کے سامنے اور پیچھے کی تصاویر شامل کریں۔';
+
+  @override
+  String get pendingReviewSubtitle => 'آپ کی دستاویزات کی تصدیق ہو رہی ہیں۔ جیسے ہی آپ کا اکاؤنٹ منظور ہو گا ہم آپ کو مطلع کر دیں گے۔';
+
+  @override
+  String get providerProfileError => 'ہم آپ کی پروفائل محفوظ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔';
+
+  @override
+  String get providerDocumentsError => 'ہم آپ کی دستاویزات اپ لوڈ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔';
+
+  @override
+  String get verificationApproved => 'اکاؤنٹ منظور ہو گیا';
+
+  @override
+  String get camera => 'کیمرہ';
+
+  @override
+  String get gallery => 'گیلری';
+
+
 
 }
