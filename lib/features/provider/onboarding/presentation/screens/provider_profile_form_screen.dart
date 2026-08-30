@@ -93,6 +93,8 @@ class _ProviderProfileFormScreenState
           );
       if (!mounted) return;
       if (ok) {
+        // Step 1 done: the router now expects the documents step next.
+        ref.read(providerProfileSubmittedProvider.notifier).state = true;
         context.push(RouteNames.providerDocumentsUpload);
       } else {
         setState(() => _hasError = true);

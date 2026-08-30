@@ -150,7 +150,14 @@ class _OtpScreenState extends ConsumerState<OtpScreen>
         _success = true;
       });
       ref.read(pendingRegistrationProvider.notifier).state = null;
-      if (mounted) context.go(RouteNames.customerProfile);
+      // Role-isolated landing: providers continue their onboarding flow at
+      // step 1 (profile form); customers go to their profile completion.
+      final isProvider = user.role.toLowerCase().contains('provider');
+      if (mounted) {
+        context.go(
+          isProvider ? RouteNames.providerProfileForm : RouteNames.customerProfile,
+        );
+      }
     } else {
       setState(() {
         _isVerifying = false;

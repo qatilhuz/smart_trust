@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../features/auth/presentation/providers/auth_provider.dart';
+import '../../features/provider/onboarding/presentation/providers/provider_onboarding_providers.dart';
 import '../constants/app_colors.dart';
 import '../constants/app_constants.dart';
 import '../constants/app_sizes.dart';
@@ -125,6 +126,7 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
       // tokens + cached user profile are cleared inside the repository.
       await ref.read(authStateProvider.notifier).logout();
       ref.read(pendingRegistrationProvider.notifier).state = null;
+      ref.read(providerProfileSubmittedProvider.notifier).state = false;
     } finally {
       if (mounted) setState(() => _isLoggingOut = false);
     }

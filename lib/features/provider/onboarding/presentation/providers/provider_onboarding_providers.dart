@@ -22,6 +22,11 @@ final providerCategoryOptions = <ProviderCategoryOption>[
   ProviderCategoryOption(5, (l10n) => l10n.categoryCleaning),
 ];
 
+/// Session marker set after step 1 (profile) succeeds. Lets the router
+/// distinguish "profile missing" from "documents missing" even though the
+/// documents lookup reports 404 for both. Reset on logout.
+final providerProfileSubmittedProvider = StateProvider<bool>((ref) => false);
+
 /// Current verification status for the signed-in provider, or null for
 /// guests/customers. Drives the router gate and the post-login routing.
 ///

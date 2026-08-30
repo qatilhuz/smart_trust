@@ -85,41 +85,97 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     refreshListenable: refresh,
     redirect: (context, state) {
       final user = ref.read(authStateProvider).valueOrNull;
-      if (user != null && user.role.isEmpty && state.matchedLocation != RouteNames.roleSelection) {
+      final location = state.matchedLocation;
+
+      // Authenticated users must pick a role before anything else.
+      if (user != null &&
+          user.role.isEmpty &&
+          location != RouteNames.roleSelection) {
         return RouteNames.roleSelection;
       }
-      // Provider onboarding gate: hold non-approved providers on the
-      // pending-review screen (or step 1 when no profile exists) and block
-      // every home surface until APPROVED.
-      final providerRole = user.role.toLowerCase().contains('provider');
-      if (providerRole && user.role.isNotEmpty) {
-        final verificationStatus =
+
+      // ------------------------------------------------------------------
+      // Provider onboarding gate — strictly role-isolated (never applied to
+      // customers or guests) and null-safe (guest transitions no longer
+      // crash on user.role). Sequential steps with terminal-state checks:
+      // every redirect verifies the current location is not already the
+      // target, so GoRouter can never oscillate into a loop.
+      // ------------------------------------------------------------------
+      if (user != null &&
+          user.role.isNotEmpty &&
+          user.role.toLowerCase().contains('provider')) {
+        var status =
             ref.read(providerVerificationStatusProvider).valueOrNull?.status;
-        const exempt = {
-          RouteNames.splash,
-          RouteNames.onboarding,
-          RouteNames.languageSelection,
-          RouteNames.login,
-          RouteNames.signup,
-          RouteNames.otp,
-          RouteNames.roleSelection,
-          RouteNames.providerProfileForm,
-          RouteNames.providerDocumentsUpload,
-          RouteNames.providerPendingReview,
-        };
-        if (!exempt.contains(state.matchedLocation)) {
-          if (verificationStatus == ProviderVerificationStatus.pendingReview) {
-            return RouteNames.providerPendingReview;
-          }
-          if (verificationStatus == ProviderVerificationStatus.missingProfile) {
-            return RouteNames.providerProfileForm;
-          }
+
+        // Session marker: step 1 (profile) succeeded but documents are not
+        // uploaded yet — the documents lookup reports 404 for both cases.
+        if (status == ProviderVerificationStatus.missingProfile &&
+            ref.read(providerProfileSubmittedProvider)) {
+          status = ProviderVerificationStatus.missingDocuments;
         }
+
+        if (status != null) {
+          switch (status) {
+            case ProviderVerificationStatus.missingProfile:
+              // Profile missing -> step 1 form (unless already there).
+              if (location != RouteNames.providerProfileForm) {
+                return RouteNames.providerProfileForm;
+              }
+            case ProviderVerificationStatus.missingDocuments:
+              // Profile exists, documents missing -> step 2 (unless there).
+              if (location != RouteNames.providerDocumentsUpload) {
+                return RouteNames.providerDocumentsUpload;
+              }
+            case ProviderVerificationStatus.pendingReview:
+              // Uploaded, pending review -> review screen (unless there).
+              if (location != RouteNames.providerPendingReview) {
+                return RouteNames.providerPendingReview;
+              }
+            case ProviderVerificationStatus.approved:
+              // Approved providers never sit on onboarding screens.
+              const onboardingRoutes = {
+                RouteNames.providerProfileForm,
+                RouteNames.providerDocumentsUpload,
+                RouteNames.providerPendingReview,
+              };
+              if (onboardingRoutes.contains(location)) {
+                return RouteNames.providerFeed;
+              }
+          }
+          // The onboarding gate supersedes the generic profile-completion
+          // redirect: providers never fall through to it (that fall-through
+          // was the pending-review <-> profile oscillation).
+          return null;
+        }
+        // Status lookup not resolved yet: never guess. Explicit post-login /
+        // post-signup navigation places the user, and this gate re-applies
+        // on the next navigation once the lookup completes.
+        return null;
       }
+
+      // ------------------------------------------------------------------
+      // Customer profile-completion gate (customers only — providers and
+      // guests are fully handled above, so customers can never be routed
+      // to /provider/* screens).
+      // ------------------------------------------------------------------
       final profile = ref.read(profileStatusProvider);
-      if (user == null || !profile.hasValue || profile.value == ProfileStatus.complete) return null;
-      final profileRoute = user.role.toLowerCase() == 'provider' ? RouteNames.providerProfile : RouteNames.customerProfile;
-      if (state.matchedLocation == profileRoute || state.matchedLocation == RouteNames.splash || state.matchedLocation == RouteNames.onboarding || state.matchedLocation == RouteNames.login || state.matchedLocation == RouteNames.signup || state.matchedLocation == RouteNames.otp || state.matchedLocation == RouteNames.roleSelection) return null;
+      if (user == null ||
+          !profile.hasValue ||
+          profile.value == ProfileStatus.complete) {
+        return null;
+      }
+      const profileRoute = RouteNames.customerProfile;
+      const safeLocations = {
+        RouteNames.splash,
+        RouteNames.onboarding,
+        RouteNames.languageSelection,
+        RouteNames.login,
+        RouteNames.signup,
+        RouteNames.otp,
+        RouteNames.roleSelection,
+        profileRoute,
+      };
+      if (safeLocations.contains(location)) return null;
       return profileRoute;
     },
     routes: [

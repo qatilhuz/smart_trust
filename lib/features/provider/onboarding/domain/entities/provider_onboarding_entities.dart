@@ -10,6 +10,11 @@ enum ProviderVerificationStatus {
   /// The GET documents lookup found no profile/documents yet (404) — the
   /// provider must complete the profile form first.
   missingProfile,
+
+  /// Profile submitted (step 1 done) but documents not uploaded yet — the
+  /// provider must complete the document upload step. Derived in-session
+  /// because the documents lookup cannot distinguish the two 404 cases.
+  missingDocuments,
 }
 
 class ProviderVerificationEntity {
