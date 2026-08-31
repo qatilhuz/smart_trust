@@ -8,6 +8,7 @@ import '../../../../../core/constants/app_spacing.dart';
 import '../../../../../core/constants/app_text_styles.dart';
 import '../../../../../core/router/route_names.dart';
 import '../../../../../core/widgets/app_text_field.dart';
+import '../../../../../core/widgets/morphing_spinner.dart';
 import '../../../../../core/widgets/primary_button.dart';
 import '../../../../../l10n/app_localizations.dart';
 import '../providers/provider_onboarding_providers.dart';
@@ -93,8 +94,9 @@ class _ProviderProfileFormScreenState
           );
       if (!mounted) return;
       if (ok) {
-        // Step 1 done: the router now expects the documents step next.
-        ref.read(providerProfileSubmittedProvider.notifier).state = true;
+        // Step 1 done: re-resolve the onboarding sequence (profile now
+        // exists -> next expected step is the documents upload).
+        ref.invalidate(providerVerificationStatusProvider);
         context.push(RouteNames.providerDocumentsUpload);
       } else {
         setState(() => _hasError = true);
@@ -159,25 +161,71 @@ class _ProviderProfileFormScreenState
                               : null,
                     ),
                     const SizedBox(height: AppSpacing.lg),
-                    DropdownButtonFormField<int>(
-                      value: _categoryId,
-                      decoration: InputDecoration(
-                        labelText: l10n.chooseCategory,
-                        prefixIcon: const Icon(Icons.category_rounded),
-                      ),
-                      items: providerCategoryOptions
-                          .map(
-                            (option) => DropdownMenuItem<int>(
-                              value: option.id,
-                              child: Text(option.label(l10n)),
+                    // Dynamic categories from GET /api/v1/categories with
+                    // graceful loading and retryable error states.
+                    ref.watch(providerCategoriesProvider).when(
+                      loading: () => InputDecorator(
+                        decoration: InputDecoration(
+                          labelText: l10n.chooseCategory,
+                          prefixIcon: const Icon(Icons.category_rounded),
+                        ),
+                        child: Row(
+                          children: [
+                            const SizedBox(
+                              width: AppSizes.iconSm,
+                              height: AppSizes.iconSm,
+                              child: MorphingSpinner(strokeWidth: 2),
                             ),
-                          )
-                          .toList(),
-                      onChanged: showLoading
-                          ? null
-                          : (value) => setState(() => _categoryId = value),
-                      validator: (value) =>
-                          value == null ? l10n.categoryRequired : null,
+                            const SizedBox(width: AppSpacing.md),
+                            Text(l10n.loading, style: AppTextStyles.bodySmall),
+                          ],
+                        ),
+                      ),
+                      error: (_, __) => InputDecorator(
+                        decoration: InputDecoration(
+                          labelText: l10n.chooseCategory,
+                          prefixIcon: const Icon(Icons.category_rounded),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: Text(
+                                l10n.categoriesLoadError,
+                                style: AppTextStyles.bodySmall
+                                    .copyWith(color: AppColors.error),
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: () => ref
+                                  .invalidate(providerCategoriesProvider),
+                              child: Text(l10n.retry),
+                            ),
+                          ],
+                        ),
+                      ),
+                      data: (categories) => DropdownButtonFormField<int>(
+                        value:
+                            categories.any((c) => c.id == _categoryId)
+                                ? _categoryId
+                                : null,
+                        decoration: InputDecoration(
+                          labelText: l10n.chooseCategory,
+                          prefixIcon: const Icon(Icons.category_rounded),
+                        ),
+                        items: categories
+                            .map(
+                              (category) => DropdownMenuItem<int>(
+                                value: category.id,
+                                child: Text(category.name),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: showLoading
+                            ? null
+                            : (value) => setState(() => _categoryId = value),
+                        validator: (value) =>
+                            value == null ? l10n.categoryRequired : null,
+                      ),
                     ),
                     const SizedBox(height: AppSpacing.lg),
                     AppTextField(

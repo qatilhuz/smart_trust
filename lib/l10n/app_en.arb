@@ -654,5 +654,6 @@
   "providerDocumentsError": "We could not upload your documents. Please try again.",
   "verificationApproved": "Account approved",
   "camera": "Camera",
-  "gallery": "Gallery"
+  "gallery": "Gallery",
+  "categoriesLoadError": "We could not load service categories. Please try again."
 }

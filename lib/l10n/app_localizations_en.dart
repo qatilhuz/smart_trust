@@ -165,6 +165,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categories => 'Categories';
 
   @override
+  String get categoriesLoadError =>
+      'We could not load service categories. Please try again.';
+
+
+  @override
   String get nearbyProviders => 'Nearby Providers';
 
   @override

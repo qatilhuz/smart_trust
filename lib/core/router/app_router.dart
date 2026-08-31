@@ -104,15 +104,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       if (user != null &&
           user.role.isNotEmpty &&
           user.role.toLowerCase().contains('provider')) {
-        var status =
+        // Sequentially resolved upstream (profile -> documents -> status).
+        final status =
             ref.read(providerVerificationStatusProvider).valueOrNull?.status;
-
-        // Session marker: step 1 (profile) succeeded but documents are not
-        // uploaded yet — the documents lookup reports 404 for both cases.
-        if (status == ProviderVerificationStatus.missingProfile &&
-            ref.read(providerProfileSubmittedProvider)) {
-          status = ProviderVerificationStatus.missingDocuments;
-        }
 
         if (status != null) {
           switch (status) {

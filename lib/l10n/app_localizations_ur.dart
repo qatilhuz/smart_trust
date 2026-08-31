@@ -167,6 +167,11 @@ class AppLocalizationsUr extends AppLocalizations {
   String get categories => 'اقسام';
 
   @override
+  String get categoriesLoadError =>
+      'ہم سروس کی اقسام لوڈ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔';
+
+
+  @override
   String get nearbyProviders => 'قریبی فراہم کنندگان';
 
   @override

@@ -126,7 +126,7 @@ class _AppDrawerState extends ConsumerState<AppDrawer> {
       // tokens + cached user profile are cleared inside the repository.
       await ref.read(authStateProvider.notifier).logout();
       ref.read(pendingRegistrationProvider.notifier).state = null;
-      ref.read(providerProfileSubmittedProvider.notifier).state = false;
+      ref.invalidate(providerVerificationStatusProvider);
     } finally {
       if (mounted) setState(() => _isLoggingOut = false);
     }

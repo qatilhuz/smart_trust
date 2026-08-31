@@ -410,6 +410,13 @@ abstract class AppLocalizations {
   /// **'Categories'**
   String get categories;
 
+  /// No description provided for @categoriesLoadError.
+  ///
+  /// In en, this message translates to:
+  /// **'We could not load service categories. Please try again.'**
+  String get categoriesLoadError;
+
+
   /// No description provided for @nearbyProviders.
   ///
   /// In en, this message translates to:

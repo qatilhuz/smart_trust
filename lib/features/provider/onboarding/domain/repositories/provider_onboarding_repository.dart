@@ -18,5 +18,9 @@ abstract class ProviderOnboardingRepository {
     required String cnicBackPath,
   });
 
-  Future<ApiResult<ProviderVerificationEntity>> fetchDocumentsStatus();
+  /// Strict sequential check: profile (A) -> documents (B) -> status (C).
+  Future<ApiResult<ProviderVerificationEntity>> resolveOnboardingStatus();
+
+  /// GET /api/v1/categories -> [{id, name, description}].
+  Future<ApiResult<List<ProviderCategory>>> fetchCategories();
 }

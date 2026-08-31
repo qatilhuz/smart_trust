@@ -43,4 +43,32 @@ class ProviderVerificationEntity {
   /// Status used when the documents lookup returns 404 (no profile yet).
   static const ProviderVerificationEntity missingProfile =
       ProviderVerificationEntity(status: ProviderVerificationStatus.missingProfile);
+
+  /// Status used when the profile exists but the documents lookup returns
+  /// 404 (step 2 not submitted yet).
+  static const ProviderVerificationEntity missingDocumentsEntity =
+      ProviderVerificationEntity(status: ProviderVerificationStatus.missingDocuments);
+}
+
+/// Service category returned by GET /api/v1/categories.
+/// `[{id, name, description}]` — `name` is displayed, `id` is submitted as
+/// `categoryId` in the provider profile payload.
+class ProviderCategory {
+  final int id;
+  final String name;
+  final String description;
+
+  const ProviderCategory({
+    required this.id,
+    required this.name,
+    required this.description,
+  });
+
+  factory ProviderCategory.fromJson(Map<String, dynamic> json) {
+    return ProviderCategory(
+      id: (json['id'] as num).toInt(),
+      name: json['name']?.toString() ?? '',
+      description: json['description']?.toString() ?? '',
+    );
+  }
 }

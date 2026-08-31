@@ -654,5 +654,6 @@
   "providerDocumentsError": "ہم آپ کی دستاویزات اپ لوڈ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔",
   "verificationApproved": "اکاؤنٹ منظور ہو گیا",
   "camera": "کیمرہ",
-  "gallery": "گیلری"
+  "gallery": "گیلری",
+  "categoriesLoadError": "ہم سروس کی اقسام لوڈ نہیں کر سکے۔ براہ کرم دوبارہ کوشش کریں۔"
 }

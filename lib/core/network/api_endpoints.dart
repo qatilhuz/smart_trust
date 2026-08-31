@@ -22,6 +22,7 @@ class ApiEndpoints {
   static const chatMessages='/chat/messages';
   static const providerProfile='/api/v1/providers/profile';
   static const providerDocuments='/api/v1/providers/documents';
+  static const categories='/api/v1/categories';
   static const notifications='/notifications';
   static const reviews='/reviews';
 }

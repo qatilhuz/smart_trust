@@ -50,6 +50,10 @@ class ProviderOnboardingRepositoryImpl implements ProviderOnboardingRepository {
       );
 
   @override
-  Future<ApiResult<ProviderVerificationEntity>> fetchDocumentsStatus() =>
-      _source.fetchDocumentsStatus();
+  Future<ApiResult<ProviderVerificationEntity>> resolveOnboardingStatus() =>
+      _source.resolveOnboardingStatus();
+
+  @override
+  Future<ApiResult<List<ProviderCategory>>> fetchCategories() =>
+      _source.fetchCategories();
 }
